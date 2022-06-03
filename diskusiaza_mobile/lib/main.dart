@@ -11,10 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Telegram',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF5682a3),
+        accentColor: Color(0xFFe7ebf0),
+        backgroundColor: Colors.white,
       ),
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
     );
   }
+
+  HomeScreen() {}
 }
