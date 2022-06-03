@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // set time to load the new page
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
     });
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 300,
               child: Lottie.asset("assets/diskusiaza.json"),
             ),
-            Text(
+            const Text(
               "Diskusiaza",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),

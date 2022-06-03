@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,14 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Telegram',
       theme: ThemeData(
-        primaryColor: Color(0xFF5682a3),
-        accentColor: Color(0xFFe7ebf0),
+        primaryColor: const Color(0xFF5682a3),
+        accentColor: const Color(0xFFe7ebf0),
         backgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const SplashScreen(),
     );
   }
-
-  HomeScreen() {}
 }

@@ -12,8 +12,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Telegram'),
-        actions: <Widget>[
+        title: const Text('Telegram'),
+        actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.search),
