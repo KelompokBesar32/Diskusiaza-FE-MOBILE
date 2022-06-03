@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -14,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // set time to load the new page
     Future.delayed(Duration(seconds: 5), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Home()));
+          context, MaterialPageRoute(builder: (context) => MyApp()));
     });
     super.initState();
   }
