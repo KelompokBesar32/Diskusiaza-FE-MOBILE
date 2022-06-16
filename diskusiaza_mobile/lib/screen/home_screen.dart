@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Telegram'),
+        title: const Text('Diskusiaza'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
