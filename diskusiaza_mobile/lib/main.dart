@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
