@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Stack(
           children: [
             SizedBox(
-              height: height * 0.25,
+              height: height * 0.20,
               width: width,
               child: Center(
                 child: Text(
@@ -56,13 +56,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: height * 0.75,
+                height: height * 0.80,
                 width: width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
                   color: backgroundPrimaryColor,
                 ),
-                padding: const EdgeInsets.all(36.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -77,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: width * 0.4,
+                            width: width * 0.42,
                             child: InputTextField(
                               controller: firstNameController,
                               hintText: 'First Name',
@@ -85,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.4,
+                            width: width * 0.42,
                             child: InputTextField(
                               controller: lastNameController,
                               hintText: 'Last Name',
@@ -156,7 +159,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: poppinsLight(12, Colors.black),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed('/login');
+                            },
                             child: Text(
                               'Log in',
                               style: poppinsLight(12, infoColor),

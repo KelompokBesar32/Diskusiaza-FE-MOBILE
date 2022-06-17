@@ -1,8 +1,6 @@
 import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
-import 'package:diskusiaza_mobile/screen/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({key}) : super(key: key);
@@ -17,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // set time to load the new page
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const RegisterScreen()));
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     });
     super.initState();
   }

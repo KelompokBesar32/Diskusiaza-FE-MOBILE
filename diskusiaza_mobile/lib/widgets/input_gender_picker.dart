@@ -24,8 +24,8 @@ class _GenderPickerState extends State<GenderPicker> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: widget.width * 0.4,
-          height: 40,
+          width: widget.width * 0.42,
+          height: 46,
           padding: const EdgeInsets.only(left: 15),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -58,8 +58,8 @@ class _GenderPickerState extends State<GenderPicker> {
           ),
         ),
         Container(
-          width: widget.width * 0.4,
-          height: 40,
+          width: widget.width * 0.42,
+          height: 46,
           padding: const EdgeInsets.only(left: 15),
           decoration: BoxDecoration(
             color: Colors.white,

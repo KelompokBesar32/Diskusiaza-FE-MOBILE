@@ -1,3 +1,5 @@
+import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screen/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +20,12 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+      },
     );
   }
 }

@@ -16,7 +16,7 @@ class InputDatePicker extends StatelessWidget {
     final formatter = DateFormat('yyyy-MM-dd');
 
     return SizedBox(
-      height: 40,
+      height: 46,
       child: DateTimeField(
         controller: dateController,
         format: formatter,
