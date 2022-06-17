@@ -72,12 +72,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
+                        isPassword: false,
                         suffix: false,
+                        onCreate: (String? value) {
+                          if (value!.isEmpty) {
+                            return ("Email is required for login");
+                          }
+                          if (!RegExp(
+                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]+[a-z]")
+                              .hasMatch(value)) {
+                            return ("Please Enter a valid email");
+                          }
+                          return null;
+                        },
                       ),
                       InputTextField(
                         controller: passwordController,
                         hintText: 'Password',
+                        isPassword: true,
                         suffix: true,
+                        onCreate: (String? value) {
+                          RegExp regex = RegExp(r'^.{6,}$');
+                          if (value!.isEmpty) {
+                            return ("Password is required for login");
+                          }
+                          if (!regex.hasMatch(value)) {
+                            return ("Wrong Password");
+                          }
+                          return null;
+                        },
                       ),
                       ButtonPrimary(
                         width: width,

@@ -84,7 +84,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: firstNameController,
                               hintText: 'First Name',
+                              isPassword: false,
                               suffix: false,
+                              onCreate: (value) {
+                                RegExp regex = RegExp(r'^.{3,}$');
+                                if (value!.isEmpty) {
+                                  return ("Firstname cannot be Empty");
+                                }
+                                if (!regex.hasMatch(value)) {
+                                  return ("(Min. 3 Character)");
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -92,7 +103,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: lastNameController,
                               hintText: 'Last Name',
+                              isPassword: false,
                               suffix: false,
+                              onCreate: (value) {
+                                RegExp regex = RegExp(r'^.{3,}$');
+                                if (value!.isEmpty) {
+                                  return ("Lastname cannot be Empty");
+                                }
+                                if (!regex.hasMatch(value)) {
+                                  return ("(Min. 3 Character)");
+                                }
+                                return null;
+                              },
                             ),
                           ),
                         ],
@@ -100,17 +122,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
+                        isPassword: false,
                         suffix: false,
+                        onCreate: (value) {
+                          if (value!.isEmpty) {
+                            return ("Email cannot be Empty");
+                          }
+                          if (!RegExp(
+                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]+[a-z]")
+                              .hasMatch(value)) {
+                            return ("Please Enter a valid email");
+                          }
+                          return null;
+                        },
                       ),
                       InputTextField(
                         controller: passwordController,
                         hintText: 'Password',
+                        isPassword: true,
                         suffix: true,
+                        onCreate: (value) {
+                          RegExp regex = RegExp(r'^.{6,}$');
+                          if (value!.isEmpty) {
+                            return ("Password cannot be Empty");
+                          }
+                          if (!regex.hasMatch(value)) {
+                            return ("Enter Valid Password(Min. 6 Character)");
+                          }
+                          return null;
+                        },
                       ),
                       InputTextField(
                         controller: confirmPasswordController,
                         hintText: 'Confirm Password',
+                        isPassword: true,
                         suffix: true,
+                        onCreate: (value) {
+                          if (value!.isEmpty) {
+                            return ("Confirm Password cannot be Empty");
+                          }
+                          if (confirmPasswordController.text !=
+                              passwordController.text) {
+                            return "Password don't match";
+                          }
+                          return null;
+                        },
                       ),
                       Text(
                         'Tanggal Lahir',

@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 
 class InputTextField extends StatelessWidget {
-  const InputTextField({
+  InputTextField({
     Key? key,
     required this.controller,
     required this.hintText,
     required this.suffix,
+    required this.onCreate,
+    required this.isPassword,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
   final bool suffix;
+  String? Function(String?)? onCreate;
+  final bool isPassword;
 
   @override
   Widget build(BuildContext context) {
     bool isHidden = false;
     return TextFormField(
       autofocus: false,
+      obscureText: isPassword,
       controller: controller,
       keyboardType: TextInputType.text,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return ("Please Enter Your $hintText");
-        }
-        return null;
-      },
+      validator: onCreate,
       onSaved: (value) {
         controller.text = value!;
       },
