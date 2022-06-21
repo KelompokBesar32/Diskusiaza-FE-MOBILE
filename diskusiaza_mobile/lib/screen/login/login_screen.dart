@@ -1,9 +1,11 @@
+import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/models/user_model.dart';
+import 'package:diskusiaza_mobile/screen/home_screen.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
-import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';
-import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -92,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         isPassword: true,
                         suffix: true,
                         onCreate: (String? value) {
-                          RegExp regex = RegExp(r'^.{6,}$');
+                          RegExp regex = RegExp(r'^.{3,}$');
                           if (value!.isEmpty) {
                             return ("Password is required for login");
                           }
@@ -105,9 +107,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       ButtonPrimary(
                         width: width,
                         label: 'Login',
-                        onCreate: () {
+                        onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            print('Success');
+                            final UserModelApi _userModelApi = UserModelApi();
+                            UserModel? user = await _userModelApi.login(
+                              emailController.text,
+                              passwordController.text,
+                            );
+
+                            Fluttertoast.showToast(
+                              msg: "Wellcome ${user?.email}",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+
+                            if (!mounted) return;
+
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (_) => HomeScreen(user: user!),
+                              ),
+                            );
                           }
                         },
                       ),

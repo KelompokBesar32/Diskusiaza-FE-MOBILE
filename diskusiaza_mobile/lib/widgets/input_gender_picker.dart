@@ -1,15 +1,17 @@
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
 
-enum Gender { man, woman }
+enum Gender { L, W }
 
 class GenderPicker extends StatefulWidget {
   final double height;
   final double width;
-  const GenderPicker({
+  Gender? contoller;
+  GenderPicker({
     Key? key,
     required this.height,
     required this.width,
+    this.contoller,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,6 @@ class GenderPicker extends StatefulWidget {
 }
 
 class _GenderPickerState extends State<GenderPicker> {
-  Gender _gender = Gender.man;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -47,11 +48,11 @@ class _GenderPickerState extends State<GenderPicker> {
             ),
             trailing: Radio<Gender>(
               activeColor: infoColor,
-              value: Gender.man,
-              groupValue: _gender,
+              value: Gender.L,
+              groupValue: widget.contoller,
               onChanged: (value) {
                 setState(() {
-                  _gender = value!;
+                  widget.contoller = value!;
                 });
               },
             ),
@@ -78,11 +79,11 @@ class _GenderPickerState extends State<GenderPicker> {
             contentPadding: const EdgeInsets.all(0),
             trailing: Radio<Gender>(
               activeColor: infoColor,
-              value: Gender.woman,
-              groupValue: _gender,
+              value: Gender.W,
+              groupValue: widget.contoller,
               onChanged: (value) {
                 setState(() {
-                  _gender = value!;
+                  widget.contoller = value!;
                 });
               },
             ),

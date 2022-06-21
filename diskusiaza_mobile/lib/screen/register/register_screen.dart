@@ -1,9 +1,12 @@
+import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final dateController = TextEditingController();
+  Gender genderController = Gender.L;
 
   @override
   void dispose() {
@@ -179,14 +183,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         'Jenis Kelamin',
                         style: poppinsRegular(16, Colors.black),
                       ),
-                      GenderPicker(height: height, width: width),
+                      GenderPicker(
+                        height: height,
+                        width: width,
+                        contoller: genderController,
+                      ),
                       const SizedBox(height: 8),
                       ButtonPrimary(
                         width: width,
                         label: 'Sign Up',
-                        onCreate: () {
+                        onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            print('Success');
+                            final UserModelApi _userModelApi = UserModelApi();
+
+                            await _userModelApi.register(
+                                firstNameController.text,
+                                lastNameController.text,
+                                emailController.text,
+                                passwordController.text,
+                                dateController.text,
+                                genderController.toString(),
+                                context);
                           }
                         },
                       ),

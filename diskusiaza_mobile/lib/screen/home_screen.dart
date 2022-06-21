@@ -1,24 +1,29 @@
-// Contoh Untuk Testing Splash Screen
-
+import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+  final UserModel user;
+  const HomeScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Telegram'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.search),
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(widget.user.email!),
+          ],
+        ),
       ),
     );
   }
