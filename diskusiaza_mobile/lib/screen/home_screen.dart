@@ -8,6 +8,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,24 +32,31 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 60),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
-            backgroundColor: Colors.blue),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: 'Trending',
-            backgroundColor: Colors.blue),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Account',
-            backgroundColor: Colors.blue),
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.blue,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
+          currentIndex: currentIndex,
+          onTap: (index) => currentIndex = index,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.star),
+              label: 'Trending',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Account',
+            ),
+          ]),
     );
   }
 }
