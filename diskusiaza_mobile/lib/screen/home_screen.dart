@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.blue,
+          backgroundColor: Color.fromARGB(255, 0, 114, 207),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white70,
           currentIndex: currentIndex,
