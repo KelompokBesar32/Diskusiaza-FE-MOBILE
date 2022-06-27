@@ -1,10 +1,11 @@
-import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -265,16 +266,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         label: 'Sign Up',
                         onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            final UserModelApi userModelApi = UserModelApi();
-
-                            await userModelApi.register(
-                                firstNameController.text,
-                                lastNameController.text,
-                                emailController.text,
-                                passwordController.text,
-                                dateController.text,
-                                genderController.toString(),
-                                context);
+                            Provider.of<AuthServices>(context, listen: false)
+                                .postRegister(
+                              firstNameController.text,
+                              lastNameController.text,
+                              emailController.text,
+                              passwordController.text,
+                              dateController.text,
+                              genderController.toString(),
+                              context,
+                            );
                           }
                         },
                       ),

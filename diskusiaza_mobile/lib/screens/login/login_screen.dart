@@ -1,8 +1,9 @@
-import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -144,8 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: 'Login',
                         onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            final UserModelApi userModelApi = UserModelApi();
-                            await userModelApi.login(
+                            Provider.of<AuthServices>(context, listen: false)
+                                .postLogin(
                               emailController.text,
                               passwordController.text,
                               context,
