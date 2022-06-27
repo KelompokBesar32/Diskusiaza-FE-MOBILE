@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Telegram',
+      title: 'Diskuziaza',
       theme: ThemeData(
         primaryColor: const Color(0xFF5682a3),
         accentColor: const Color(0xFFe7ebf0),
