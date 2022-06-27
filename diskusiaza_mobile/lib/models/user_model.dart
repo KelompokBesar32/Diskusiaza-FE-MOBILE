@@ -5,6 +5,7 @@ class UserModel {
   String? password;
   String? tanggalLahir;
   String? jenisKelamin;
+  String? token;
 
   UserModel({
     this.firstName,
@@ -13,6 +14,7 @@ class UserModel {
     this.password,
     this.tanggalLahir,
     this.jenisKelamin,
+    this.token,
   });
 
   factory UserModel.fromMap(map) {
@@ -23,6 +25,7 @@ class UserModel {
       password: map['password'],
       tanggalLahir: map['tanggalLahir'],
       jenisKelamin: map['jenisKelamin'],
+      token: map['token'],
     );
   }
 
@@ -34,6 +37,7 @@ class UserModel {
       'password': password,
       'tanggalLahir': tanggalLahir,
       'jenisKelamin': jenisKelamin,
+      'token': token,
     };
   }
 }

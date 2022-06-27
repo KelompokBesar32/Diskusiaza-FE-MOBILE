@@ -1,11 +1,8 @@
-import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final UserModel user;
   const HomeScreen({
     Key? key,
-    required this.user,
   }) : super(key: key);
 
   @override
@@ -23,13 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(widget.user.email!),
+            Text('wellcome'),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color.fromARGB(255, 0, 114, 207),
+        backgroundColor: const Color.fromARGB(255, 0, 114, 207),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         currentIndex: currentIndex,

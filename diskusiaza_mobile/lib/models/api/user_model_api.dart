@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
+import 'package:diskusiaza_mobile/screen/home_screen.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,7 +8,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 class UserModelApi {
   final API _api = API();
 
-  Future<UserModel?> login(String email, String password) async {
+  Future<UserModel?> login(
+    String email,
+    String password,
+    var context,
+  ) async {
     try {
       var response = await _api.dio.post(
         'auth/login',
@@ -20,12 +23,40 @@ class UserModelApi {
       );
 
       if (response.statusCode == 200) {
-        final body = response.data;
-        print('Body : $body');
+        // final body = response.data;
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => const HomeScreen(),
+          ),
+        );
+
+        Fluttertoast.showToast(
+          msg: "Wellcome $email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+
         return UserModel(email: email);
       }
-    } catch (e) {
-      print('Error : ${e.toString()}');
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
     return null;
   }
@@ -52,10 +83,8 @@ class UserModelApi {
         },
       );
 
-      print('code : ${response.statusCode}');
-
       if (response.statusCode == 200) {
-        final body = response.data;
+        // final body = response.data;
 
         Fluttertoast.showToast(
           msg: "Registering Successfully",
@@ -68,26 +97,21 @@ class UserModelApi {
         );
 
         Navigator.of(context).pushNamed('/login');
-
-        print('Body : $body');
       }
     } on DioError catch (e) {
-      print('Error : ${e.toString()}');
-      if (e.response!.statusCode == 400) {
-        String msg = e.response!.data
-            .toString()
-            .replaceAll('{message: ', '')
-            .replaceAll('}', '');
-        Fluttertoast.showToast(
-          msg: msg,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-      }
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
     return null;
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -18,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       ),
     );
@@ -47,13 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset(
                   "assets/diskusiaza.png",
-                  height: 300.0,
-                  width: 300.0,
+                  height: 700.0,
+                  width: 700.0,
                 ),
               ],
-            ),
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],
         ),

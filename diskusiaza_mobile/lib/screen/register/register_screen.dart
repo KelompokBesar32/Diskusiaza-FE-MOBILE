@@ -1,12 +1,10 @@
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
-import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -194,9 +192,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         label: 'Sign Up',
                         onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            final UserModelApi _userModelApi = UserModelApi();
+                            final UserModelApi userModelApi = UserModelApi();
 
-                            await _userModelApi.register(
+                            await userModelApi.register(
                                 firstNameController.text,
                                 lastNameController.text,
                                 emailController.text,
@@ -206,22 +204,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context);
                           }
                         },
-                      ),
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          '--- Or Sign Up With ---',
-                          style: poppinsRegular(12, Colors.black),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          addOnSignUp('G', 'Google'),
-                          addOnSignUp('A', 'Apple Id'),
-                          addOnSignUp('F', 'Facebook'),
-                        ],
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -249,41 +231,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container addOnSignUp(String logo, String value) {
-    return Container(
-      height: 30,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(
-          color: Colors.black38,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            logo,
-            style: poppinsLight(
-              10,
-              Colors.black,
-            ),
-          ),
-          const SizedBox(width: 6),
-          Text(
-            value,
-            style: poppinsRegular(
-              10,
-              Colors.black,
-            ),
-          ),
-        ],
       ),
     );
   }
