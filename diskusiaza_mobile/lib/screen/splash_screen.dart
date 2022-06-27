@@ -1,5 +1,5 @@
+import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
@@ -10,11 +10,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    // set time to load the new page
+
     super.initState();
     Timer(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen())));
+      const Duration(seconds: 3),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      ),
+    );
   }
 
   @override
@@ -23,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
@@ -43,18 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 300.0,
                   width: 300.0,
                 ),
-                // Text(
-                //   "A whole grocery store\n at your fingertips",
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 18.0,
-                //   ),
-                // ),
               ],
             ),
-            CircularProgressIndicator(
+            const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],

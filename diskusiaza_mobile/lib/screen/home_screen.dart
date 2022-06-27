@@ -1,10 +1,15 @@
-// Contoh Untuk Testing Splash Screen
-
+import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+  final UserModel user;
+  const HomeScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -13,50 +18,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Diskusiaza'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.notifications),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.mail),
-          )
-        ],
-      ),
       body: Center(
-        child: Text(
-          'Home',
-          style: TextStyle(fontSize: 60),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(widget.user.email!),
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 0, 114, 207),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white70,
-          currentIndex: currentIndex,
-          onTap: (index) => currentIndex = index,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
-              label: 'Explore',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              label: 'Trending',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Account',
-            ),
-          ]),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color.fromARGB(255, 0, 114, 207),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        currentIndex: currentIndex,
+        onTap: (index) => currentIndex = index,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: 'Trending',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+        ],
+      ),
     );
   }
 }

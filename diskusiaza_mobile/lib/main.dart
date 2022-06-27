@@ -1,3 +1,5 @@
+import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screen/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +10,24 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Diskuziaza',
       theme: ThemeData(
         primaryColor: const Color(0xFF5682a3),
-        accentColor: const Color(0xFFe7ebf0),
         backgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: const Color(0xFFe7ebf0),
+        ),
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+      },
     );
   }
 }
