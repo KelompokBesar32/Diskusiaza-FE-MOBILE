@@ -1,4 +1,4 @@
-import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool passwordVisible = false;
   bool isRemember = false;
 
   @override
@@ -71,8 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        isPassword: false,
-                        suffix: false,
                         onCreate: (String? value) {
                           if (value!.isEmpty) {
                             return ("Email is required for login");
@@ -85,12 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      InputTextField(
+                      TextFormField(
+                        keyboardType: TextInputType.text,
                         controller: passwordController,
-                        hintText: 'Password',
-                        isPassword: true,
-                        suffix: true,
-                        onCreate: (String? value) {
+                        obscureText: !passwordVisible,
+                        validator: (value) {
                           RegExp regex = RegExp(r'^.{3,}$');
                           if (value!.isEmpty) {
                             return ("Password is required for login");
@@ -100,6 +98,46 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 15),
+                          hintText: 'Password',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: infoColor,
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       ),
                       ButtonPrimary(
                         width: width,

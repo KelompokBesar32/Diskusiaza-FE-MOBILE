@@ -6,23 +6,18 @@ class InputTextField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.hintText,
-    required this.suffix,
     required this.onCreate,
-    required this.isPassword,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
-  final bool suffix;
   String? Function(String?)? onCreate;
-  final bool isPassword;
 
   @override
   Widget build(BuildContext context) {
     bool isHidden = false;
     return TextFormField(
       autofocus: false,
-      obscureText: isPassword,
       controller: controller,
       keyboardType: TextInputType.text,
       validator: onCreate,
@@ -36,18 +31,6 @@ class InputTextField extends StatelessWidget {
         filled: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 15),
         hintText: hintText,
-        suffixIcon: !suffix
-            ? null
-            : IconButton(
-                onPressed: () {
-                  isHidden = !isHidden;
-                },
-                icon: !isHidden
-                    ? const Icon(Icons.remove_red_eye_outlined)
-                    : const Icon(
-                        Icons.remove_red_eye,
-                      ),
-              ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(

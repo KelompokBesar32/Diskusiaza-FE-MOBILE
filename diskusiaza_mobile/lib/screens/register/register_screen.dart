@@ -22,6 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final confirmPasswordController = TextEditingController();
   final dateController = TextEditingController();
   Gender genderController = Gender.L;
+  bool passwordVisible = false;
 
   @override
   void dispose() {
@@ -86,8 +87,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: firstNameController,
                               hintText: 'First Name',
-                              isPassword: false,
-                              suffix: false,
                               onCreate: (value) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (value!.isEmpty) {
@@ -105,8 +104,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: lastNameController,
                               hintText: 'Last Name',
-                              isPassword: false,
-                              suffix: false,
                               onCreate: (value) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (value!.isEmpty) {
@@ -124,8 +121,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        isPassword: false,
-                        suffix: false,
                         onCreate: (value) {
                           if (value!.isEmpty) {
                             return ("Email cannot be Empty");
@@ -138,28 +133,66 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return null;
                         },
                       ),
-                      InputTextField(
+                      TextFormField(
+                        keyboardType: TextInputType.text,
                         controller: passwordController,
-                        hintText: 'Password',
-                        isPassword: true,
-                        suffix: true,
-                        onCreate: (value) {
-                          RegExp regex = RegExp(r'^.{6,}$');
+                        obscureText: !passwordVisible,
+                        validator: (value) {
+                          RegExp regex = RegExp(r'^.{3,}$');
                           if (value!.isEmpty) {
-                            return ("Password cannot be Empty");
+                            return ("Password is required for login");
                           }
                           if (!regex.hasMatch(value)) {
-                            return ("Enter Valid Password(Min. 6 Character)");
+                            return ("Wrong Password");
                           }
                           return null;
                         },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 15),
+                          hintText: 'Password',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: infoColor,
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       ),
-                      InputTextField(
+                      TextFormField(
+                        keyboardType: TextInputType.text,
                         controller: confirmPasswordController,
-                        hintText: 'Confirm Password',
-                        isPassword: true,
-                        suffix: true,
-                        onCreate: (value) {
+                        obscureText: !passwordVisible,
+                        validator: (value) {
                           if (value!.isEmpty) {
                             return ("Confirm Password cannot be Empty");
                           }
@@ -169,6 +202,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                           return null;
                         },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 15),
+                          hintText: 'Confirm Password',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: infoColor,
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       ),
                       Text(
                         'Tanggal Lahir',

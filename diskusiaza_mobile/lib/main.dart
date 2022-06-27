@@ -1,6 +1,6 @@
-import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
-import 'package:diskusiaza_mobile/screen/register/register_screen.dart';
-import 'package:diskusiaza_mobile/screen/splash_screen.dart';
+import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
+import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => SplashScreen(),
+        '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
       },
