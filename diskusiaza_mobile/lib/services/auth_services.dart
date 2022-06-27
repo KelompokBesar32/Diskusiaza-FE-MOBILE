@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,12 @@ class AuthServices extends ChangeNotifier {
       await _userModelApi.login(
         email,
         password,
-        context,
+      );
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => const WrapperScreen(),
+        ),
       );
     } catch (e) {
       changeState(DataState.error);
@@ -45,8 +51,9 @@ class AuthServices extends ChangeNotifier {
         password,
         tanggalLahir,
         jenisKelamin,
-        context,
       );
+
+      Navigator.of(context).pushNamed('/login');
     } catch (e) {
       changeState(DataState.error);
     }
