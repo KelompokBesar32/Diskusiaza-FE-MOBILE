@@ -1,5 +1,5 @@
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
-import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
+import 'package:diskusiaza_mobile/models/token.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +7,8 @@ class AuthServices extends ChangeNotifier {
   DataState dataState = DataState.loading;
 
   final UserModelApi _userModelApi = UserModelApi();
+
+  Token? token;
 
   void changeState(DataState state) {
     dataState = state;
@@ -17,15 +19,10 @@ class AuthServices extends ChangeNotifier {
     changeState(DataState.loading);
 
     try {
-      await _userModelApi.login(
+      token = await _userModelApi.login(
         email,
         password,
-      );
-
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const WrapperScreen(),
-        ),
+        context,
       );
     } catch (e) {
       changeState(DataState.error);
@@ -51,9 +48,8 @@ class AuthServices extends ChangeNotifier {
         password,
         tanggalLahir,
         jenisKelamin,
+        context,
       );
-
-      Navigator.of(context).pushNamed('/login');
     } catch (e) {
       changeState(DataState.error);
     }

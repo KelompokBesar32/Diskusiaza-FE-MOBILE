@@ -15,7 +15,6 @@ class InputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isHidden = false;
     return TextFormField(
       autofocus: false,
       controller: controller,

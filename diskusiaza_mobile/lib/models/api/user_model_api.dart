@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:diskusiaza_mobile/models/token.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
+import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,9 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 class UserModelApi {
   final API _api = API();
 
-  Future<UserModel?> login(
+  Future<Token?> login(
     String email,
     String password,
+    var context,
   ) async {
     try {
       var response = await _api.dio.post(
@@ -21,7 +24,13 @@ class UserModelApi {
       );
 
       if (response.statusCode == 200) {
-        // final body = response.data;
+        Token token = Token.fromJson(response.data);
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => const WrapperScreen(),
+          ),
+        );
 
         Fluttertoast.showToast(
           msg: "Wellcome $email",
@@ -33,7 +42,7 @@ class UserModelApi {
           fontSize: 16.0,
         );
 
-        return UserModel(email: email);
+        return token;
       }
     } on DioError catch (e) {
       String msg = e.response!.data
@@ -60,6 +69,7 @@ class UserModelApi {
     String password,
     String tanggalLahir,
     String jenisKelamin,
+    var context,
   ) async {
     try {
       var response = await _api.dio.post(
@@ -76,6 +86,8 @@ class UserModelApi {
 
       if (response.statusCode == 200) {
         // final body = response.data;
+
+        Navigator.of(context).pushNamed('/login');
 
         Fluttertoast.showToast(
           msg: "Registering Successfully",
