@@ -1,5 +1,8 @@
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -119,6 +122,14 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                      ButtonPrimary(
+                        width: width,
+                        label: 'Logout',
+                        onCreate: () {
+                          Provider.of<AuthServices>(context, listen: false)
+                              .getLogout(context);
+                        },
                       ),
                       SizedBox(
                         height: height,

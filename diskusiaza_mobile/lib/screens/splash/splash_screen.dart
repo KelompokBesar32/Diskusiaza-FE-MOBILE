@@ -1,6 +1,7 @@
-import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,15 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // set time to load the new page
 
     super.initState();
-    Timer(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ),
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
+    });
   }
 
   @override

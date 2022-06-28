@@ -1,6 +1,7 @@
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
+import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
+          '/wrapper': (context) => const WrapperScreen(),
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
         },
