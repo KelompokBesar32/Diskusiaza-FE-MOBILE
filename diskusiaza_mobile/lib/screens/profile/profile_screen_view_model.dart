@@ -15,7 +15,7 @@ class ProfileScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getDataProfile() async {
+  void getDataProfile(var context) async {
     changeState(DataState.loading);
 
     try {
@@ -23,7 +23,7 @@ class ProfileScreenViewModel extends ChangeNotifier {
 
       String? myToken = tokenPrefs.getString('token');
 
-      dataProfile = await _userModelApi.getDataProfile(myToken!);
+      dataProfile = await _userModelApi.getDataProfile(myToken!, context);
 
       changeState(DataState.filled);
     } catch (e) {

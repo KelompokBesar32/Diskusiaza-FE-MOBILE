@@ -1,7 +1,5 @@
 import 'package:diskusiaza_mobile/screens/profile/profile_screen_view_model.dart';
-import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
-import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileScreenViewModel>(context, listen: false)
-          .getDataProfile();
-
-      print('init state');
+          .getDataProfile(context);
     });
   }
 
@@ -35,7 +31,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Consumer<ProfileScreenViewModel>(
         builder: (context, value, child) {
           if (value.dataState == DataState.loading) {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           if (value.dataState == DataState.error) {
@@ -77,22 +75,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           left: 12,
                           bottom: 0,
                           child: CircleAvatar(
-                              radius: 45,
-                              child: ClipOval(
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(45),
-                                  child: Image.asset(
-                                    'assets/images/fotoProfile.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
+                            radius: 45,
+                            child: ClipOval(
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(45),
+                                child: Image.asset(
+                                  'assets/images/fotoProfile.jpg',
+                                  fit: BoxFit.cover,
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
                         Positioned(
                           right: 12,
                           bottom: 0,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/profileEdit');
+                            },
                             child: const Text('Edit Profil'),
                           ),
                         ),
@@ -157,14 +158,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                          ),
-                          ButtonPrimary(
-                            width: width,
-                            label: 'Logout',
-                            onCreate: () {
-                              Provider.of<AuthServices>(context, listen: false)
-                                  .getLogout(context);
-                            },
                           ),
                           SizedBox(
                             height: height,

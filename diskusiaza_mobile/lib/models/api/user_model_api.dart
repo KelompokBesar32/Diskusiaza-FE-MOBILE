@@ -4,6 +4,8 @@ import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:diskusiaza_mobile/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserModelApi {
   final API _api = API();
@@ -151,9 +153,11 @@ class UserModelApi {
     return null;
   }
 
-  Future<UserModel> getDataProfile(String getToken) async {
+  Future<UserModel> getDataProfile(String getToken, var context) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      print(getToken);
 
       var response = await _api.dio.get('user/profile');
 
@@ -168,6 +172,14 @@ class UserModelApi {
           .toString()
           .replaceAll('{message: ', '')
           .replaceAll('}', '');
+
+      if (e.response!.statusCode == 401) {
+        SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+        await tokenPrefs.setString('token', '');
+
+        Navigator.of(context).pushReplacementNamed('/login');
+      }
       Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,

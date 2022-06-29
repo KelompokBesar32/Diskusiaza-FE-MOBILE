@@ -97,6 +97,8 @@ class AuthServices extends ChangeNotifier {
 
     var result = tokenPrefs.getString('token');
 
+    print('syncToken : $result');
+
     if (result != null && result != '') {
       token = result;
       Timer(

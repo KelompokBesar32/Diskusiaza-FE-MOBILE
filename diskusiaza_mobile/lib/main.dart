@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
@@ -31,12 +34,14 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
           '/wrapper': (context) => const WrapperScreen(),
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
+          '/profileEdit': (context) => const ProfileEditScreen(),
         },
       ),
     );
