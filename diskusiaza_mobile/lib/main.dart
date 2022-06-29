@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_screen_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
 import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
+        ChangeNotifierProvider(create: (_) => ProfileScreenViewModel()),
       ],
       child: MaterialApp(
         title: 'Diskuziaza',

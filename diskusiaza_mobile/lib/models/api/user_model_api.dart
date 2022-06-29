@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:diskusiaza_mobile/models/token.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
-import 'package:diskusiaza_mobile/screens/wrapper/wrapper_screen.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -150,5 +149,35 @@ class UserModelApi {
       );
     }
     return null;
+  }
+
+  Future<UserModel> getDataProfile(String getToken) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.get('user/profile');
+
+      if (response.statusCode == 200) {
+        ResponseResultUserModel responseResult =
+            ResponseResultUserModel.fromJson(response.data);
+
+        return responseResult.data;
+      }
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return UserModel();
   }
 }
