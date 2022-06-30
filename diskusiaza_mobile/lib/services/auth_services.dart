@@ -103,7 +103,7 @@ class AuthServices extends ChangeNotifier {
       token = result;
       Timer(
         const Duration(seconds: 3),
-        () => Navigator.of(context).pushReplacementNamed('/wrapper'),
+        () => Navigator.of(context).pushReplacementNamed('/home'),
       );
     } else if (result == null || result == '') {
       Timer(

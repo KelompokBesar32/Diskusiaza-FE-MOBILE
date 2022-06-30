@@ -1,5 +1,8 @@
-import 'package:diskusiaza_mobile/screens/profile/profile_screen_view_model.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/list_tile_leading_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<ProfileScreenViewModel>(context, listen: false)
+      Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
     });
   }
@@ -28,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var width = mediaQueryData.size.width;
 
     return Scaffold(
-      body: Consumer<ProfileScreenViewModel>(
+      body: Consumer<ProfileViewModel>(
         builder: (context, value, child) {
           if (value.dataState == DataState.loading) {
             return const Center(
@@ -43,38 +46,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }
 
           return SafeArea(
-            child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: height * 0.3,
                     width: width,
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/fotoSampul.jpg',
-                          height: 200,
-                          width: width,
-                          fit: BoxFit.cover,
-                        ),
-                        const Positioned(
-                          left: 12,
-                          top: 12,
-                          child: CircleAvatar(
-                            child: Icon(Icons.arrow_back),
-                          ),
-                        ),
-                        const Positioned(
-                          right: 12,
-                          top: 12,
-                          child: CircleAvatar(
-                            child: Icon(Icons.arrow_back),
-                          ),
-                        ),
-                        Positioned(
-                          left: 12,
-                          bottom: 0,
-                          child: CircleAvatar(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
                             radius: 45,
                             child: ClipOval(
                               child: SizedBox.fromSize(
@@ -86,104 +70,81 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          right: 12,
-                          bottom: 0,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/profileEdit');
-                            },
-                            child: const Text('Edit Profil'),
+                          Text(
+                            '${value.dataProfile!.firstname} ${value.dataProfile!.lastname}',
+                            style: poppinsRegular(16, Colors.black),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '${value.dataProfile!.firstname} ${value.dataProfile!.lastname}',
-                    ),
-                    subtitle: Text(
-                      '${value.dataProfile!.email}',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Row(
-                      children: const [
-                        Text('118'),
-                        SizedBox(width: 5),
-                        Text('Mengikuti'),
-                        SizedBox(width: 30),
-                        Text('69'),
-                        SizedBox(width: 5),
-                        Text('Pengikut'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: DefaultTabController(
-                      length: 3,
-                      initialIndex: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(
-                            child: TabBar(
-                              labelColor: Colors.black,
-                              unselectedLabelColor: Colors.grey,
-                              indicatorColor: Colors.blue,
-                              labelStyle: poppinsRegular(18, Colors.black),
-                              tabs: [
-                                Tab(
-                                  icon: Text(
-                                    'Threads',
-                                    style: poppinsMedium(14, Colors.black),
-                                  ),
-                                ),
-                                Tab(
-                                  icon: Text(
-                                    'Balasan',
-                                    style: poppinsMedium(14, Colors.black),
-                                  ),
-                                ),
-                                Tab(
-                                  icon: Text(
-                                    'Media',
-                                    style: poppinsMedium(14, Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Text(
+                            '${value.dataProfile!.email}',
                           ),
-                          SizedBox(
-                            height: height,
-                            child: const TabBarView(
-                              children: [
-                                Center(
-                                  child: Text('Thread'),
-                                ),
-                                Center(
-                                  child: Text('Balasan'),
-                                ),
-                                Center(
-                                  child: Text('Media'),
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Text('118'),
+                              SizedBox(width: 5),
+                              Text('Mengikuti'),
+                              SizedBox(width: 30),
+                              Text('69'),
+                              SizedBox(width: 5),
+                              Text('Pengikut'),
+                            ],
                           ),
                         ],
                       ),
                     ),
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {
+                      Navigator.of(context).pushNamed('/profileDetail');
+                    },
+                    icons: Icons.person,
+                    title: 'Profile',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {},
+                    icons: Icons.bookmark,
+                    title: 'Bookmarks',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {},
+                    icons: Icons.notes_rounded,
+                    title: 'Jawab',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {},
+                    icons: Icons.groups_rounded,
+                    title: 'Ruang',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {},
+                    icons: Icons.privacy_tip_sharp,
+                    title: 'Kebijakan Privasi',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {},
+                    icons: Icons.star,
+                    title: 'Rate Us',
+                  ),
+                  ListTileLeadingTitle(
+                    onCreate: () {
+                      Provider.of<AuthServices>(context, listen: false)
+                          .getLogout(context);
+                    },
+                    icons: Icons.next_plan_outlined,
+                    title: 'Keluar',
                   ),
                 ],
               ),
             ),
           );
         },
+      ),
+      bottomNavigationBar: const BottomNavbar(
+        isHome: false,
+        isExplore: false,
+        isTrending: false,
+        isAccount: true,
       ),
     );
   }

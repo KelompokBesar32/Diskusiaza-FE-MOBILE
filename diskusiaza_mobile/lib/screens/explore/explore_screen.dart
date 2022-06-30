@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class ExploreScreen extends StatelessWidget {
@@ -12,6 +13,12 @@ class ExploreScreen extends StatelessWidget {
         children: [
           Text('Explore'),
         ],
+      ),
+      bottomNavigationBar: const BottomNavbar(
+        isHome: false,
+        isExplore: true,
+        isTrending: false,
+        isAccount: false,
       ),
     );
   }

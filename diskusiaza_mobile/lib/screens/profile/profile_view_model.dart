@@ -4,7 +4,7 @@ import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileScreenViewModel extends ChangeNotifier {
+class ProfileViewModel extends ChangeNotifier {
   DataState dataState = DataState.loading;
 
   final UserModelApi _userModelApi = UserModelApi();

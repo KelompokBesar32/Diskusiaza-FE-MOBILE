@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class TrendingScreen extends StatelessWidget {
@@ -12,6 +13,12 @@ class TrendingScreen extends StatelessWidget {
         children: [
           Text('Trending'),
         ],
+      ),
+      bottomNavigationBar: const BottomNavbar(
+        isHome: false,
+        isExplore: false,
+        isTrending: true,
+        isAccount: false,
       ),
     );
   }

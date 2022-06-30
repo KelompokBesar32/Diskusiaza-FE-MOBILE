@@ -26,7 +26,7 @@ class UserModelApi {
       if (response.statusCode == 200) {
         Token token = Token.fromJson(response.data);
 
-        Navigator.of(context).pushReplacementNamed('/wrapper');
+        Navigator.of(context).pushReplacementNamed('/home');
 
         Fluttertoast.showToast(
           msg: "Wellcome $email",
