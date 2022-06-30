@@ -17,8 +17,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
@@ -34,7 +32,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        navigatorKey: navigatorKey,
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
