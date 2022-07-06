@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
@@ -5,6 +6,7 @@ import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/thread_card.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,14 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
-      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+      await Provider.of<HomeViewModel>(context, listen: false)
+          .getAllThread(context);
+      setState(() {});
     });
   }
-
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListView.separated(
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: DetailScreen(
+                                          id: value.allThreadList[index].id!),
+                                      type: PageTransitionType.fade,
+                                      inheritTheme: true,
+                                      ctx: context,
+                                    ),
+                                  );
+                                },
                                 child: ThreadCard(
                                   id: value.allThreadList[index].id!,
                                   judul: value.allThreadList[index].judul!,
@@ -239,7 +252,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               setState(() {
                                 dropDownValue = newValue!;
                               });
-                              print('value : $dropDownValue');
                             },
                           ),
                         ],
@@ -274,9 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             onPressed: () {
-                              print('1');
                               if (formKey.currentState!.validate()) {
-                                print('2');
                                 Provider.of<HomeViewModel>(context,
                                         listen: false)
                                     .postThread(
@@ -287,8 +297,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                 );
                               }
-
-                              print('3');
                             },
                             child: Text(
                               'Kirimkan',

@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/screens/detail/detail_view_model.dart';
 import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => ProfileViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider(create: (_) => DetailViewModel()),
       ],
       child: MaterialApp(
         title: 'Diskuziaza',

@@ -1,22 +1,22 @@
-class ResponseResultThread {
-  List<dynamic>? data;
+class ResponseResultThreadDetail {
+  dynamic data;
 
-  ResponseResultThread({this.data});
+  ResponseResultThreadDetail({this.data});
 
-  ResponseResultThread.fromJson(Map<String, dynamic> json) {
-    data = json['data'];
+  ResponseResultThreadDetail.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? ThreadDetail.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class Thread {
+class ThreadDetail {
   int? id;
   String? judul;
   String? isi;
@@ -31,23 +31,22 @@ class Thread {
   String? createdAt;
   String? updatedAt;
 
-  Thread({
-    this.id,
-    this.judul,
-    this.isi,
-    this.file,
-    this.dilihat,
-    this.status,
-    this.kategoriName,
-    this.authorName,
-    this.ruangName,
-    this.totalLike,
-    this.isLike,
-    this.createdAt,
-    this.updatedAt,
-  });
+  ThreadDetail(
+      {this.id,
+      this.judul,
+      this.isi,
+      this.file,
+      this.dilihat,
+      this.status,
+      this.kategoriName,
+      this.authorName,
+      this.ruangName,
+      this.totalLike,
+      this.isLike,
+      this.createdAt,
+      this.updatedAt});
 
-  Thread.fromJson(Map<String, dynamic> json) {
+  ThreadDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     judul = json['judul'];
     isi = json['isi'];

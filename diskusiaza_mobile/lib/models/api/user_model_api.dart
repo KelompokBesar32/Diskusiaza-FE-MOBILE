@@ -156,8 +156,6 @@ class UserModelApi {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      print(getToken);
-
       var response = await _api.dio.get('user/profile');
 
       if (response.statusCode == 200) {

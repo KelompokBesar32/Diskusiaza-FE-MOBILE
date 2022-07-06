@@ -26,10 +26,7 @@ class HomeViewModel extends ChangeNotifier {
   ) async {
     changeState(DataState.loading);
 
-    print('11');
-
     try {
-      print('22');
       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
       var myToken = tokenPrefs.getString('token');
@@ -46,7 +43,6 @@ class HomeViewModel extends ChangeNotifier {
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);
-      print('33');
       print('error: $e');
     }
   }
@@ -55,7 +51,7 @@ class HomeViewModel extends ChangeNotifier {
 
   List<Thread> allThreadList = [];
 
-  void getAllThread(var context) async {
+  Future getAllThread(var context) async {
     changeState(DataState.loading);
 
     try {

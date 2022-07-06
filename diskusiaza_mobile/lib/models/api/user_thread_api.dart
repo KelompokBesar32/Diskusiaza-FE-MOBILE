@@ -16,12 +16,8 @@ class UserThreadApi {
     File? file,
     var context,
   ) async {
-    print('success 1');
     try {
-      print('success 2');
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
-
-      print('success 3');
 
       var formData = FormData.fromMap({
         "judul": title,
@@ -31,16 +27,12 @@ class UserThreadApi {
         "kategori_therad_id": category,
       });
 
-      print('success 4');
-
       var response = await _api.dio.post(
         'user/therad',
         data: {
           formData,
         },
       );
-
-      print('success 5');
 
       if (response.statusCode == 201) {
         Fluttertoast.showToast(
@@ -56,8 +48,6 @@ class UserThreadApi {
 
       Navigator.pop(context);
     } on DioError catch (e) {
-      print('error: $e');
-      print('erorCode: ${e.response!.statusCode}');
       String msg = e.response!.data
           .toString()
           .replaceAll('{message: ', '')
