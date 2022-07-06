@@ -171,6 +171,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                             child: TabBarView(
                               children: [
                                 Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Consumer<ProfileViewModel>(
                                       builder: (context, value, child) {

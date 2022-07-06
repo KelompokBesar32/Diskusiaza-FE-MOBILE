@@ -45,7 +45,7 @@ class ProfileViewModel extends ChangeNotifier {
 
       var myToken = tokenPrefs.getString('token');
 
-      allUserThreadList = await _threadApi.getAllThread(myToken!, context);
+      allUserThreadList = await _threadApi.getThreadByUser(myToken!, context);
 
       changeState(DataState.filled);
     } catch (e) {
