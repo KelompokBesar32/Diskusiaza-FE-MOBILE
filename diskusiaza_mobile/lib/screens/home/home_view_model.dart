@@ -43,7 +43,6 @@ class HomeViewModel extends ChangeNotifier {
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);
-      print('error: $e');
     }
   }
 
@@ -64,7 +63,6 @@ class HomeViewModel extends ChangeNotifier {
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);
-      print('error: $e');
     }
   }
 }

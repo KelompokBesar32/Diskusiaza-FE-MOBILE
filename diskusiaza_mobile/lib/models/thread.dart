@@ -6,13 +6,15 @@ class ResponseResultThread {
   ResponseResultThread.fromJson(Map<String, dynamic> json) {
     data = json['data'];
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
+class ResponseResultThreadDetail {
+  dynamic data;
+
+  ResponseResultThreadDetail({this.data});
+
+  ResponseResultThreadDetail.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? Thread.fromJson(json['data']) : null;
   }
 }
 

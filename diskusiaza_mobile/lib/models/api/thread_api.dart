@@ -1,5 +1,4 @@
 import 'package:diskusiaza_mobile/models/thread.dart';
-import 'package:diskusiaza_mobile/models/thread_detail.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 
 class ThreadApi {
@@ -21,8 +20,7 @@ class ThreadApi {
     }
   }
 
-  Future<ThreadDetail> getThreadById(
-      String getToken, int getId, var context) async {
+  Future<Thread> getThreadById(String getToken, int getId, var context) async {
     try {
       var response = await _api.dio.get('therad/$getId');
 
@@ -31,7 +29,7 @@ class ThreadApi {
 
       return responseResult.data;
     } catch (e) {
-      return ThreadDetail();
+      return Thread();
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:diskusiaza_mobile/models/api/thread_api.dart';
-import 'package:diskusiaza_mobile/models/thread_detail.dart';
+import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +8,7 @@ class DetailViewModel extends ChangeNotifier {
   DataState dataState = DataState.loading;
 
   final ThreadApi _threadApi = ThreadApi();
-  ThreadDetail? threadDetail;
+  Thread? threadDetail;
 
   void changeState(DataState state) {
     dataState = state;
