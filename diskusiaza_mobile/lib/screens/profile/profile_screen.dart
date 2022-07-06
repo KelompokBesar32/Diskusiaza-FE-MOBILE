@@ -1,6 +1,7 @@
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/list_tile_leading_title.dart';
 import 'package:flutter/material.dart';
@@ -58,17 +59,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CircleAvatar(
-                            radius: 45,
-                            child: ClipOval(
-                              child: SizedBox.fromSize(
-                                size: const Size.fromRadius(45),
-                                child: Image.asset(
-                                  'assets/images/fotoProfile.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
+                          const AvatarPict(
+                            urlPict: 'assets/images/fotoProfile.jpg',
+                            radiusPict: 45,
                           ),
                           Text(
                             '${value.dataProfile!.firstname} ${value.dataProfile!.lastname}',

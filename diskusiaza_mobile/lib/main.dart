@@ -1,5 +1,6 @@
 import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
@@ -25,14 +26,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => ProfileViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
       child: MaterialApp(
         title: 'Diskuziaza',
         theme: ThemeData(
-          primaryColor: const Color(0xFF5682a3),
+          primaryColor: const Color(0xFF36a5b2),
           backgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            secondary: const Color(0xFFe7ebf0),
+            secondary: const Color(0xFF007ADD),
           ),
         ),
         debugShowCheckedModeBanner: false,
