@@ -1,4 +1,6 @@
+import 'package:diskusiaza_mobile/models/api/thread_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,26 @@ class ProfileViewModel extends ChangeNotifier {
       String? myToken = tokenPrefs.getString('token');
 
       dataProfile = await _userModelApi.getDataProfile(myToken!, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  final ThreadApi _threadApi = ThreadApi();
+
+  List<Thread> allUserThreadList = [];
+
+  Future getThreadByUser(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      allUserThreadList = await _threadApi.getAllThread(myToken!, context);
 
       changeState(DataState.filled);
     } catch (e) {

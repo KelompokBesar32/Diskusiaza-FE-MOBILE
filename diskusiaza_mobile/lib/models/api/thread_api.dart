@@ -32,4 +32,20 @@ class ThreadApi {
       return Thread();
     }
   }
+
+  Future<List<Thread>> getThreadByUser(String getToken, var context) async {
+    try {
+      var response = await _api.dio.get('user/therad');
+
+      ResponseResultThread responseResult =
+          ResponseResultThread.fromJson(response.data);
+
+      List<Thread> threadList =
+          responseResult.data!.map((e) => Thread.fromJson(e)).toList();
+
+      return threadList;
+    } catch (e) {
+      return [];
+    }
+  }
 }
