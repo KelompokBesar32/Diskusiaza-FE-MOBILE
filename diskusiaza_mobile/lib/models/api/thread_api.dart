@@ -1,5 +1,7 @@
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ThreadApi {
   final API _api = API();
@@ -46,6 +48,33 @@ class ThreadApi {
       return threadList;
     } catch (e) {
       return [];
+    }
+  }
+
+  Future postLikeThread(String getToken, int getId, var context) async {
+    try {
+      var response = await _api.dio.post(
+        'therad/like',
+        data: {
+          "therad_id": getId,
+        },
+      );
+
+      print('Response : ${response.statusMessage}');
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "${response.statusMessage}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    } catch (e) {
+      return null;
     }
   }
 }

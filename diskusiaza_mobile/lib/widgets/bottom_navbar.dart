@@ -20,25 +20,26 @@ class BottomNavbar extends StatelessWidget {
       color: infoColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: 100,
-            height: 65,
+            width: 80,
+            // height: 60,
             child: IconButton(
               icon: Column(
                 children: [
                   Icon(
                     Icons.home,
-                    size: 32,
+                    size: 30,
                     color: isHome ? Colors.white : Colors.white70,
                   ),
-                  Text(
-                    'Home',
-                    style: TextStyle(
-                      color: isHome ? Colors.white : Colors.white70,
-                    ),
-                  ),
+                  // Text(
+                  //   'Home',
+                  //   style: TextStyle(
+                  //     color: isHome ? Colors.white : Colors.white70,
+                  //   ),
+                  // ),
                 ],
               ),
               onPressed: isHome
@@ -49,22 +50,22 @@ class BottomNavbar extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 100,
-            height: 65,
+            width: 80,
+            // height: 60,
             child: IconButton(
               icon: Column(
                 children: [
                   Icon(
                     Icons.explore,
-                    size: 32,
+                    size: 30,
                     color: isExplore ? Colors.white : Colors.white70,
                   ),
-                  Text(
-                    'Explore',
-                    style: TextStyle(
-                      color: isExplore ? Colors.white : Colors.white70,
-                    ),
-                  ),
+                  // Text(
+                  //   'Explore',
+                  //   style: TextStyle(
+                  //     color: isExplore ? Colors.white : Colors.white70,
+                  //   ),
+                  // ),
                 ],
               ),
               onPressed: isExplore
@@ -75,22 +76,22 @@ class BottomNavbar extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 100,
-            height: 65,
+            width: 80,
+            // height: 60,
             child: IconButton(
               icon: Column(
                 children: [
                   Icon(
                     Icons.star,
-                    size: 32,
+                    size: 30,
                     color: isTrending ? Colors.white : Colors.white70,
                   ),
-                  Text(
-                    'Trending',
-                    style: TextStyle(
-                      color: isTrending ? Colors.white : Colors.white70,
-                    ),
-                  ),
+                  // Text(
+                  //   'Trending',
+                  //   style: TextStyle(
+                  //     color: isTrending ? Colors.white : Colors.white70,
+                  //   ),
+                  // ),
                 ],
               ),
               onPressed: isTrending
@@ -101,22 +102,23 @@ class BottomNavbar extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 100,
-            height: 65,
+            width: 80,
+            // height: 60,
             child: IconButton(
               icon: Column(
                 children: [
                   Icon(
                     Icons.person,
-                    size: 32,
+                    size: 30,
                     color: isAccount ? Colors.white : Colors.white70,
                   ),
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                      color: isAccount ? Colors.white : Colors.white70,
-                    ),
-                  ),
+                  // Text(
+                  //   'Profile',
+                  //   style: GoogleFonts.poppins(
+                  //     color: isAccount ? Colors.white : Colors.white70,
+                  //     fontSize: 13,
+                  //   ),
+                  // ),
                 ],
               ),
               onPressed: isAccount

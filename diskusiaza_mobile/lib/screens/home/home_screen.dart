@@ -84,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   dilihat: value.allThreadList[index].dilihat!,
                                   kategoriName:
                                       value.allThreadList[index].kategoriName!,
+                                  authorName:
+                                      value.allThreadList[index].authorName!,
                                   totalLike:
                                       value.allThreadList[index].totalLike!,
                                 ),

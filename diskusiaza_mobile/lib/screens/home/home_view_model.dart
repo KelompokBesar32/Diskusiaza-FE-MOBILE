@@ -65,4 +65,24 @@ class HomeViewModel extends ChangeNotifier {
       changeState(DataState.error);
     }
   }
+
+  Future postLikeThread(int getId, var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _threadApi.postLikeThread(
+        myToken!,
+        getId,
+        context,
+      );
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
 }
