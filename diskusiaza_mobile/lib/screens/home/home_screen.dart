@@ -23,12 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
-      await Provider.of<HomeViewModel>(context, listen: false)
-          .getAllThread(context);
-      setState(() {});
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
     });
   }
 
@@ -78,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: ThreadCard(
+                                  index: index,
                                   id: value.allThreadList[index].id!,
                                   judul: value.allThreadList[index].judul!,
                                   isi: value.allThreadList[index].isi!,
@@ -88,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       value.allThreadList[index].authorName!,
                                   totalLike:
                                       value.allThreadList[index].totalLike!,
+                                  isLike: value.allThreadList[index].isLike!,
                                 ),
                               );
                             },

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
@@ -53,28 +54,45 @@ class ThreadApi {
 
   Future postLikeThread(String getToken, int getId, var context) async {
     try {
-      var response = await _api.dio.post(
+      await _api.dio.post(
         'therad/like',
         data: {
           "therad_id": getId,
         },
       );
 
-      print('Response : ${response.statusMessage}');
+      return true;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 400) {
+        await unLikeThread(getToken, getId, context);
 
-      if (response.statusCode == 200) {
-        Fluttertoast.showToast(
-          msg: "${response.statusMessage}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
+        return false;
       }
-    } catch (e) {
-      return null;
+    }
+  }
+
+  Future unLikeThread(String getToken, int getId, var context) async {
+    try {
+      await _api.dio.delete(
+        'therad/like',
+        data: {
+          "therad_id": getId,
+        },
+      );
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
   }
 }

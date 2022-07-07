@@ -1,7 +1,10 @@
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ThreadCard extends StatelessWidget {
+  final int index;
   final int id;
   final String judul;
   final String isi;
@@ -9,8 +12,10 @@ class ThreadCard extends StatelessWidget {
   final String kategoriName;
   final String authorName;
   final int totalLike;
+  final bool isLike;
   const ThreadCard({
     Key? key,
+    required this.index,
     required this.id,
     required this.judul,
     required this.isi,
@@ -18,6 +23,7 @@ class ThreadCard extends StatelessWidget {
     required this.kategoriName,
     required this.authorName,
     required this.totalLike,
+    required this.isLike,
   }) : super(key: key);
 
   @override
@@ -81,12 +87,30 @@ class ThreadCard extends StatelessWidget {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.favorite),
+                          onTap: () async {
+                            await Provider.of<HomeViewModel>(context,
+                                    listen: false)
+                                .postLikeThread(
+                              id,
+                              index,
+                              context,
+                            );
+                          },
+                          child: isLike
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite,
+                                  color: Colors.grey,
+                                ),
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          totalLike.toString(),
+                          isLike
+                              ? (totalLike + 1).toString()
+                              : (totalLike).toString(),
                           style: poppinsLight(13, Colors.black),
                         ),
                       ],

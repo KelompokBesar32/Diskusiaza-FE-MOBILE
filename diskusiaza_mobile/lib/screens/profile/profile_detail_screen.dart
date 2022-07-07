@@ -219,6 +219,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                                 },
                                                 onLongPress: () {},
                                                 child: ThreadCard(
+                                                  index: index,
                                                   id: value
                                                       .allUserThreadList[index]
                                                       .id!,
@@ -240,6 +241,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                                   totalLike: value
                                                       .allUserThreadList[index]
                                                       .totalLike!,
+                                                  isLike: value
+                                                      .allUserThreadList[index]
+                                                      .isLike!,
                                                 ),
                                               );
                                             },

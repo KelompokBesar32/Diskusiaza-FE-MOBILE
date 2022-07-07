@@ -66,19 +66,19 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  Future postLikeThread(int getId, var context) async {
-    changeState(DataState.loading);
-
+  Future postLikeThread(int getId, int getIndex, var context) async {
     try {
       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
       var myToken = tokenPrefs.getString('token');
 
-      await _threadApi.postLikeThread(
+      bool result = await _threadApi.postLikeThread(
         myToken!,
         getId,
         context,
       );
+
+      allThreadList[getIndex].isLike = result;
 
       changeState(DataState.filled);
     } catch (e) {
