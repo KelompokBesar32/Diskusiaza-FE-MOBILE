@@ -55,7 +55,7 @@ class ThreadApi {
   Future postLikeThread(String getToken, int getId, var context) async {
     try {
       await _api.dio.post(
-        'therad/like',
+        't/therad/like',
         data: {
           "therad_id": getId,
         },
@@ -74,7 +74,7 @@ class ThreadApi {
   Future unLikeThread(String getToken, int getId, var context) async {
     try {
       await _api.dio.delete(
-        'therad/like',
+        't/therad/like',
         data: {
           "therad_id": getId,
         },

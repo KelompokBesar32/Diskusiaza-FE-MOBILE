@@ -25,10 +25,8 @@ class UserThreadApi {
         "kategori_therad_id": category,
       });
 
-      print('formData : ${formData.length}');
-
       var response = await _api.dio.post(
-        'user/therad',
+        't/user/therad',
         data: formData,
       );
 
