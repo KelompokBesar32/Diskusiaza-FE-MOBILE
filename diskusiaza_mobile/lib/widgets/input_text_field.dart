@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 
+// ignore: must_be_immutable
 class InputTextField extends StatelessWidget {
   InputTextField({
     Key? key,
@@ -15,7 +16,6 @@ class InputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isHidden = false;
     return TextFormField(
       autofocus: false,
       controller: controller,

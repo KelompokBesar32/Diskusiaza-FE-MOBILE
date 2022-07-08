@@ -26,7 +26,7 @@ class ButtonPrimary extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               side: const BorderSide(
                 color: Colors.black38,
-                width: 0.5,
+                width: 0.8,
               ),
             ),
           ),
