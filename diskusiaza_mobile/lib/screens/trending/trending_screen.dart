@@ -80,14 +80,18 @@ class _TrendingScreenState extends State<TrendingScreen> {
                                   );
                                 },
                                 child: ThreadCard(
+                                  index: index,
                                   id: value.allThreadList[index].id!,
                                   judul: value.allThreadList[index].judul!,
                                   isi: value.allThreadList[index].isi!,
                                   dilihat: value.allThreadList[index].dilihat!,
                                   kategoriName:
                                       value.allThreadList[index].kategoriName!,
+                                  authorName:
+                                      value.allThreadList[index].authorName!,
                                   totalLike:
                                       value.allThreadList[index].totalLike!,
+                                  isLike: value.allThreadList[index].isLike!,
                                 ),
                               );
                             },

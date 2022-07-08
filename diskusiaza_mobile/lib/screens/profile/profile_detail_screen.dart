@@ -1,7 +1,10 @@
+import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/thread_card.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
@@ -16,9 +19,12 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
+      await Provider.of<ProfileViewModel>(context, listen: false)
+          .getThreadByUser(context);
+      setState(() {});
     });
   }
 
@@ -161,16 +167,102 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: height,
-                            child: const TabBarView(
+                            height: height * 0.6,
+                            child: TabBarView(
                               children: [
-                                Center(
-                                  child: Text('Thread'),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Consumer<ProfileViewModel>(
+                                      builder: (context, value, child) {
+                                        if (value.dataState ==
+                                            DataState.loading) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+
+                                        if (value.dataState ==
+                                            DataState.error) {
+                                          return const Center(
+                                            child: Text('Something went wrong'),
+                                          );
+                                        }
+
+                                        if (value.allUserThreadList.isEmpty) {
+                                          return const Center(
+                                            child: Text('Belum ada kiriman'),
+                                          );
+                                        }
+
+                                        return SizedBox(
+                                          height: height * 0.6,
+                                          child: ListView.separated(
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      child: DetailScreen(
+                                                          id: value
+                                                              .allUserThreadList[
+                                                                  index]
+                                                              .id!),
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      inheritTheme: true,
+                                                      ctx: context,
+                                                    ),
+                                                  );
+                                                },
+                                                onLongPress: () {},
+                                                child: ThreadCard(
+                                                  index: index,
+                                                  id: value
+                                                      .allUserThreadList[index]
+                                                      .id!,
+                                                  judul: value
+                                                      .allUserThreadList[index]
+                                                      .judul!,
+                                                  isi: value
+                                                      .allUserThreadList[index]
+                                                      .isi!,
+                                                  dilihat: value
+                                                      .allUserThreadList[index]
+                                                      .dilihat!,
+                                                  kategoriName: value
+                                                      .allUserThreadList[index]
+                                                      .kategoriName!,
+                                                  authorName: value
+                                                      .allUserThreadList[index]
+                                                      .authorName!,
+                                                  totalLike: value
+                                                      .allUserThreadList[index]
+                                                      .totalLike!,
+                                                  isLike: value
+                                                      .allUserThreadList[index]
+                                                      .isLike!,
+                                                ),
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return const SizedBox(
+                                                  height: 4.0);
+                                            },
+                                            itemCount:
+                                                value.allUserThreadList.length,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
-                                Center(
+                                const Center(
                                   child: Text('Balasan'),
                                 ),
-                                Center(
+                                const Center(
                                   child: Text('Media'),
                                 ),
                               ],
