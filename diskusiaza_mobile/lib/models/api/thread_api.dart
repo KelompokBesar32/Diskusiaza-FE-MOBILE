@@ -9,7 +9,7 @@ class ThreadApi {
 
   Future<List<Thread>> getAllThread(String getToken, var context) async {
     try {
-      var response = await _api.dio.get('therad');
+      var response = await _api.dio.get('t/therad');
 
       ResponseResultThread responseResult =
           ResponseResultThread.fromJson(response.data);
@@ -25,7 +25,7 @@ class ThreadApi {
 
   Future<Thread> getThreadById(String getToken, int getId, var context) async {
     try {
-      var response = await _api.dio.get('therad/$getId');
+      var response = await _api.dio.get('t/therad/$getId');
 
       ResponseResultThreadDetail responseResult =
           ResponseResultThreadDetail.fromJson(response.data);
@@ -38,7 +38,7 @@ class ThreadApi {
 
   Future<List<Thread>> getThreadByUser(String getToken, var context) async {
     try {
-      var response = await _api.dio.get('user/therad');
+      var response = await _api.dio.get('t/user/therad');
 
       ResponseResultThread responseResult =
           ResponseResultThread.fromJson(response.data);
@@ -55,7 +55,7 @@ class ThreadApi {
   Future postLikeThread(String getToken, int getId, var context) async {
     try {
       await _api.dio.post(
-        'therad/like',
+        't/therad/like',
         data: {
           "therad_id": getId,
         },
@@ -74,7 +74,7 @@ class ThreadApi {
   Future unLikeThread(String getToken, int getId, var context) async {
     try {
       await _api.dio.delete(
-        'therad/like',
+        't/therad/like',
         data: {
           "therad_id": getId,
         },

@@ -37,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var width = mediaQueryData.size.width;
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {},
+        onRefresh: () async {
+          Provider.of<HomeViewModel>(context, listen: false)
+              .getAllThread(context);
+        },
         child: SafeArea(
           child: Column(
             children: [
