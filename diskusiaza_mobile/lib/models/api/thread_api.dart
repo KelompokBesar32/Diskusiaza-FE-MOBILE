@@ -9,7 +9,7 @@ class ThreadApi {
 
   Future<List<Thread>> getAllThread(String getToken, var context) async {
     try {
-      var response = await _api.dio.get('therad');
+      var response = await _api.dio.get('t/therad');
 
       ResponseResultThread responseResult =
           ResponseResultThread.fromJson(response.data);
@@ -25,7 +25,7 @@ class ThreadApi {
 
   Future<Thread> getThreadById(String getToken, int getId, var context) async {
     try {
-      var response = await _api.dio.get('therad/$getId');
+      var response = await _api.dio.get('t/therad/$getId');
 
       ResponseResultThreadDetail responseResult =
           ResponseResultThreadDetail.fromJson(response.data);
@@ -38,7 +38,7 @@ class ThreadApi {
 
   Future<List<Thread>> getThreadByUser(String getToken, var context) async {
     try {
-      var response = await _api.dio.get('user/therad');
+      var response = await _api.dio.get('t/user/therad');
 
       ResponseResultThread responseResult =
           ResponseResultThread.fromJson(response.data);
