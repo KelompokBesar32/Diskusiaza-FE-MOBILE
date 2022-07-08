@@ -1,39 +1,55 @@
+class ResponseResultUserModel {
+  dynamic data;
+
+  ResponseResultUserModel({this.data});
+
+  ResponseResultUserModel.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? UserModel.fromJson(json['data']) : null;
+  }
+}
+
 class UserModel {
-  String? firstName;
-  String? lastName;
+  String? firstname;
+  String? lastname;
   String? email;
-  String? password;
+  String? nohp;
+  String? foto;
   String? tanggalLahir;
   String? jenisKelamin;
+  String? roleName;
 
   UserModel({
-    this.firstName,
-    this.lastName,
+    this.firstname,
+    this.lastname,
     this.email,
-    this.password,
+    this.nohp,
+    this.foto,
     this.tanggalLahir,
     this.jenisKelamin,
+    this.roleName,
   });
 
-  factory UserModel.fromMap(map) {
-    return UserModel(
-      email: map['email'],
-      firstName: map['firstName'],
-      lastName: map['lastName'],
-      password: map['password'],
-      tanggalLahir: map['tanggalLahir'],
-      jenisKelamin: map['jenisKelamin'],
-    );
+  UserModel.fromJson(Map<String, dynamic> json) {
+    firstname = json['firstname'];
+    lastname = json['lastname'];
+    email = json['email'];
+    nohp = json['nohp'];
+    foto = json['foto'];
+    tanggalLahir = json['tanggal_lahir'];
+    jenisKelamin = json['jenis_kelamin'];
+    roleName = json['role_name'];
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'firstName': firstName,
-      'lastName': lastName,
-      'password': password,
-      'tanggalLahir': tanggalLahir,
-      'jenisKelamin': jenisKelamin,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['email'] = email;
+    data['nohp'] = nohp;
+    data['foto'] = foto;
+    data['tanggal_lahir'] = tanggalLahir;
+    data['jenis_kelamin'] = jenisKelamin;
+    data['role_name'] = roleName;
+    return data;
   }
 }

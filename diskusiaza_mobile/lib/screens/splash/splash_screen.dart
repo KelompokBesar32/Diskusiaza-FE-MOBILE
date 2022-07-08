@@ -1,8 +1,11 @@
-import 'package:diskusiaza_mobile/screen/login/login_screen.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -13,15 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // set time to load the new page
 
     super.initState();
-    Timer(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
+    });
   }
 
   @override
@@ -46,14 +43,11 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Image.asset(
-                  "assets/diskusiaza.png",
-                  height: 300.0,
-                  width: 300.0,
+                  "assets/images/diskusiaza.png",
+                  height: 700.0,
+                  width: 700.0,
                 ),
               ],
-            ),
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],
         ),

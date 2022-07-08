@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 enum Gender { L, W }
 
+// ignore: must_be_immutable
 class GenderPicker extends StatefulWidget {
   final double height;
   final double width;

@@ -1,11 +1,9 @@
-import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
-import 'package:diskusiaza_mobile/models/user_model.dart';
-import 'package:diskusiaza_mobile/screen/home_screen.dart';
+import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool passwordVisible = false;
   bool isRemember = false;
 
   @override
@@ -74,8 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        isPassword: false,
-                        suffix: false,
                         onCreate: (String? value) {
                           if (value!.isEmpty) {
                             return ("Email is required for login");
@@ -88,12 +85,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      InputTextField(
+                      TextFormField(
+                        keyboardType: TextInputType.text,
                         controller: passwordController,
-                        hintText: 'Password',
-                        isPassword: true,
-                        suffix: true,
-                        onCreate: (String? value) {
+                        obscureText: !passwordVisible,
+                        validator: (value) {
                           RegExp regex = RegExp(r'^.{3,}$');
                           if (value!.isEmpty) {
                             return ("Password is required for login");
@@ -103,34 +99,57 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 15),
+                          hintText: 'Password',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: infoColor,
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       ),
                       ButtonPrimary(
                         width: width,
                         label: 'Login',
                         onCreate: () async {
                           if (_formKey.currentState!.validate()) {
-                            final UserModelApi _userModelApi = UserModelApi();
-                            UserModel? user = await _userModelApi.login(
+                            Provider.of<AuthServices>(context, listen: false)
+                                .postLogin(
                               emailController.text,
                               passwordController.text,
-                            );
-
-                            Fluttertoast.showToast(
-                              msg: "Wellcome ${user?.email}",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
-
-                            if (!mounted) return;
-
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (_) => HomeScreen(user: user!),
-                              ),
+                              context,
                             );
                           }
                         },
@@ -168,22 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          '--- Or Log In With ---',
-                          style: poppinsRegular(12, Colors.black),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          addOnSignUp('G', 'Google'),
-                          addOnSignUp('A', 'Apple Id'),
-                          addOnSignUp('F', 'Facebook'),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -209,41 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container addOnSignUp(String logo, String value) {
-    return Container(
-      height: 30,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(
-          color: Colors.black38,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            logo,
-            style: poppinsLight(
-              10,
-              Colors.black,
-            ),
-          ),
-          const SizedBox(width: 6),
-          Text(
-            value,
-            style: poppinsRegular(
-              10,
-              Colors.black,
-            ),
-          ),
-        ],
       ),
     );
   }
