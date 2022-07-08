@@ -91,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   totalLike:
                                       value.allThreadList[index].totalLike!,
                                   isLike: value.allThreadList[index].isLike!,
+                                  isUser: false,
                                 ),
                               );
                             },

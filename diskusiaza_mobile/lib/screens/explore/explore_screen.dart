@@ -15,7 +15,7 @@ class ExploreScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           SearchInput(
               // height: height,
               // width: width,

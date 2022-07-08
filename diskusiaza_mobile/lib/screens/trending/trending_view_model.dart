@@ -1,68 +1,68 @@
-import 'dart:io';
+// import 'dart:io';
 
-import 'package:diskusiaza_mobile/models/api/thread_api.dart';
-import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
-import 'package:diskusiaza_mobile/models/thread.dart';
-import 'package:diskusiaza_mobile/shared/constant.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:diskusiaza_mobile/models/api/thread_api.dart';
+// import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
+// import 'package:diskusiaza_mobile/models/thread.dart';
+// import 'package:diskusiaza_mobile/shared/constant.dart';
+// import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-class TrendingViewModel extends ChangeNotifier {
-  DataState dataState = DataState.loading;
+// class TrendingViewModel extends ChangeNotifier {
+//   DataState dataState = DataState.loading;
 
-  final UserThreadApi _userThreadApi = UserThreadApi();
+//   final UserThreadApi _userThreadApi = UserThreadApi();
 
-  void changeState(DataState state) {
-    dataState = state;
-    notifyListeners();
-  }
+//   void changeState(DataState state) {
+//     dataState = state;
+//     notifyListeners();
+//   }
 
-  void postThread(
-    String title,
-    String content,
-    int category,
-    File? file,
-    var context,
-  ) async {
-    changeState(DataState.loading);
+//   void postThread(
+//     String title,
+//     String content,
+//     int category,
+//     File? file,
+//     var context,
+//   ) async {
+//     changeState(DataState.loading);
 
-    try {
-      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+//     try {
+//       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
-      var myToken = tokenPrefs.getString('token');
+//       var myToken = tokenPrefs.getString('token');
 
-      await _userThreadApi.postThread(
-        myToken!,
-        title,
-        content,
-        category,
-        file,
-        context,
-      );
+//       await _userThreadApi.postThread(
+//         myToken!,
+//         title,
+//         content,
+//         category,
+//         file,
+//         context,
+//       );
 
-      changeState(DataState.filled);
-    } catch (e) {
-      changeState(DataState.error);
-    }
-  }
+//       changeState(DataState.filled);
+//     } catch (e) {
+//       changeState(DataState.error);
+//     }
+//   }
 
-  final ThreadApi _threadApi = ThreadApi();
+//   final ThreadApi _threadApi = ThreadApi();
 
-  List<Thread> allThreadList = [];
+//   List<Thread> allThreadList = [];
 
-  Future getAllThread(var context) async {
-    changeState(DataState.loading);
+//   Future getAllThread(var context) async {
+//     changeState(DataState.loading);
 
-    try {
-      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+//     try {
+//       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
-      var myToken = tokenPrefs.getString('token');
+//       var myToken = tokenPrefs.getString('token');
 
-      allThreadList = await _threadApi.getAllThread(myToken!, context);
+//       allThreadList = await _threadApi.getAllThread(myToken!, context);
 
-      changeState(DataState.filled);
-    } catch (e) {
-      changeState(DataState.error);
-    }
-  }
-}
+//       changeState(DataState.filled);
+//     } catch (e) {
+//       changeState(DataState.error);
+//     }
+//   }
+// }

@@ -52,4 +52,24 @@ class ProfileViewModel extends ChangeNotifier {
       changeState(DataState.error);
     }
   }
+
+  Future postLikeThread(int getId, int getIndex, var context) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      bool result = await _threadApi.postLikeThread(
+        myToken!,
+        getId,
+        context,
+      );
+
+      allUserThreadList[getIndex].isLike = result;
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
 }

@@ -41,7 +41,10 @@ class _TrendingScreenState extends State<TrendingScreen> {
     var width = mediaQueryData.size.width;
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {},
+        onRefresh: () async {
+          Provider.of<HomeViewModel>(context, listen: false)
+              .getAllThread(context);
+        },
         child: SafeArea(
           child: Column(
             children: [
@@ -92,6 +95,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
                                   totalLike:
                                       value.allThreadList[index].totalLike!,
                                   isLike: value.allThreadList[index].isLike!,
+                                  isUser: false,
                                 ),
                               );
                             },

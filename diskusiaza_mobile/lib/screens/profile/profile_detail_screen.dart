@@ -244,6 +244,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                                   isLike: value
                                                       .allUserThreadList[index]
                                                       .isLike!,
+                                                  isUser: true,
                                                 ),
                                               );
                                             },
