@@ -117,7 +117,7 @@ class UserModelApi {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var response = await _api.dio.get('auth/logout');
+      var response = await _api.dio.get('t/auth/logout');
 
       if (response.statusCode == 200) {
         Navigator.of(context).pushReplacementNamed('/login');
@@ -156,7 +156,7 @@ class UserModelApi {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var response = await _api.dio.get('user/profile');
+      var response = await _api.dio.get('t/user/profile');
 
       if (response.statusCode == 200) {
         ResponseResultUserModel responseResult =

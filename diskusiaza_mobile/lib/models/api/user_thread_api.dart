@@ -22,16 +22,14 @@ class UserThreadApi {
       var formData = FormData.fromMap({
         "judul": title,
         "isi": content,
-        "file": await MultipartFile.fromFile('assets/images/fotoProfile',
-            filename: 'upload.png'),
+        // "file": await MultipartFile.fromFile('assets/images/fotoProfile',
+        //     filename: 'upload.png'),
         "kategori_therad_id": category,
       });
 
       var response = await _api.dio.post(
-        'user/therad',
-        data: {
-          formData,
-        },
+        't/user/therad',
+        data: formData,
       );
 
       if (response.statusCode == 201) {
