@@ -40,6 +40,8 @@ class HomeViewModel extends ChangeNotifier {
         context,
       );
 
+      getAllThread(context);
+
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);

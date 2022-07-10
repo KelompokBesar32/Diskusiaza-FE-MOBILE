@@ -119,201 +119,211 @@ class _HomeScreenState extends State<HomeScreen> {
               final titleController = TextEditingController();
               final contentController = TextEditingController();
 
-              String dropDownValue = 'Public';
+              String categoryValue = 'Cerita Lucu';
 
-              var items = [
-                'Public',
+              var categoryItems = [
+                'Cerita Lucu',
+                'Tips & Trick',
+                'Kisah-kisah Horror',
+                'Pengembangan Diri',
+                'Kisah hidup yang tak banyak diketahui',
+                'Informasi Olahraga',
+              ];
+
+              String visibleValue = 'Publik';
+
+              var visibleItems = [
+                'Publik',
                 'Private',
               ];
-              return AlertDialog(
-                title: SizedBox(
-                  width: width,
-                  child: Column(
-                    children: [
-                      const Text('Tulis Kiriman Informasi'),
-                      Row(
+
+              return StatefulBuilder(
+                builder: ((context, setState) {
+                  return AlertDialog(
+                    title: SizedBox(
+                      width: width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const AvatarPict(
-                            urlPict: 'assets/images/fotoProfile.jpg',
-                            radiusPict: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(
-                            Icons.play_arrow,
-                            size: 30,
-                          ),
-                          const SizedBox(width: 10),
-                          TextButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                const EdgeInsets.symmetric(horizontal: 8),
+                          const Text('Tulis Kiriman Informasi'),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const AvatarPict(
+                                urlPict: 'assets/images/fotoProfile.jpg',
+                                radiusPict: 20,
                               ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  side: const BorderSide(
-                                    color: Colors.black38,
-                                    width: 0.8,
-                                  ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.play_arrow,
+                                size: 30,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: DropdownButton(
+                                  value: visibleValue,
+                                  style: poppinsLight(14, Colors.black),
+                                  icon: const Icon(
+                                      Icons.keyboard_arrow_down_rounded),
+                                  items: visibleItems.map((items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      visibleValue = newValue!;
+                                    });
+                                  },
                                 ),
                               ),
-                            ),
-                            onPressed: () {},
-                            child:
-                                // DropdownButton(
-                                //   value: dropDownValue,
-                                //   icon:
-                                //       const Icon(Icons.keyboard_arrow_down_rounded),
-                                //   items: items.map((items) {
-                                //     return DropdownMenuItem(
-                                //       value: items,
-                                //       child: Text(items),
-                                //     );
-                                //   }).toList(),
-                                //   onChanged: (String? newValue) {
-                                //     setState(() {
-                                //       dropDownValue = newValue!;
-                                //     });
-                                //   },
-                                // ),
-                                Row(
+                            ],
+                          ),
+                          Form(
+                            key: formKey,
+                            child: Column(
                               children: [
-                                const Icon(
-                                  Icons.group,
-                                  size: 28,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Publik',
-                                  style: poppinsRegular(
-                                    14,
-                                    infoColor,
+                                TextFormField(
+                                  controller: titleController,
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.text,
+                                  validator: (v) {
+                                    if (v!.trim().isEmpty) {
+                                      return 'Please enter something';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: 'Judul...',
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                const Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 28,
+                                TextFormField(
+                                  controller: contentController,
+                                  textInputAction: TextInputAction.done,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 10,
+                                  validator: (v) {
+                                    if (v!.trim().isEmpty) {
+                                      return 'Please enter something';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: 'Katakan sesuatu...',
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                      Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: titleController,
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              // validator: (v) {
-                              //   if (v!.trim().isEmpty) {
-                              //     return 'Please enter something';
-                              //   }
-                              //   return null;
-                              // },
-                              decoration: const InputDecoration(
-                                hintText: 'Judul...',
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Kategori : ',
+                                style: poppinsLight(15, Colors.black),
                               ),
-                            ),
-                            TextFormField(
-                              controller: contentController,
-                              textInputAction: TextInputAction.done,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 10,
-                              // validator: (v) {
-                              //   if (v!.trim().isEmpty) {
-                              //     return 'Please enter something';
-                              //   }
-                              //   return null;
-                              // },
-                              decoration: const InputDecoration(
-                                hintText: 'Katakan sesuatu...',
+                              DropdownButton(
+                                value: categoryValue,
+                                style: poppinsLight(14, Colors.black),
+                                isDense: true,
+                                isExpanded: true,
+                                icon: const Icon(
+                                    Icons.keyboard_arrow_down_rounded),
+                                items: categoryItems.map((items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    categoryValue = newValue!;
+                                  });
+                                },
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Kategori : ',
-                            style: poppinsLight(15, Colors.black),
-                          ),
-                          DropdownButton(
-                            value: dropDownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                            items: items.map((items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropDownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(Icons.type_specimen_outlined, size: 28),
-                              SizedBox(width: 10),
-                              Icon(Icons.image, size: 28),
                             ],
                           ),
-                          TextButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                const EdgeInsets.symmetric(horizontal: 16),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: const [
+                                  Icon(Icons.type_specimen_outlined, size: 28),
+                                  SizedBox(width: 10),
+                                  Icon(Icons.image, size: 28),
+                                ],
                               ),
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(infoColor),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  side: const BorderSide(
-                                    color: Colors.black38,
-                                    width: 0.8,
+                              TextButton(
+                                style: ButtonStyle(
+                                  padding:
+                                      MaterialStateProperty.all<EdgeInsets>(
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          infoColor),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      side: const BorderSide(
+                                        color: Colors.black38,
+                                        width: 0.8,
+                                      ),
+                                    ),
                                   ),
                                 ),
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    int catIndex = 1;
+                                    switch (categoryValue) {
+                                      case 'Cerita Lucu':
+                                        catIndex = 1;
+                                        break;
+                                      case 'Tips & Trick':
+                                        catIndex = 2;
+                                        break;
+                                      case 'Kisah-kisah Horror':
+                                        catIndex = 3;
+                                        break;
+                                      case 'Pengembangan Diri':
+                                        catIndex = 4;
+                                        break;
+                                      case 'Kisah hidup yang tak banyak diketahui':
+                                        catIndex = 5;
+                                        break;
+                                      case 'Informasi Olahraga':
+                                        catIndex = 6;
+                                        break;
+                                    }
+
+                                    Provider.of<HomeViewModel>(context,
+                                            listen: false)
+                                        .postThread(
+                                      titleController.text,
+                                      contentController.text,
+                                      catIndex,
+                                      null,
+                                      context,
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Kirimkan',
+                                  style: poppinsRegular(14, Colors.white),
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                Provider.of<HomeViewModel>(context,
-                                        listen: false)
-                                    .postThread(
-                                  titleController.text,
-                                  contentController.text,
-                                  1,
-                                  null,
-                                  context,
-                                );
-                              }
-                            },
-                            child: Text(
-                              'Kirimkan',
-                              style: poppinsRegular(14, Colors.white),
-                            ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                }),
               );
             },
           );
