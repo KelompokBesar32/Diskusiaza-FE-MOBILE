@@ -80,7 +80,9 @@ class HomeViewModel extends ChangeNotifier {
         context,
       );
 
-      allThreadList[getIndex].isLike = result;
+      getAllThread(context);
+
+      // allThreadList[getIndex].isLike = result;
 
       changeState(DataState.filled);
     } catch (e) {

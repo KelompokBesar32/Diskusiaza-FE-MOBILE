@@ -125,6 +125,7 @@ class ThreadCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
+                          // totalLike.toString(),
                           isLike
                               ? (totalLike + 1).toString()
                               : (totalLike).toString(),
