@@ -38,6 +38,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
   Widget build(BuildContext context) {
     var mediaQueryData = MediaQuery.of(context);
     var height = mediaQueryData.size.height;
+    var width = mediaQueryData.size.width;
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -95,6 +96,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
                                       value.allThreadList[index].totalLike!,
                                   isLike: value.allThreadList[index].isLike!,
                                   isUser: false,
+                                  width: width,
                                 ),
                               );
                             },

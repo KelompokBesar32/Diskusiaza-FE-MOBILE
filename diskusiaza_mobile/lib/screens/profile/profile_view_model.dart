@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:diskusiaza_mobile/models/api/thread_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
@@ -75,6 +77,68 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   final UserThreadApi _userThreadApi = UserThreadApi();
+
+  void postThread(
+    String title,
+    String content,
+    int category,
+    File? file,
+    var context,
+  ) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _userThreadApi.postThread(
+        myToken!,
+        title,
+        content,
+        category,
+        file,
+        context,
+      );
+
+      getThreadByUser(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future updateThread(
+    int getId,
+    String title,
+    String content,
+    int category,
+    File? file,
+    String status,
+    var context,
+  ) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _userThreadApi.updateThread(
+        myToken!,
+        getId,
+        title,
+        content,
+        category,
+        file,
+        status,
+        context,
+      );
+
+      getThreadByUser(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
 
   Future deleteThread(int getId, var context) async {
     try {

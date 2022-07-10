@@ -2,6 +2,7 @@ import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/post_thread_fab.dart';
 import 'package:diskusiaza_mobile/widgets/thread_card.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -294,6 +295,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                                             index]
                                                         .isLike!,
                                                     isUser: true,
+                                                    width: width,
                                                   ),
                                                 );
                                               },
@@ -330,6 +332,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
           },
         ),
       ),
+      floatingActionButton: PostThreadFAB(width: width, isUser: true),
       bottomNavigationBar: const BottomNavbar(
         isHome: false,
         isExplore: false,
