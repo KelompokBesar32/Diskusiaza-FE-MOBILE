@@ -60,4 +60,40 @@ class UserThreadApi {
     }
     return null;
   }
+
+  Future delThread(String getToken, int getId, var context) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.delete('t/user/therad/$getId');
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "Thread successfuly deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+
+      Navigator.pop(context);
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
 }

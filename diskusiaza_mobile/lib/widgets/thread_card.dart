@@ -1,6 +1,7 @@
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -144,12 +145,80 @@ class ThreadCard extends StatelessWidget {
               ),
               Positioned(
                 right: 0,
-                bottom: 0,
+                top: 0,
                 child: Text(
                   kategoriName,
                   style: poppinsLight(13, Colors.black),
                 ),
-              )
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(15),
+                        ),
+                      ),
+                      builder: (context) {
+                        return Container(
+                          height: 225,
+                          padding: const EdgeInsets.all(16),
+                          child: isUser
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ButtonIcon(
+                                      label: 'Edit',
+                                      icon: Icons.edit,
+                                      iconColor: Colors.white,
+                                      bgColor: infoColor,
+                                      outerRadius: 40,
+                                      innerRadius: 40,
+                                      onCreate: () {},
+                                    ),
+                                    ButtonIcon(
+                                      label: 'Save',
+                                      icon: Icons.bookmark,
+                                      iconColor: Colors.white,
+                                      bgColor: infoColor,
+                                      outerRadius: 40,
+                                      innerRadius: 40,
+                                      onCreate: () {},
+                                    ),
+                                    ButtonIcon(
+                                      label: 'Delete',
+                                      icon: Icons.delete_forever,
+                                      iconColor: Colors.white,
+                                      bgColor: infoColor,
+                                      outerRadius: 40,
+                                      innerRadius: 40,
+                                      onCreate: () {
+                                        Provider.of<ProfileViewModel>(context,
+                                                listen: false)
+                                            .deleteThread(
+                                          id,
+                                          context,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: [],
+                                ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Icon(Icons.more_horiz),
+                ),
+              ),
             ],
           ),
         ),

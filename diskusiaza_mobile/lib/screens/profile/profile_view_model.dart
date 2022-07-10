@@ -1,5 +1,6 @@
 import 'package:diskusiaza_mobile/models/api/thread_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
+import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
@@ -71,5 +72,24 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       changeState(DataState.error);
     }
+  }
+
+  final UserThreadApi _userThreadApi = UserThreadApi();
+
+  Future deleteThread(int getId, var context) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _userThreadApi.delThread(myToken!, getId, context);
+
+      getThreadByUser(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+    return false;
   }
 }
