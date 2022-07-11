@@ -215,84 +215,76 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                   },
                   body: TabBarView(
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Consumer<ProfileViewModel>(
-                            builder: (context, value, child) {
-                              if (value.dataState == DataState.loading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-
-                              if (value.dataState == DataState.error) {
-                                return const Center(
-                                  child: Text('Something went wrong'),
-                                );
-                              }
-
-                              if (value.allUserThreadList.isEmpty) {
-                                return const Center(
-                                  child: Text('Belum ada kiriman'),
-                                );
-                              }
-
-                              return SizedBox(
-                                height: height - 80,
-                                child: ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            child: DetailScreen(
-                                                id: value
-                                                    .allUserThreadList[index]
-                                                    .id!),
-                                            type: PageTransitionType.fade,
-                                            inheritTheme: true,
-                                            ctx: context,
-                                          ),
-                                        );
-                                      },
-                                      onLongPress: () {},
-                                      child: ThreadCard(
-                                        index: index,
-                                        id: value.allUserThreadList[index].id!,
-                                        judul: value
-                                            .allUserThreadList[index].judul!,
-                                        isi:
-                                            value.allUserThreadList[index].isi!,
-                                        dilihat: value
-                                            .allUserThreadList[index].dilihat!,
-                                        kategoriName: value
-                                            .allUserThreadList[index]
-                                            .kategoriName!,
-                                        authorName: value
-                                            .allUserThreadList[index]
-                                            .authorName!,
-                                        totalLike: value
-                                            .allUserThreadList[index]
-                                            .totalLike!,
-                                        isLike: value
-                                            .allUserThreadList[index].isLike!,
-                                        isUser: true,
-                                        width: width,
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(height: 4.0);
-                                  },
-                                  itemCount: value.allUserThreadList.length,
-                                ),
+                      SingleChildScrollView(
+                        child: Consumer<ProfileViewModel>(
+                          builder: (context, value, child) {
+                            if (value.dataState == DataState.loading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
-                            },
-                          ),
-                        ],
+                            }
+
+                            if (value.dataState == DataState.error) {
+                              return const Center(
+                                child: Text('Something went wrong'),
+                              );
+                            }
+
+                            if (value.allUserThreadList.isEmpty) {
+                              return const Center(
+                                child: Text('Belum ada kiriman'),
+                              );
+                            }
+
+                            return SizedBox(
+                              height: height - 80,
+                              child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          child: DetailScreen(
+                                              id: value.allUserThreadList[index]
+                                                  .id!),
+                                          type: PageTransitionType.fade,
+                                          inheritTheme: true,
+                                          ctx: context,
+                                        ),
+                                      );
+                                    },
+                                    onLongPress: () {},
+                                    child: ThreadCard(
+                                      index: index,
+                                      id: value.allUserThreadList[index].id!,
+                                      judul:
+                                          value.allUserThreadList[index].judul!,
+                                      isi: value.allUserThreadList[index].isi!,
+                                      dilihat: value
+                                          .allUserThreadList[index].dilihat!,
+                                      kategoriName: value
+                                          .allUserThreadList[index]
+                                          .kategoriName!,
+                                      authorName: value
+                                          .allUserThreadList[index].authorName!,
+                                      totalLike: value
+                                          .allUserThreadList[index].totalLike!,
+                                      isLike: value
+                                          .allUserThreadList[index].isLike!,
+                                      isUser: true,
+                                      width: width,
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(height: 4.0);
+                                },
+                                itemCount: value.allUserThreadList.length,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       const Center(
                         child: Text('Balasan'),
