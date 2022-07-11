@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
 
                         return SizedBox(
-                          height: height * 0.85,
+                          height: height - 80,
                           child: ListView.separated(
                             itemBuilder: (context, index) {
                               return GestureDetector(
