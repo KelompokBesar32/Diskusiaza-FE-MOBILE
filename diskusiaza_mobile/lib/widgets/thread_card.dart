@@ -150,9 +150,13 @@ class ThreadCard extends StatelessWidget {
               Positioned(
                 right: 0,
                 top: 0,
-                child: Text(
-                  kategoriName,
-                  style: poppinsLight(13, Colors.black),
+                child: SizedBox(
+                  width: width * 0.4,
+                  child: Text(
+                    kategoriName,
+                    textAlign: TextAlign.end,
+                    style: poppinsLight(13, Colors.black),
+                  ),
                 ),
               ),
               Positioned(

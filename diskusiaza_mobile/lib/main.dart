@@ -98,6 +98,7 @@ class MyApp extends StatelessWidget {
             case '/profileDetail':
               return PageTransition(
                 child: const ProfileDetailScreen(),
+                // child: const ProfileDetailScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
