@@ -5,6 +5,7 @@ import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/post_thread_fab.dart';
+import 'package:diskusiaza_mobile/widgets/shimmer.dart';
 import 'package:diskusiaza_mobile/widgets/thread_card.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -51,8 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     Consumer<HomeViewModel>(
                       builder: (context, value, child) {
                         if (value.dataState == DataState.loading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return ListView.separated(
+                            itemBuilder: (context, index) {
+                              return ShimmerLoad(
+                                width: 300,
+                                height: 200,
+                                radius: 15,
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 4.0);
+                            },
+                            itemCount: 5,
                           );
                         }
 
