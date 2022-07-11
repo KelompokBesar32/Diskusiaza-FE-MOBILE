@@ -1,6 +1,7 @@
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/widgets/search_input.dart';
+import 'package:diskusiaza_mobile/widgets/shimmer.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class ExploreScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
+          ShimmerLoad(width: 300, height: 500, radius: 45),
           SearchInput(
               // height: height,
               // width: width,
