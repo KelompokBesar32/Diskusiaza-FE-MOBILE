@@ -10,6 +10,7 @@ import 'package:diskusiaza_mobile/widgets/thread_card.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -44,82 +45,83 @@ class _HomeScreenState extends State<HomeScreen> {
               .getAllThread(context);
         },
         child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Consumer<HomeViewModel>(
-                      builder: (context, value, child) {
-                        if (value.dataState == DataState.loading) {
-                          return ListView.separated(
-                            itemBuilder: (context, index) {
-                              return ShimmerLoad(
-                                width: 300,
-                                height: 200,
-                                radius: 15,
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 4.0);
-                            },
-                            itemCount: 5,
-                          );
-                        }
-
-                        if (value.dataState == DataState.error) {
-                          return const Center(
-                            child: Text('Something went wrong'),
-                          );
-                        }
-
-                        return SizedBox(
-                          height: height - 80,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Consumer<HomeViewModel>(
+                  builder: (context, value, child) {
+                    if (value.dataState == DataState.loading) {
+                      return SizedBox(
+                        height: height,
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey.shade400,
+                          highlightColor: Colors.grey.shade300,
                           child: ListView.separated(
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      child: DetailScreen(
-                                          id: value.allThreadList[index].id!),
-                                      type: PageTransitionType.fade,
-                                      inheritTheme: true,
-                                      ctx: context,
-                                    ),
-                                  );
-                                },
-                                child: ThreadCard(
-                                  index: index,
-                                  id: value.allThreadList[index].id!,
-                                  judul: value.allThreadList[index].judul!,
-                                  isi: value.allThreadList[index].isi!,
-                                  dilihat: value.allThreadList[index].dilihat!,
-                                  kategoriName:
-                                      value.allThreadList[index].kategoriName!,
-                                  authorName:
-                                      value.allThreadList[index].authorName!,
-                                  totalLike:
-                                      value.allThreadList[index].totalLike!,
-                                  isLike: value.allThreadList[index].isLike!,
-                                  isUser: false,
-                                  width: width,
+                              padding: const EdgeInsets.all(4),
+                              itemBuilder: (context, index) {
+                                return ShimmerCard(
+                                    width: width, height: 200, radius: 15);
+                              },
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  height: 10,
+                                );
+                              },
+                              itemCount: 5),
+                        ),
+                      );
+                    }
+
+                    if (value.dataState == DataState.error) {
+                      return const Center(
+                        child: Text('Something went wrong'),
+                      );
+                    }
+
+                    return SizedBox(
+                      height: height - 80,
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: DetailScreen(
+                                      id: value.allThreadList[index].id!),
+                                  type: PageTransitionType.fade,
+                                  inheritTheme: true,
+                                  ctx: context,
                                 ),
                               );
                             },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 4.0);
-                            },
-                            itemCount: value.allThreadList.length,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                            child: ThreadCard(
+                              index: index,
+                              id: value.allThreadList[index].id!,
+                              judul: value.allThreadList[index].judul!,
+                              isi: value.allThreadList[index].isi!,
+                              dilihat: value.allThreadList[index].dilihat!,
+                              kategoriName:
+                                  value.allThreadList[index].kategoriName!,
+                              authorName:
+                                  value.allThreadList[index].authorName!,
+                              totalLike: value.allThreadList[index].totalLike!,
+                              isLike: value.allThreadList[index].isLike!,
+                              isUser: false,
+                              width: width,
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 4.0);
+                        },
+                        itemCount: value.allThreadList.length,
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
