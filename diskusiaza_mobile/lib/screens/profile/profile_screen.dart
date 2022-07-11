@@ -4,8 +4,10 @@ import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/list_tile_leading_title.dart';
+import 'package:diskusiaza_mobile/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -35,8 +37,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Consumer<ProfileViewModel>(
         builder: (context, value, child) {
           if (value.dataState == DataState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return SizedBox(
+              height: height,
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey.shade400,
+                highlightColor: Colors.grey.shade300,
+                child: ListView.separated(
+                    padding: const EdgeInsets.all(4),
+                    itemBuilder: (context, index) {
+                      return ShimmerCard(width: width, height: 200, radius: 15);
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 10,
+                      );
+                    },
+                    itemCount: 5),
+              ),
             );
           }
 

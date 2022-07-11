@@ -17,7 +17,6 @@ class ExploreScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
-          ShimmerLoad(width: 300, height: 500, radius: 45),
           SearchInput(
               // height: height,
               // width: width,
