@@ -13,16 +13,18 @@ class ExploreScreen extends StatelessWidget {
     var width = mediaQueryData.size.width;
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SearchInput(
-              // height: height,
-              // width: width,
-              // contoller: genderController,
-              ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            SearchInput(
+                // height: height,
+                // width: width,
+                // contoller: genderController,
+                ),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavbar(
         isHome: false,
