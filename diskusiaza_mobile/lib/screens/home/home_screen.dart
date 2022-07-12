@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.notifications_outlined),
             color: Colors.black,
             onPressed: () => {},
           ),
