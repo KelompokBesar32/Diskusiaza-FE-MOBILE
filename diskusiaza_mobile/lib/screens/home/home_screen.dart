@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           'Diskusiaza',
-          style: TextStyle(color: Colors.blue.shade800),
+          style: TextStyle(color: Color.fromARGB(255, 40, 125, 194)),
         ),
         backgroundColor: Colors.white,
         elevation: 4.0,
