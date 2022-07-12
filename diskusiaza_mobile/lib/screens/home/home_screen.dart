@@ -133,17 +133,22 @@ class _HomeScreenState extends State<HomeScreen> {
         isAccount: false,
       ),
       appBar: AppBar(
-        title: Text('Diskusiaza'),
-        backgroundColor: Colors.blue,
+        title: Text(
+          'Diskusiaza',
+          style: TextStyle(color: Colors.blue.shade800),
+        ),
+        backgroundColor: Colors.white,
         elevation: 4.0,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
+            color: Colors.black,
             onPressed: () => {},
           ),
           IconButton(
             icon: Icon(Icons.mail),
+            color: Colors.black,
             onPressed: () => {},
           ),
         ],
