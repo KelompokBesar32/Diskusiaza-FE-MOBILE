@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
-                                  height: 10,
+                                  height: 4,
                                 );
                               },
                               itemCount: 5),
@@ -131,6 +131,22 @@ class _HomeScreenState extends State<HomeScreen> {
         isExplore: false,
         isTrending: false,
         isAccount: false,
+      ),
+      appBar: AppBar(
+        title: Text('Diskusiaza'),
+        backgroundColor: Colors.blue,
+        elevation: 4.0,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () => {},
+          ),
+          IconButton(
+            icon: Icon(Icons.mail),
+            onPressed: () => {},
+          ),
+        ],
       ),
     );
   }
