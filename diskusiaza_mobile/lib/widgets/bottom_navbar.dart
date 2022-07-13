@@ -82,7 +82,7 @@ class BottomNavbar extends StatelessWidget {
               icon: Column(
                 children: [
                   Icon(
-                    Icons.star,
+                    Icons.whatshot,
                     size: 30,
                     color: isTrending ? Colors.white : Colors.white70,
                   ),
