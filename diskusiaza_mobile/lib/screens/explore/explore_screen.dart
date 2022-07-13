@@ -24,7 +24,7 @@ class ExploreScreen extends StatelessWidget {
                 // width: width,
                 // contoller: genderController,
                 ),
-            // CheckerBox(),
+            CheckerBox(),
             // Container(),
           ],
         ),

@@ -52,14 +52,26 @@ class _CheckerBoxState extends State<CheckerBox> {
   }
 
   onAllClicked(CheckerBoxModal ckbItem) {
+    final newValue = !ckbItem.value;
     setState(() {
-      ckbItem.value = !ckbItem.value;
+      ckbItem.value = newValue;
+      checkerBoxList.forEach((element) {
+        element.value = newValue;
+      });
     });
   }
 
   onItemClicked(CheckerBoxModal ckbItem) {
+    final newValue = !ckbItem.value;
     setState(() {
-      ckbItem.value = !ckbItem.value;
+      ckbItem.value = newValue;
+
+      if (!newValue) {
+        allChecked.value = false;
+      } else {
+        final allListChecked = checkerBoxList.every((element) => element.value);
+        allChecked.value = allListChecked;
+      }
     });
   }
 }
