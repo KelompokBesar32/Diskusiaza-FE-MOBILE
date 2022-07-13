@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/checkerbox_explore.dart';
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/widgets/search_input.dart';
 import 'package:diskusiaza_mobile/widgets/shimmer.dart';
@@ -17,12 +18,14 @@ class ExploreScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             SearchInput(
                 // height: height,
                 // width: width,
                 // contoller: genderController,
                 ),
+            // CheckerBox(),
+            // Container(),
           ],
         ),
       ),
