@@ -134,6 +134,15 @@ class _TrendingScreenState extends State<TrendingScreen> {
         isTrending: true,
         isAccount: false,
       ),
+      appBar: AppBar(
+        title: Text(
+          'Trending',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 4.0,
+        automaticallyImplyLeading: false,
+      ),
     );
   }
 }
