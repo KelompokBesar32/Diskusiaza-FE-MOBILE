@@ -32,6 +32,22 @@ class ExploreScreen extends StatelessWidget {
         isTrending: false,
         isAccount: false,
       ),
+      appBar: AppBar(
+        title: Text(
+          'Explore',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 4.0,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            color: Colors.black,
+            onPressed: () => {},
+          ),
+        ],
+      ),
     );
   }
 }
