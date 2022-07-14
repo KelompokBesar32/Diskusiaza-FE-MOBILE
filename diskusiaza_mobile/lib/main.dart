@@ -4,6 +4,7 @@ import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_detail_screen.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
@@ -98,7 +99,12 @@ class MyApp extends StatelessWidget {
             case '/profileDetail':
               return PageTransition(
                 child: const ProfileDetailScreen(),
-                // child: const ProfileDetailScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/profileEdit':
+              return PageTransition(
+                child: const ProfileEditScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );

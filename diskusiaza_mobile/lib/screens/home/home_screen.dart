@@ -38,6 +38,27 @@ class _HomeScreenState extends State<HomeScreen> {
     var height = mediaQueryData.size.height;
     var width = mediaQueryData.size.width;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Diskusiaza',
+          style: poppinsBold(18, infoColor),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 2,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            color: Colors.black,
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.mail),
+            color: Colors.black,
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           Provider.of<HomeViewModel>(context, listen: false)
@@ -130,27 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
         isExplore: false,
         isTrending: false,
         isAccount: false,
-      ),
-      appBar: AppBar(
-        title: Text(
-          'Diskusiaza',
-          style: TextStyle(color: Color.fromARGB(255, 40, 125, 194)),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 4.0,
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_outlined),
-            color: Colors.black,
-            onPressed: () => {},
-          ),
-          IconButton(
-            icon: Icon(Icons.mail),
-            color: Colors.black,
-            onPressed: () => {},
-          ),
-        ],
       ),
     );
   }

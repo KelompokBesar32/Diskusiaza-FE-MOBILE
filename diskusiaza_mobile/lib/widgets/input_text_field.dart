@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 
-// ignore: must_be_immutable
 class InputTextField extends StatelessWidget {
-  InputTextField({
+  const InputTextField({
     Key? key,
     required this.controller,
     required this.hintText,
@@ -12,7 +11,7 @@ class InputTextField extends StatelessWidget {
 
   final TextEditingController controller;
   final String hintText;
-  String? Function(String?)? onCreate;
+  final String? Function(String?)? onCreate;
 
   @override
   Widget build(BuildContext context) {
