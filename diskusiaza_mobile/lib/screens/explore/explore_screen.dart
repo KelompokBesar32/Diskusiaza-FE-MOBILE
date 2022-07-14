@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/checkerbox_explore.dart';
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/widgets/search_input.dart';
 import 'package:diskusiaza_mobile/widgets/shimmer.dart';
@@ -13,22 +14,42 @@ class ExploreScreen extends StatelessWidget {
     var width = mediaQueryData.size.width;
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SearchInput(
-              // height: height,
-              // width: width,
-              // contoller: genderController,
-              ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SearchInput(
+                // height: height,
+                // width: width,
+                // contoller: genderController,
+                ),
+            CheckerBox(),
+            // Container(),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavbar(
         isHome: false,
         isExplore: true,
         isTrending: false,
         isAccount: false,
+      ),
+      appBar: AppBar(
+        title: Text(
+          'Explore',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 4.0,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            color: Colors.black,
+            onPressed: () => {},
+          ),
+        ],
       ),
     );
   }

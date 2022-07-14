@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
-                                  height: 10,
+                                  height: 4,
                                 );
                               },
                               itemCount: 5),
@@ -130,6 +130,27 @@ class _HomeScreenState extends State<HomeScreen> {
         isExplore: false,
         isTrending: false,
         isAccount: false,
+      ),
+      appBar: AppBar(
+        title: Text(
+          'Diskusiaza',
+          style: TextStyle(color: Color.fromARGB(255, 40, 125, 194)),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 4.0,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications_outlined),
+            color: Colors.black,
+            onPressed: () => {},
+          ),
+          IconButton(
+            icon: Icon(Icons.mail),
+            color: Colors.black,
+            onPressed: () => {},
+          ),
+        ],
       ),
     );
   }
