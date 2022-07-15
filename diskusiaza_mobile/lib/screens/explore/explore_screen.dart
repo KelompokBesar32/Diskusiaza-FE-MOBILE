@@ -20,13 +20,7 @@ class ExploreScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SearchInput(),
-            Container(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [],
-                ),
-              ),
-            ),
+            Container(),
             Container(
               child: SingleChildScrollView(
                 child: Column(
