@@ -19,12 +19,44 @@ class ExploreScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SearchInput(
-                // height: height,
-                // width: width,
-                // contoller: genderController,
+            SearchInput(),
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [],
                 ),
-            CheckerBox(),
+              ),
+            ),
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                          itemCount: 10,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => Container(
+                                height: 100,
+                                width: 100,
+                                margin: EdgeInsets.all(10),
+                                child: Center(
+                                  child: Text("Profil $index"),
+                                ),
+                                color: Colors.blue,
+                              )),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(),
+            // SearchInput(
+            // height: height,
+            // width: width,
+            // contoller: genderController,
+            // ),
+            // CheckerBox(),
             // Container(),
           ],
         ),
