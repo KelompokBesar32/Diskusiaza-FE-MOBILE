@@ -177,6 +177,7 @@ class TrendingThisWeek extends StatelessWidget {
                     id: value.allThreadList[index].id!,
                     judul: value.allThreadList[index].judul!,
                     isi: value.allThreadList[index].isi!,
+                    file: value.allThreadList[index].file!,
                     dilihat: value.allThreadList[index].dilihat!,
                     kategoriName: value.allThreadList[index].kategoriName!,
                     authorName: value.allThreadList[index].authorName!,

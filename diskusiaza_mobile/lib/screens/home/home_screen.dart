@@ -63,97 +63,96 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      resizeToAvoidBottomInset: false,
       body: RefreshIndicator(
         onRefresh: () async {
           Provider.of<HomeViewModel>(context, listen: false)
               .getAllThread(context);
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Consumer<HomeViewModel>(
-                  builder: (context, value, child) {
-                    if (value.dataState == DataState.loading) {
-                      return SizedBox(
-                        height: height,
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey.shade400,
-                          highlightColor: Colors.grey.shade300,
-                          child: ListView.separated(
-                              padding: const EdgeInsets.all(4),
-                              itemBuilder: (context, index) {
-                                return ShimmerCard(
-                                    width: width, height: 200, radius: 15);
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  height: 4,
-                                );
-                              },
-                              itemCount: 5),
-                        ),
-                      );
-                    }
-
-                    if (value.dataState == DataState.error) {
-                      return const Center(
-                        child: Text('Something went wrong'),
-                      );
-                    }
-
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Consumer<HomeViewModel>(
+                builder: (context, value, child) {
+                  if (value.dataState == DataState.loading) {
                     return SizedBox(
-                      height: height - 135,
-                      child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Provider.of<HomeViewModel>(context, listen: false)
-                                  .getThreadById(
-                                value.allThreadList[index].id!,
-                                context,
-                              );
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: DetailScreen(
-                                    id: value.allThreadList[index].id!,
-                                    index: index,
-                                    isUser: false,
-                                  ),
-                                  type: PageTransitionType.fade,
-                                  inheritTheme: true,
-                                  ctx: context,
-                                ),
+                      height: height,
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade400,
+                        highlightColor: Colors.grey.shade300,
+                        child: ListView.separated(
+                            padding: const EdgeInsets.all(4),
+                            itemBuilder: (context, index) {
+                              return ShimmerCard(
+                                  width: width, height: 200, radius: 15);
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(
+                                height: 4,
                               );
                             },
-                            child: ThreadCard(
-                              index: index,
-                              id: value.allThreadList[index].id!,
-                              judul: value.allThreadList[index].judul!,
-                              isi: value.allThreadList[index].isi!,
-                              dilihat: value.allThreadList[index].dilihat!,
-                              kategoriName:
-                                  value.allThreadList[index].kategoriName!,
-                              authorName:
-                                  value.allThreadList[index].authorName!,
-                              totalLike: value.allThreadList[index].totalLike!,
-                              isLike: value.allThreadList[index].isLike!,
-                              isUser: false,
-                              width: width,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 4.0);
-                        },
-                        itemCount: value.allThreadList.length,
+                            itemCount: 5),
                       ),
                     );
-                  },
-                ),
-              ],
-            ),
+                  }
+
+                  if (value.dataState == DataState.error) {
+                    return const Center(
+                      child: Text('Something went wrong'),
+                    );
+                  }
+
+                  return SizedBox(
+                    height: height - 135,
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Provider.of<HomeViewModel>(context, listen: false)
+                                .getThreadById(
+                              value.allThreadList[index].id!,
+                              context,
+                            );
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: DetailScreen(
+                                  id: value.allThreadList[index].id!,
+                                  index: index,
+                                  isUser: false,
+                                ),
+                                type: PageTransitionType.fade,
+                                inheritTheme: true,
+                                ctx: context,
+                              ),
+                            );
+                          },
+                          child: ThreadCard(
+                            index: index,
+                            id: value.allThreadList[index].id!,
+                            judul: value.allThreadList[index].judul!,
+                            isi: value.allThreadList[index].isi!,
+                            file: value.allThreadList[index].file!,
+                            dilihat: value.allThreadList[index].dilihat!,
+                            kategoriName:
+                                value.allThreadList[index].kategoriName!,
+                            authorName: value.allThreadList[index].authorName!,
+                            totalLike: value.allThreadList[index].totalLike!,
+                            isLike: value.allThreadList[index].isLike!,
+                            isUser: false,
+                            width: width,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 4.0);
+                      },
+                      itemCount: value.allThreadList.length,
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

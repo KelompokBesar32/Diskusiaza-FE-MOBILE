@@ -90,7 +90,6 @@ class ProfileViewModel extends ChangeNotifier {
     String title,
     String content,
     int category,
-    File? file,
     var context,
   ) async {
     try {
@@ -103,7 +102,8 @@ class ProfileViewModel extends ChangeNotifier {
         title,
         content,
         category,
-        file,
+        image,
+        fileName,
         context,
       );
 
@@ -120,7 +120,6 @@ class ProfileViewModel extends ChangeNotifier {
     String title,
     String content,
     int category,
-    File? file,
     String status,
     var context,
   ) async {
@@ -135,12 +134,18 @@ class ProfileViewModel extends ChangeNotifier {
         title,
         content,
         category,
-        file,
+        image,
+        fileName,
         status,
         context,
       );
 
+      image = null;
+      fileName = null;
+
       getThreadByUser(context);
+
+      Navigator.pop(context);
 
       changeState(DataState.filled);
     } catch (e) {
@@ -193,9 +198,6 @@ class ProfileViewModel extends ChangeNotifier {
         fileName,
         context,
       );
-
-      print('userModel firstName: ${s.firstname}');
-      print('userModel image: ${s.foto}');
 
       getDataProfile(context);
 

@@ -217,7 +217,6 @@ class UserModelApi {
           "tanggal_lahir": tanggalLahir,
           "jenis_kelamin": jenisKelamin,
         });
-        print('1');
       } else if ((password != null || password != '') && (image == null)) {
         formData = FormData.fromMap({
           "firstname": firstName,
@@ -227,7 +226,6 @@ class UserModelApi {
           "jenis_kelamin": jenisKelamin,
           "password": password,
         });
-        print('2');
       } else if ((password == null || password == '') && (image != null)) {
         formData = FormData.fromMap({
           "firstname": firstName,
@@ -240,9 +238,6 @@ class UserModelApi {
           "tanggal_lahir": tanggalLahir,
           "jenis_kelamin": jenisKelamin,
         });
-        print('3');
-        print('image.path : ${image.path}');
-        print('filename : $fileName');
       } else {
         formData = FormData.fromMap({
           "firstname": firstName,
@@ -256,25 +251,7 @@ class UserModelApi {
           "jenis_kelamin": jenisKelamin,
           "password": password,
         });
-        print('4');
       }
-
-      // var formData = (password == null || password == '')
-      // ? FormData.fromMap({
-      //     "firstname": firstName,
-      //     "lastname": lastName,
-      //     "nohp": ((nohp == null || nohp == '') ? null : nohp),
-      //     "tanggal_lahir": tanggalLahir,
-      //     "jenis_kelamin": jenisKelamin,
-      //   })
-      // : FormData.fromMap({
-      //     "firstname": firstName,
-      //     "lastname": lastName,
-      //     "nohp": ((nohp == null || nohp == '') ? null : nohp),
-      //     "tanggal_lahir": tanggalLahir,
-      //     "jenis_kelamin": jenisKelamin,
-      //     "password": password,
-      //   });
 
       var response = await _api.dio.put(
         't/user/profile',

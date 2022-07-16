@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
@@ -147,23 +148,43 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                               ListTile(
                                 title: Text(
                                   '${manager.dataProfile!.firstname} ${manager.dataProfile!.lastname}',
+                                  style: poppinsMedium(
+                                    16,
+                                    Colors.black,
+                                  ),
                                 ),
                                 subtitle: Text(
                                   '${manager.dataProfile!.email}',
+                                  style: poppinsRegular(
+                                    14,
+                                    Colors.black54,
+                                  ),
                                 ),
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: Row(
-                                  children: const [
-                                    Text('118'),
-                                    SizedBox(width: 5),
-                                    Text('Mengikuti'),
-                                    SizedBox(width: 30),
-                                    Text('69'),
-                                    SizedBox(width: 5),
-                                    Text('Pengikut'),
+                                  children: [
+                                    Text(
+                                      '118',
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      'Mengikuti',
+                                      style: poppinsRegular(14, Colors.black54),
+                                    ),
+                                    const SizedBox(width: 30),
+                                    Text(
+                                      '69',
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      'Pengikut',
+                                      style: poppinsRegular(14, Colors.black54),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -231,6 +252,12 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
+                                        Provider.of<HomeViewModel>(context,
+                                                listen: false)
+                                            .getThreadById(
+                                          value.allUserThreadList[index].id!,
+                                          context,
+                                        );
                                         Navigator.push(
                                           context,
                                           PageTransition(
@@ -254,6 +281,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                             .allUserThreadList[index].judul!,
                                         isi:
                                             value.allUserThreadList[index].isi!,
+                                        file: value
+                                            .allUserThreadList[index].file!,
                                         dilihat: value
                                             .allUserThreadList[index].dilihat!,
                                         kategoriName: value

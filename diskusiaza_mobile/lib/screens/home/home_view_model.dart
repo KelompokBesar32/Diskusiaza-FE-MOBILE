@@ -5,6 +5,8 @@ import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -21,7 +23,6 @@ class HomeViewModel extends ChangeNotifier {
     String title,
     String content,
     int category,
-    File? file,
     var context,
   ) async {
     changeState(DataState.loading);
@@ -36,9 +37,13 @@ class HomeViewModel extends ChangeNotifier {
         title,
         content,
         category,
-        file,
+        image,
+        fileName,
         context,
       );
+
+      image = null;
+      fileName = null;
 
       getAllThread(context);
 
@@ -106,5 +111,30 @@ class HomeViewModel extends ChangeNotifier {
     } catch (e) {
       changeState(DataState.error);
     }
+  }
+
+  File? image;
+  String? fileName;
+
+  Future openCamera(var context) async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      image = File(pickedImage.path);
+      fileName = basename(image!.path);
+    }
+
+    Navigator.pop(context);
+  }
+
+  Future openGallery(var context) async {
+    final imageGallery =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (imageGallery != null) {
+      image = File(imageGallery.path);
+      fileName = basename(image!.path);
+    }
+
+    Navigator.pop(context);
   }
 }

@@ -14,16 +14,31 @@ class UserThreadApi {
     String content,
     int category,
     File? file,
+    String? fileName,
     var context,
   ) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var formData = FormData.fromMap({
-        "judul": title,
-        "isi": content,
-        "kategori_therad_id": category,
-      });
+      dynamic formData;
+
+      if (file == null) {
+        formData = FormData.fromMap({
+          "judul": title,
+          "isi": content,
+          "kategori_therad_id": category,
+        });
+      } else {
+        formData = FormData.fromMap({
+          "judul": title,
+          "isi": content,
+          "file": await MultipartFile.fromFile(
+            file.path,
+            filename: fileName,
+          ),
+          "kategori_therad_id": category,
+        });
+      }
 
       var response = await _api.dio.post(
         't/user/therad',
@@ -68,18 +83,34 @@ class UserThreadApi {
     String content,
     int category,
     File? file,
+    String? fileName,
     String status,
     var context,
   ) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var formData = FormData.fromMap({
-        "judul": title,
-        "isi": content,
-        "kategori_therad_id": category,
-        "status": status,
-      });
+      dynamic formData;
+
+      if (file == null) {
+        formData = FormData.fromMap({
+          "judul": title,
+          "isi": content,
+          "kategori_therad_id": category,
+          "status": status,
+        });
+      } else {
+        formData = FormData.fromMap({
+          "judul": title,
+          "isi": content,
+          "file": await MultipartFile.fromFile(
+            file.path,
+            filename: fileName,
+          ),
+          "kategori_therad_id": category,
+          "status": status,
+        });
+      }
 
       var response = await _api.dio.put(
         't/user/therad/$getId',
