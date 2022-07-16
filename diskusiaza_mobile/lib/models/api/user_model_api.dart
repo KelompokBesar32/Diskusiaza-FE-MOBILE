@@ -189,4 +189,69 @@ class UserModelApi {
     }
     return UserModel();
   }
+
+  Future putUpdateDataProfile(
+    String getToken,
+    String firstName,
+    String lastName,
+    String? nohp,
+    String tanggalLahir,
+    String jenisKelamin,
+    String? password,
+    var context,
+  ) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var formData = (password == null || password == '')
+          ? FormData.fromMap({
+              "firstname": firstName,
+              "lastname": lastName,
+              "nohp": ((nohp == null || nohp == '') ? null : nohp),
+              "tanggal_lahir": tanggalLahir,
+              "jenis_kelamin": jenisKelamin,
+            })
+          : FormData.fromMap({
+              "firstname": firstName,
+              "lastname": lastName,
+              "nohp": ((nohp == null || nohp == '') ? null : nohp),
+              "tanggal_lahir": tanggalLahir,
+              "jenis_kelamin": jenisKelamin,
+              "password": password,
+            });
+
+      var response = await _api.dio.put(
+        't/user/profile',
+        data: formData,
+      );
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "Data Users Successfully Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+
+      Navigator.pop(context);
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
 }

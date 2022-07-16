@@ -1,8 +1,6 @@
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
-import 'package:diskusiaza_mobile/widgets/checkerbox_explore.dart';
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/widgets/search_input.dart';
-import 'package:diskusiaza_mobile/widgets/shimmer.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class ExploreScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             SearchInput(
                 // height: height,
                 // width: width,
@@ -36,7 +34,7 @@ class ExploreScreen extends StatelessWidget {
         isAccount: false,
       ),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Explore',
           style: TextStyle(color: Colors.black),
         ),
@@ -45,7 +43,7 @@ class ExploreScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             color: Colors.black,
             onPressed: () => {},
           ),

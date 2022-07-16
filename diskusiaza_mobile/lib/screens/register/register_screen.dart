@@ -1,3 +1,4 @@
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
@@ -23,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final confirmPasswordController = TextEditingController();
   final dateController = TextEditingController();
   Gender genderController = Gender.L;
+  String? gender;
   bool passwordVisible = false;
 
   @override
@@ -38,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var manager = Provider.of<ProfileViewModel>(context, listen: false);
     var mediaQueryData = MediaQuery.of(context);
     var height = mediaQueryData.size.height;
     var width = mediaQueryData.size.width;
@@ -88,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: firstNameController,
                               hintText: 'First Name',
-                              onCreate: (value) {
+                              validator: (value) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (value!.isEmpty) {
                                   return ("Firstname cannot be Empty");
@@ -105,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: InputTextField(
                               controller: lastNameController,
                               hintText: 'Last Name',
-                              onCreate: (value) {
+                              validator: (value) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (value!.isEmpty) {
                                   return ("Lastname cannot be Empty");
@@ -122,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        onCreate: (value) {
+                        validator: (value) {
                           if (value!.isEmpty) {
                             return ("Email cannot be Empty");
                           }
@@ -257,8 +260,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       GenderPicker(
                         height: height,
-                        width: width,
-                        contoller: genderController,
+                        width: width * 0.42,
+                        controller: genderController,
                       ),
                       const SizedBox(height: 8),
                       ButtonPrimary(
@@ -266,6 +269,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         label: 'Sign Up',
                         onCreate: () async {
                           if (_formKey.currentState!.validate()) {
+                            if (manager.genderController == Gender.L) {
+                              gender = "L";
+                            } else if (manager.genderController == Gender.P) {
+                              gender = "P";
+                            }
                             Provider.of<AuthServices>(context, listen: false)
                                 .postRegister(
                               firstNameController.text,
@@ -273,7 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               emailController.text,
                               passwordController.text,
                               dateController.text,
-                              genderController.toString(),
+                              gender!,
                               context,
                             );
                           }

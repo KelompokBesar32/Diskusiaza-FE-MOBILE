@@ -1,18 +1,20 @@
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-enum Gender { L, W }
+enum Gender { L, P }
 
 // ignore: must_be_immutable
 class GenderPicker extends StatefulWidget {
   final double height;
   final double width;
-  Gender? contoller;
+  Gender controller;
   GenderPicker({
     Key? key,
     required this.height,
     required this.width,
-    this.contoller,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -22,11 +24,12 @@ class GenderPicker extends StatefulWidget {
 class _GenderPickerState extends State<GenderPicker> {
   @override
   Widget build(BuildContext context) {
+    var manager = Provider.of<ProfileViewModel>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: widget.width * 0.42,
+          width: widget.width,
           height: 46,
           padding: const EdgeInsets.only(left: 15),
           decoration: BoxDecoration(
@@ -50,17 +53,18 @@ class _GenderPickerState extends State<GenderPicker> {
             trailing: Radio<Gender>(
               activeColor: infoColor,
               value: Gender.L,
-              groupValue: widget.contoller,
+              groupValue: widget.controller,
               onChanged: (value) {
                 setState(() {
-                  widget.contoller = value!;
+                  widget.controller = value!;
+                  manager.genderController = value;
                 });
               },
             ),
           ),
         ),
         Container(
-          width: widget.width * 0.42,
+          width: widget.width,
           height: 46,
           padding: const EdgeInsets.only(left: 15),
           decoration: BoxDecoration(
@@ -80,11 +84,12 @@ class _GenderPickerState extends State<GenderPicker> {
             contentPadding: const EdgeInsets.all(0),
             trailing: Radio<Gender>(
               activeColor: infoColor,
-              value: Gender.W,
-              groupValue: widget.contoller,
+              value: Gender.P,
+              groupValue: widget.controller,
               onChanged: (value) {
                 setState(() {
-                  widget.contoller = value!;
+                  widget.controller = value!;
+                  manager.genderController = value;
                 });
               },
             ),

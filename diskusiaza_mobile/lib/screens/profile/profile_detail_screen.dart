@@ -66,9 +66,6 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         automaticallyImplyLeading: false,
                         floating: true,
                         pinned: true,
-                        // surfaceTintColor: Colors.black,
-                        // foregroundColor: Colors.black,
-
                         expandedHeight: 400,
                         flexibleSpace: FlexibleSpaceBar(
                           collapseMode: CollapseMode.parallax,
@@ -198,6 +195,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                   body: TabBarView(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Consumer<ProfileViewModel>(
                             builder: (context, value, child) {

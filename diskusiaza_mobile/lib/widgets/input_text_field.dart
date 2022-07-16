@@ -6,12 +6,12 @@ class InputTextField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.hintText,
-    required this.onCreate,
+    required this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
-  final String? Function(String?)? onCreate;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class InputTextField extends StatelessWidget {
       autofocus: false,
       controller: controller,
       keyboardType: TextInputType.text,
-      validator: onCreate,
+      validator: validator,
       onSaved: (value) {
         controller.text = value!;
       },

@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       InputTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        onCreate: (String? value) {
+                        validator: (String? value) {
                           if (value!.isEmpty) {
                             return ("Email is required for login");
                           }

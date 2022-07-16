@@ -135,7 +135,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
         isAccount: false,
       ),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Trending',
           style: TextStyle(color: Colors.black),
         ),

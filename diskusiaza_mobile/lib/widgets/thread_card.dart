@@ -220,7 +220,7 @@ class ThreadCard extends StatelessWidget {
                                   ],
                                 )
                               : Row(
-                                  children: [],
+                                  children: const [],
                                 ),
                         );
                       },
