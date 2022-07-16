@@ -51,6 +51,7 @@ class HomeViewModel extends ChangeNotifier {
   final ThreadApi _threadApi = ThreadApi();
 
   List<Thread> allThreadList = [];
+  Thread? threadDetail;
 
   Future getAllThread(var context) async {
     changeState(DataState.loading);
@@ -68,7 +69,8 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  Future postLikeThread(int getId, int getIndex, var context) async {
+  Future postLikeThread(
+      int getId, int getIndex, var context, bool isDetail) async {
     try {
       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
@@ -80,7 +82,25 @@ class HomeViewModel extends ChangeNotifier {
         context,
       );
 
+      threadDetail!.isLike = result;
+
       allThreadList[getIndex].isLike = result;
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future getThreadById(int getId, var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      threadDetail = await _threadApi.getThreadById(myToken!, getId, context);
 
       changeState(DataState.filled);
     } catch (e) {

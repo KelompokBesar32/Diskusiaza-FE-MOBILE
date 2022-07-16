@@ -103,16 +103,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     return SizedBox(
-                      height: height - 80,
+                      height: height - 135,
                       child: ListView.separated(
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
+                              Provider.of<HomeViewModel>(context, listen: false)
+                                  .getThreadById(
+                                value.allThreadList[index].id!,
+                                context,
+                              );
                               Navigator.push(
                                 context,
                                 PageTransition(
                                   child: DetailScreen(
-                                      id: value.allThreadList[index].id!),
+                                    id: value.allThreadList[index].id!,
+                                    index: index,
+                                    isUser: false,
+                                  ),
                                   type: PageTransitionType.fade,
                                   inheritTheme: true,
                                   ctx: context,

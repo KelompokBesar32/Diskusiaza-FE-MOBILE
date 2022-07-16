@@ -62,56 +62,60 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     var manager = Provider.of<ProfileViewModel>(context, listen: false);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const CircleAvatar(
+                  backgroundColor: Colors.black45,
+                  child: Icon(Icons.arrow_back),
+                ),
+              ),
+              SizedBox(
+                width: 100,
+                child: ButtonSecondary(
+                  title: 'Simpan',
+                  onCreate: () {
+                    if (formKey.currentState!.validate()) {
+                      if (manager.genderController == Gender.L) {
+                        gender = "L";
+                      } else if (manager.genderController == Gender.P) {
+                        gender = "P";
+                      }
+
+                      Provider.of<ProfileViewModel>(context, listen: false)
+                          .updateDataProfile(
+                        firstNameController.text.trim(),
+                        lastNameController.text.trim(),
+                        phoneController.text.trim(),
+                        dateController.text,
+                        gender!,
+                        passwordController.text,
+                        context,
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 2,
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.black45,
-                          child: Icon(Icons.arrow_back),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: ButtonSecondary(
-                          title: 'Simpan',
-                          onCreate: () {
-                            if (formKey.currentState!.validate()) {
-                              if (manager.genderController == Gender.L) {
-                                gender = "L";
-                              } else if (manager.genderController == Gender.P) {
-                                gender = "P";
-                              }
-
-                              Provider.of<ProfileViewModel>(context,
-                                      listen: false)
-                                  .updateDataProfile(
-                                firstNameController.text.trim(),
-                                lastNameController.text.trim(),
-                                phoneController.text.trim(),
-                                dateController.text,
-                                gender!,
-                                passwordController.text,
-                                context,
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 250,
                   width: width,

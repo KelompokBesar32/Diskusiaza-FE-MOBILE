@@ -228,9 +228,11 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                           context,
                                           PageTransition(
                                             child: DetailScreen(
-                                                id: value
-                                                    .allUserThreadList[index]
-                                                    .id!),
+                                              id: value
+                                                  .allUserThreadList[index].id!,
+                                              index: index,
+                                              isUser: false,
+                                            ),
                                             type: PageTransitionType.fade,
                                             inheritTheme: true,
                                             ctx: context,
@@ -273,7 +275,6 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                           ),
                         ],
                       ),
-                      // ),
                       const Center(
                         child: Text('Balasan'),
                       ),

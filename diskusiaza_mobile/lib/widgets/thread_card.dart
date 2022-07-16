@@ -51,25 +51,34 @@ class ThreadCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          authorName,
-                          style: poppinsRegular(14, Colors.black),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.noise_control_off_sharp,
-                          size: 14,
-                          color: Colors.grey,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Ikuti',
-                          style: poppinsRegular(14, infoColor),
-                        ),
-                      ],
-                    ),
+                    isUser
+                        ? Row(
+                            children: [
+                              Text(
+                                authorName,
+                                style: poppinsRegular(14, Colors.black),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                authorName,
+                                style: poppinsRegular(14, Colors.black),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.noise_control_off_sharp,
+                                size: 14,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Ikuti',
+                                style: poppinsRegular(14, infoColor),
+                              ),
+                            ],
+                          ),
                     const SizedBox(height: 4),
                     Text(
                       judul,
@@ -110,6 +119,7 @@ class ThreadCard extends StatelessWidget {
                                 id,
                                 index,
                                 context,
+                                false,
                               );
                             }
                           },
@@ -125,7 +135,6 @@ class ThreadCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          // totalLike.toString(),
                           isLike
                               ? (totalLike + 1).toString()
                               : (totalLike).toString(),

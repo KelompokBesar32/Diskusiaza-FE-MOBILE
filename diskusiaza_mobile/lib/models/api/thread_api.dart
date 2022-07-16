@@ -65,9 +65,9 @@ class ThreadApi {
     } on DioError catch (e) {
       if (e.response!.statusCode == 400) {
         await unLikeThread(getToken, getId, context);
-
-        return false;
       }
+
+      return false;
     }
   }
 

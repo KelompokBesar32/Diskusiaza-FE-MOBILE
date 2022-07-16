@@ -82,22 +82,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           Text(
                             '${value.dataProfile!.firstname} ${value.dataProfile!.lastname}',
-                            style: poppinsRegular(16, Colors.black),
+                            style: poppinsMedium(
+                              16,
+                              Colors.black,
+                            ),
                           ),
                           Text(
                             '${value.dataProfile!.email}',
+                            style: poppinsRegular(
+                              14,
+                              Colors.black54,
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
-                              Text('118'),
-                              SizedBox(width: 5),
-                              Text('Mengikuti'),
-                              SizedBox(width: 30),
-                              Text('69'),
-                              SizedBox(width: 5),
-                              Text('Pengikut'),
+                            children: [
+                              Text(
+                                '118',
+                                style: poppinsRegular(14, Colors.black),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Mengikuti',
+                                style: poppinsRegular(14, Colors.black54),
+                              ),
+                              const SizedBox(width: 30),
+                              Text(
+                                '69',
+                                style: poppinsRegular(14, Colors.black),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Pengikut',
+                                style: poppinsRegular(14, Colors.black54),
+                              ),
                             ],
                           ),
                         ],

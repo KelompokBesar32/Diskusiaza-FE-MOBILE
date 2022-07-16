@@ -7,10 +7,6 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQueryData = MediaQuery.of(context);
-    var height = mediaQueryData.size.height;
-    var width = mediaQueryData.size.width;
-
     return Scaffold(
       body: SafeArea(
         child: Column(

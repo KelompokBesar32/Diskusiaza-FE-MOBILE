@@ -25,21 +25,16 @@ class BottomNavbar extends StatelessWidget {
         children: [
           SizedBox(
             width: 80,
-            // height: 60,
+            height: 50,
             child: IconButton(
               icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.home,
                     size: 30,
                     color: isHome ? Colors.white : Colors.white70,
                   ),
-                  // Text(
-                  //   'Home',
-                  //   style: TextStyle(
-                  //     color: isHome ? Colors.white : Colors.white70,
-                  //   ),
-                  // ),
                 ],
               ),
               onPressed: isHome
@@ -51,21 +46,16 @@ class BottomNavbar extends StatelessWidget {
           ),
           SizedBox(
             width: 80,
-            // height: 60,
+            height: 50,
             child: IconButton(
               icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.explore,
                     size: 30,
                     color: isExplore ? Colors.white : Colors.white70,
                   ),
-                  // Text(
-                  //   'Explore',
-                  //   style: TextStyle(
-                  //     color: isExplore ? Colors.white : Colors.white70,
-                  //   ),
-                  // ),
                 ],
               ),
               onPressed: isExplore
@@ -77,21 +67,16 @@ class BottomNavbar extends StatelessWidget {
           ),
           SizedBox(
             width: 80,
-            // height: 60,
+            height: 50,
             child: IconButton(
               icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.whatshot,
                     size: 30,
                     color: isTrending ? Colors.white : Colors.white70,
                   ),
-                  // Text(
-                  //   'Trending',
-                  //   style: TextStyle(
-                  //     color: isTrending ? Colors.white : Colors.white70,
-                  //   ),
-                  // ),
                 ],
               ),
               onPressed: isTrending
@@ -103,22 +88,16 @@ class BottomNavbar extends StatelessWidget {
           ),
           SizedBox(
             width: 80,
-            // height: 60,
+            height: 50,
             child: IconButton(
               icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.person,
                     size: 30,
                     color: isAccount ? Colors.white : Colors.white70,
                   ),
-                  // Text(
-                  //   'Profile',
-                  //   style: GoogleFonts.poppins(
-                  //     color: isAccount ? Colors.white : Colors.white70,
-                  //     fontSize: 13,
-                  //   ),
-                  // ),
                 ],
               ),
               onPressed: isAccount
