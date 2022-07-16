@@ -31,7 +31,7 @@ class NotificationScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        // padding: const EdgeInsets.all(16.0),
         child: SizedBox(
           height: height,
           child: ListView.separated(
@@ -46,7 +46,7 @@ class NotificationScreen extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              return const SizedBox(height: 8);
+              return const Divider();
             },
             itemCount: notifList.length,
           ),

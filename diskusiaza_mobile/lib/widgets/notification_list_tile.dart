@@ -22,42 +22,45 @@ class NotificationListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(
-        pictUrl,
-        fit: BoxFit.cover,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      dense: true,
+      leading: SizedBox(
+        height: double.infinity,
+        child: Image.asset(
+          pictUrl,
+          fit: BoxFit.cover,
+        ),
       ),
       trailing: IconButton(
         onPressed: onTap,
-        icon: const Icon(Icons.more_horiz),
+        icon: const Icon(
+          Icons.more_horiz,
+          size: 28,
+          color: Colors.black,
+        ),
       ),
-      title: Row(
+      title: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             grupName,
             style: poppinsLight(
-              16,
+              14,
               Colors.black54,
             ),
           ),
-          const SizedBox(width: 8),
-          const Icon(
-            Icons.noise_control_off_sharp,
-            size: 14,
-            color: Colors.grey,
-          ),
-          const SizedBox(width: 8),
           Text(
             'Dikirikan oleh $pengirim',
             style: poppinsLight(
-              16,
+              14,
               Colors.black54,
             ),
           ),
-          const SizedBox(width: 8),
           Text(
             waktu,
             style: poppinsLight(
-              16,
+              14,
               Colors.black54,
             ),
           ),
@@ -66,7 +69,7 @@ class NotificationListTile extends StatelessWidget {
       subtitle: Text(
         desc,
         style: poppinsRegular(
-          18,
+          16,
           Colors.black,
         ),
       ),
