@@ -50,13 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
             color: Colors.black,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/notification');
+            },
           ),
           IconButton(
             icon: const Icon(Icons.mail),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushNamed(context, '/notification');
+              Navigator.pushNamed(context, '/message');
             },
           ),
         ],

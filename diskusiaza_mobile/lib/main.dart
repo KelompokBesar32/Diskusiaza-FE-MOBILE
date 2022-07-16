@@ -3,6 +3,7 @@ import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/message/message_screen.dart';
 import 'package:diskusiaza_mobile/screens/notification/notification_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
@@ -102,6 +103,12 @@ class MyApp extends StatelessWidget {
             case '/notification':
               return PageTransition(
                 child: const NotificationScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/message':
+              return PageTransition(
+                child: const MessageScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
