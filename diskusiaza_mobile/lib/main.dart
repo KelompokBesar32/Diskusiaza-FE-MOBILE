@@ -3,6 +3,7 @@ import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
+import 'package:diskusiaza_mobile/screens/notification/notification_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
@@ -42,16 +43,6 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        // routes: {
-        //   '/': (context) => const SplashScreen(),
-        //   '/login': (context) => const LoginScreen(),
-        //   '/register': (context) => const RegisterScreen(),
-        //   '/home': (context) => const HomeScreen(),
-        //   '/explore': (context) => const ExploreScreen(),
-        //   '/trending': (context) => const TrendingScreen(),
-        //   '/profile': (context) => const ProfileScreen(),
-        //   '/profileDetail': (context) => const ProfileDetailScreen(),
-        // },
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
@@ -105,6 +96,12 @@ class MyApp extends StatelessWidget {
             case '/profileEdit':
               return PageTransition(
                 child: const ProfileEditScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/notification':
+              return PageTransition(
+                child: const NotificationScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
