@@ -1,5 +1,7 @@
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
+import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
 import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
@@ -23,6 +25,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final dateController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmController = TextEditingController();
+  String? urlPict = '';
   String? gender;
   bool passwordVisible = false;
 
@@ -35,6 +38,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     lastNameController.text = manager.dataProfile!.lastname!;
     phoneController.text = manager.dataProfile!.nohp!;
     dateController.text = manager.dataProfile!.tanggalLahir!;
+    urlPict = manager.dataProfile!.foto;
     if (manager.dataProfile!.jenisKelamin == 'L') {
       manager.genderController = Gender.L;
     } else if (manager.dataProfile!.jenisKelamin == 'P') {
@@ -70,6 +74,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             children: [
               GestureDetector(
                 onTap: () {
+                  Provider.of<ProfileViewModel>(context, listen: false)
+                      .getDataProfile(context);
                   Navigator.of(context).pop();
                 },
                 child: const CircleAvatar(
@@ -157,33 +163,130 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 45,
-                              child: ClipOval(
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(45),
-                                  child: Container(
-                                    height: 200,
-                                    width: width,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      image: DecorationImage(
-                                        image: const AssetImage(
-                                          'assets/images/fotoProfile.jpg',
-                                        ),
-                                        fit: BoxFit.cover,
-                                        colorFilter: ColorFilter.mode(
-                                          Colors.black.withOpacity(0.6),
-                                          BlendMode.dstATop,
+                            Provider.of<ProfileViewModel>(context,
+                                            listen: false)
+                                        .image !=
+                                    null
+                                ? CircleAvatar(
+                                    radius: 45,
+                                    child: ClipOval(
+                                      child: SizedBox.fromSize(
+                                        size: const Size.fromRadius(45),
+                                        child: Container(
+                                          height: 200,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            image: DecorationImage(
+                                              image: FileImage(
+                                                  Provider.of<ProfileViewModel>(
+                                                          context,
+                                                          listen: false)
+                                                      .image!),
+                                              fit: BoxFit.cover,
+                                              colorFilter: ColorFilter.mode(
+                                                Colors.black.withOpacity(0.6),
+                                                BlendMode.dstATop,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                                  )
+                                : (urlPict != null || urlPict != "")
+                                    ? CircleAvatar(
+                                        radius: 45,
+                                        child: ClipOval(
+                                          child: SizedBox.fromSize(
+                                            size: const Size.fromRadius(45),
+                                            child: Container(
+                                              height: 200,
+                                              width: width,
+                                              decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                image: DecorationImage(
+                                                  image: NetworkImage(urlPict!),
+                                                  fit: BoxFit.cover,
+                                                  colorFilter: ColorFilter.mode(
+                                                    Colors.black
+                                                        .withOpacity(0.6),
+                                                    BlendMode.dstATop,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        backgroundColor: Colors.black87,
+                                        radius: 45,
+                                        child: Text(
+                                          '${firstNameController.text[0]}${lastNameController.text[0]}',
+                                          style: poppinsRegular(
+                                            36,
+                                            Colors.white,
+                                          ),
+                                        ),
+                                      ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(15),
+                                    ),
+                                  ),
+                                  builder: (context) {
+                                    return Container(
+                                      height: 225,
+                                      padding: const EdgeInsets.all(16),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          ButtonIcon(
+                                            label: 'Gallery',
+                                            icon: Icons.image,
+                                            iconColor: Colors.white,
+                                            bgColor: infoColor,
+                                            outerRadius: 40,
+                                            innerRadius: 40,
+                                            onCreate: () async {
+                                              await Provider.of<
+                                                          ProfileViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .openGallery(context);
+                                              setState(() {});
+                                            },
+                                          ),
+                                          ButtonIcon(
+                                            label: 'Camera',
+                                            icon: Icons.camera_alt,
+                                            iconColor: Colors.white,
+                                            bgColor: infoColor,
+                                            outerRadius: 40,
+                                            innerRadius: 40,
+                                            onCreate: () async {
+                                              await Provider.of<
+                                                          ProfileViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .openCamera(context);
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                               icon: const Icon(
                                 Icons.camera_alt_outlined,
                                 color: Colors.white,

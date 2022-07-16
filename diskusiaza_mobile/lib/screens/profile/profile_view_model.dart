@@ -8,6 +8,8 @@ import 'package:diskusiaza_mobile/models/user_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileViewModel extends ChangeNotifier {
@@ -32,6 +34,9 @@ class ProfileViewModel extends ChangeNotifier {
       String? myToken = tokenPrefs.getString('token');
 
       dataProfile = await _userModelApi.getDataProfile(myToken!, context);
+
+      image = null;
+      fileName = null;
 
       changeState(DataState.filled);
     } catch (e) {
@@ -176,7 +181,7 @@ class ProfileViewModel extends ChangeNotifier {
 
       String? myToken = tokenPrefs.getString('token');
 
-      await _userModelApi.putUpdateDataProfile(
+      UserModel s = await _userModelApi.putUpdateDataProfile(
         myToken!,
         firstName,
         lastName,
@@ -184,8 +189,13 @@ class ProfileViewModel extends ChangeNotifier {
         tanggalLahir,
         jenisKelamin,
         password,
+        image,
+        fileName,
         context,
       );
+
+      print('userModel firstName: ${s.firstname}');
+      print('userModel image: ${s.foto}');
 
       getDataProfile(context);
 
@@ -193,5 +203,30 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       changeState(DataState.error);
     }
+  }
+
+  File? image;
+  String? fileName;
+
+  Future openCamera(var context) async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      image = File(pickedImage.path);
+      fileName = basename(image!.path);
+    }
+
+    Navigator.pop(context);
+  }
+
+  Future openGallery(var context) async {
+    final imageGallery =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (imageGallery != null) {
+      image = File(imageGallery.path);
+      fileName = basename(image!.path);
+    }
+
+    Navigator.pop(context);
   }
 }

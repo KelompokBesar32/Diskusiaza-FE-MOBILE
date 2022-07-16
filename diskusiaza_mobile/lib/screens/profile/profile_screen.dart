@@ -24,6 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
+      print(
+          'Foto : ${Provider.of<ProfileViewModel>(context, listen: false).dataProfile!.foto.toString()}');
     });
   }
 
@@ -76,10 +78,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const AvatarPict(
-                            urlPict: 'assets/images/fotoProfile.jpg',
-                            radiusPict: 45,
-                          ),
+                          (value.dataProfile!.foto != null ||
+                                  value.dataProfile!.foto != "")
+                              ? AvatarPict(
+                                  urlPict: value.dataProfile!.foto!,
+                                  radiusPict: 45,
+                                )
+                              : CircleAvatar(
+                                  radius: 45,
+                                  child: Text(
+                                    '${value.dataProfile!.firstname![0]}${value.dataProfile!.lastname![0]}',
+                                    style: poppinsRegular(
+                                      28,
+                                      Colors.white,
+                                    ),
+                                  ),
+                                ),
                           Text(
                             '${value.dataProfile!.firstname} ${value.dataProfile!.lastname}',
                             style: poppinsMedium(

@@ -1,6 +1,7 @@
 import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
 import 'package:diskusiaza_mobile/widgets/thread_card.dart';
@@ -106,18 +107,24 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                     Positioned(
                                       left: 12,
                                       bottom: 0,
-                                      child: CircleAvatar(
-                                        radius: 45,
-                                        child: ClipOval(
-                                          child: SizedBox.fromSize(
-                                            size: const Size.fromRadius(45),
-                                            child: Image.asset(
-                                              'assets/images/fotoProfile.jpg',
-                                              fit: BoxFit.cover,
+                                      child: (manager.dataProfile!.foto !=
+                                                  null ||
+                                              manager.dataProfile!.foto != "")
+                                          ? AvatarPict(
+                                              urlPict:
+                                                  manager.dataProfile!.foto!,
+                                              radiusPict: 45,
+                                            )
+                                          : CircleAvatar(
+                                              radius: 45,
+                                              child: Text(
+                                                '${manager.dataProfile!.firstname![0]} ${manager.dataProfile!.lastname![0]}',
+                                                style: poppinsRegular(
+                                                  28,
+                                                  Colors.white,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
                                     ),
                                     Positioned(
                                       right: 12,

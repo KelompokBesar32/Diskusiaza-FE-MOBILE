@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:diskusiaza_mobile/models/token.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
@@ -198,32 +200,89 @@ class UserModelApi {
     String tanggalLahir,
     String jenisKelamin,
     String? password,
+    File? image,
+    String? fileName,
     var context,
   ) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var formData = (password == null || password == '')
-          ? FormData.fromMap({
-              "firstname": firstName,
-              "lastname": lastName,
-              "nohp": ((nohp == null || nohp == '') ? null : nohp),
-              "tanggal_lahir": tanggalLahir,
-              "jenis_kelamin": jenisKelamin,
-            })
-          : FormData.fromMap({
-              "firstname": firstName,
-              "lastname": lastName,
-              "nohp": ((nohp == null || nohp == '') ? null : nohp),
-              "tanggal_lahir": tanggalLahir,
-              "jenis_kelamin": jenisKelamin,
-              "password": password,
-            });
+      dynamic formData;
+
+      if ((password == null || password == '') && (image == null)) {
+        formData = FormData.fromMap({
+          "firstname": firstName,
+          "lastname": lastName,
+          "nohp": ((nohp == null || nohp == '') ? null : nohp),
+          "tanggal_lahir": tanggalLahir,
+          "jenis_kelamin": jenisKelamin,
+        });
+        print('1');
+      } else if ((password != null || password != '') && (image == null)) {
+        formData = FormData.fromMap({
+          "firstname": firstName,
+          "lastname": lastName,
+          "nohp": ((nohp == null || nohp == '') ? null : nohp),
+          "tanggal_lahir": tanggalLahir,
+          "jenis_kelamin": jenisKelamin,
+          "password": password,
+        });
+        print('2');
+      } else if ((password == null || password == '') && (image != null)) {
+        formData = FormData.fromMap({
+          "firstname": firstName,
+          "lastname": lastName,
+          "nohp": ((nohp == null || nohp == '') ? null : nohp),
+          "foto": await MultipartFile.fromFile(
+            image.path,
+            filename: fileName,
+          ),
+          "tanggal_lahir": tanggalLahir,
+          "jenis_kelamin": jenisKelamin,
+        });
+        print('3');
+        print('image.path : ${image.path}');
+        print('filename : $fileName');
+      } else {
+        formData = FormData.fromMap({
+          "firstname": firstName,
+          "lastname": lastName,
+          "nohp": ((nohp == null || nohp == '') ? null : nohp),
+          "foto": await MultipartFile.fromFile(
+            image!.path,
+            filename: fileName,
+          ),
+          "tanggal_lahir": tanggalLahir,
+          "jenis_kelamin": jenisKelamin,
+          "password": password,
+        });
+        print('4');
+      }
+
+      // var formData = (password == null || password == '')
+      // ? FormData.fromMap({
+      //     "firstname": firstName,
+      //     "lastname": lastName,
+      //     "nohp": ((nohp == null || nohp == '') ? null : nohp),
+      //     "tanggal_lahir": tanggalLahir,
+      //     "jenis_kelamin": jenisKelamin,
+      //   })
+      // : FormData.fromMap({
+      //     "firstname": firstName,
+      //     "lastname": lastName,
+      //     "nohp": ((nohp == null || nohp == '') ? null : nohp),
+      //     "tanggal_lahir": tanggalLahir,
+      //     "jenis_kelamin": jenisKelamin,
+      //     "password": password,
+      //   });
 
       var response = await _api.dio.put(
         't/user/profile',
         data: formData,
       );
+
+      ResponseResultUserModel responseResult =
+          ResponseResultUserModel.fromJson(response.data);
 
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
@@ -238,6 +297,8 @@ class UserModelApi {
       }
 
       Navigator.pop(context);
+
+      return responseResult.data;
     } on DioError catch (e) {
       String msg = e.response!.data
           .toString()

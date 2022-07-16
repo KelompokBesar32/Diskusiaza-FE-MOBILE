@@ -17,7 +17,7 @@ class AvatarPict extends StatelessWidget {
       child: ClipOval(
         child: SizedBox.fromSize(
           size: Size.fromRadius(radiusPict),
-          child: Image.asset(
+          child: Image.network(
             urlPict,
             fit: BoxFit.cover,
           ),
