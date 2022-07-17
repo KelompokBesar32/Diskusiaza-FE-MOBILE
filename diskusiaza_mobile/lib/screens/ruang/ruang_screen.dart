@@ -40,7 +40,7 @@ class RuangScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 ButtonSecondary(
-                  title: 'Telusuri Urang',
+                  title: 'Telusuri Ruang',
                   icon: Icons.assistant_direction_outlined,
                   onCreate: () {},
                 ),
@@ -68,63 +68,78 @@ class RuangScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ListTile(
-                    leading: Image.asset('assets/images/user2.jpg'),
-                    dense: true,
-                    title: Text(
-                      'Ruang tunggu Mantan',
-                      style: poppinsRegular(
-                        14,
-                        Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/ruang/admin');
+                    },
+                    child: ListTile(
+                      leading: Image.asset('assets/images/user2.jpg'),
+                      dense: true,
+                      title: Text(
+                        'Ruang tunggu Mantan',
+                        style: poppinsRegular(
+                          14,
+                          Colors.black,
+                        ),
                       ),
-                    ),
-                    trailing: SizedBox(
-                      height: 35,
-                      width: 90,
-                      child: ButtonTertiary(
-                        title: 'Admin',
-                        icon: Icons.shield,
-                        onCreate: () {},
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Image.asset('assets/images/user1.jpg'),
-                    dense: true,
-                    title: Text(
-                      'Ruang Jomblo',
-                      style: poppinsRegular(
-                        14,
-                        Colors.black,
-                      ),
-                    ),
-                    trailing: SizedBox(
-                      height: 35,
-                      width: 120,
-                      child: ButtonTertiary(
-                        title: 'Moderator',
-                        icon: Icons.shield_moon,
-                        onCreate: () {},
+                      trailing: SizedBox(
+                        height: 35,
+                        width: 90,
+                        child: ButtonTertiary(
+                          title: 'Admin',
+                          icon: Icons.shield,
+                          onCreate: () {},
+                        ),
                       ),
                     ),
                   ),
-                  ListTile(
-                    leading: Image.asset('assets/images/user4.jpg'),
-                    dense: true,
-                    title: Text(
-                      'Akane Mizuno',
-                      style: poppinsRegular(
-                        14,
-                        Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/ruang/moderator');
+                    },
+                    child: ListTile(
+                      leading: Image.asset('assets/images/user1.jpg'),
+                      dense: true,
+                      title: Text(
+                        'Ruang Jomblo',
+                        style: poppinsRegular(
+                          14,
+                          Colors.black,
+                        ),
+                      ),
+                      trailing: SizedBox(
+                        height: 35,
+                        width: 120,
+                        child: ButtonTertiary(
+                          title: 'Moderator',
+                          icon: Icons.shield_moon,
+                          onCreate: () {},
+                        ),
                       ),
                     ),
-                    trailing: SizedBox(
-                      height: 35,
-                      width: 105,
-                      child: ButtonTertiary(
-                        title: 'Member',
-                        icon: Icons.shield_outlined,
-                        onCreate: () {},
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/ruang/member');
+                    },
+                    child: ListTile(
+                      leading: Image.asset('assets/images/user4.jpg'),
+                      dense: true,
+                      title: Text(
+                        'Akane Mizuno',
+                        style: poppinsRegular(
+                          14,
+                          Colors.black,
+                        ),
+                      ),
+                      trailing: SizedBox(
+                        height: 35,
+                        width: 105,
+                        child: ButtonTertiary(
+                          title: 'Member',
+                          icon: Icons.shield_outlined,
+                          onCreate: () {},
+                        ),
                       ),
                     ),
                   ),
@@ -149,7 +164,7 @@ class RuangScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 220,
+              height: 300,
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -160,6 +175,13 @@ class RuangScreen extends StatelessWidget {
                       style: poppinsRegular(
                         14,
                         Colors.black,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Ruang tunggu untuk para...',
+                      style: poppinsRegular(
+                        10,
+                        Colors.black54,
                       ),
                     ),
                     trailing: ButtonPrimary(

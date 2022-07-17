@@ -70,7 +70,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         pinned: true,
                         expandedHeight: 400,
                         flexibleSpace: FlexibleSpaceBar(
-                          collapseMode: CollapseMode.parallax,
+                          collapseMode: CollapseMode.pin,
                           background: Column(
                             children: [
                               SizedBox(

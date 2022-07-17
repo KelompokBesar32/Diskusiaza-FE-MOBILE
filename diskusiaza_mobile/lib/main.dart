@@ -13,6 +13,12 @@ import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_admin_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_antrean_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_kontributor_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_log_admin_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_member_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_moderator_screen.dart';
 import 'package:diskusiaza_mobile/screens/ruang/ruang_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
 import 'package:diskusiaza_mobile/screens/support/support_screen.dart';
@@ -149,6 +155,42 @@ class MyApp extends StatelessWidget {
             case '/ruang':
               return PageTransition(
                 child: const RuangScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/admin':
+              return PageTransition(
+                child: const RuangAdminScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/moderator':
+              return PageTransition(
+                child: const RuangModeratorScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/member':
+              return PageTransition(
+                child: const RuangMemberScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/kontributor':
+              return PageTransition(
+                child: const KontributorScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/logAdmin':
+              return PageTransition(
+                child: const LogAdminScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang/antrean':
+              return PageTransition(
+                child: const AntreanScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
