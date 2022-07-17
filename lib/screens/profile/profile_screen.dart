@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: height * 0.25,
+                    height: height * 0.3,
                     width: width,
                     child: Center(
                       child: Column(
@@ -151,9 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Bookmarks',
                   ),
                   ListTileLeadingTitle(
-                    onCreate: () {
-                      Navigator.pushNamed(context, '/jawab');
-                    },
+                    onCreate: () {},
                     icons: Icons.notes_rounded,
                     title: 'Jawab',
                   ),
