@@ -13,6 +13,7 @@ import 'package:diskusiaza_mobile/screens/profile/profile_edit_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
+import 'package:diskusiaza_mobile/screens/ruang/ruang_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
 import 'package:diskusiaza_mobile/screens/support/support_screen.dart';
 import 'package:diskusiaza_mobile/screens/trending/trending_screen.dart';
@@ -142,6 +143,12 @@ class MyApp extends StatelessWidget {
             case '/bookmarks':
               return PageTransition(
                 child: const BookmarksScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/ruang':
+              return PageTransition(
+                child: const RuangScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );

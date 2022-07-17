@@ -37,23 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Consumer<ProfileViewModel>(
         builder: (context, value, child) {
           if (value.dataState == DataState.loading) {
-            return SizedBox(
-              height: height,
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade400,
-                highlightColor: Colors.grey.shade300,
-                child: ListView.separated(
-                    padding: const EdgeInsets.all(4),
-                    itemBuilder: (context, index) {
-                      return ShimmerCard(width: width, height: 200, radius: 15);
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 10,
-                      );
-                    },
-                    itemCount: 5),
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
 
@@ -173,7 +158,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Jawab',
                   ),
                   ListTileLeadingTitle(
-                    onCreate: () {},
+                    onCreate: () {
+                      Navigator.pushNamed(context, '/ruang');
+                    },
                     icons: Icons.groups_rounded,
                     title: 'Ruang',
                   ),
