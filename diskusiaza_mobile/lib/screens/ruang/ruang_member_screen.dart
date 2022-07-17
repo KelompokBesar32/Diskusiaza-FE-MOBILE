@@ -3,6 +3,7 @@ import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
+import 'package:diskusiaza_mobile/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -186,41 +187,7 @@ class RuangMemberScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                    title: SizedBox(
-                      height: 30,
-                      child: TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.done,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          hintText: 'Kirim Informasi di Ruang',
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(8.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.black38,
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.black38,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: infoColor,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    title: const SearchField(hint: 'Kirim Informasi Ruang'),
                     trailing: const Icon(
                       Icons.mail,
                       color: Colors.black,
