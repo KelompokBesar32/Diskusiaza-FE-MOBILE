@@ -17,7 +17,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool passwordVisible = false;
-  bool isRemember = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final manager = Provider.of<AuthServices>(context, listen: false);
+
+    if (manager.emailRemember != null && manager.emailRemember != '') {
+      emailController.text = manager.emailRemember!;
+    }
+  }
 
   @override
   void dispose() {
@@ -159,11 +168,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         leading: Transform.translate(
                           offset: const Offset(-10, 0),
                           child: Checkbox(
-                            value: isRemember,
+                            value: Provider.of<AuthServices>(context,
+                                    listen: false)
+                                .isRemember,
                             activeColor: infoColor,
                             onChanged: (value) {
                               setState(() {
-                                isRemember = value!;
+                                Provider.of<AuthServices>(context,
+                                        listen: false)
+                                    .isRemember = value!;
                               });
                             },
                           ),

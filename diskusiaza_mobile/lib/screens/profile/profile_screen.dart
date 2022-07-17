@@ -4,10 +4,8 @@ import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/list_tile_leading_title.dart';
-import 'package:diskusiaza_mobile/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -61,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          (value.dataProfile!.foto != null ||
+                          !(value.dataProfile!.foto != null ||
                                   value.dataProfile!.foto != "")
                               ? AvatarPict(
                                   urlPict: value.dataProfile!.foto!,
@@ -182,6 +180,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onCreate: () {
                       Provider.of<AuthServices>(context, listen: false)
                           .getLogout(context);
+                      Provider.of<AuthServices>(context, listen: false)
+                          .checkRememberMe();
                     },
                     icons: Icons.next_plan_outlined,
                     title: 'Keluar',

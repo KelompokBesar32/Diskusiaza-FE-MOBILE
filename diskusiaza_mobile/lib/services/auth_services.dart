@@ -12,6 +12,8 @@ class AuthServices extends ChangeNotifier {
   final UserModelApi _userModelApi = UserModelApi();
 
   String? token;
+  bool isRemember = false;
+  String? emailRemember;
 
   void changeState(DataState state) {
     dataState = state;
@@ -33,6 +35,12 @@ class AuthServices extends ChangeNotifier {
       if (getToken?.token != null) {
         updateToken(getToken?.token);
       }
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      await prefs.setBool('isRemember', isRemember);
+
+      rememberMe(email);
 
       changeState(DataState.filled);
     } catch (e) {
@@ -113,5 +121,38 @@ class AuthServices extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future rememberMe(String? myEmail) async {
+    try {
+      if (isRemember == true) {
+        emailRemember = myEmail;
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        await prefs.setString('remember', emailRemember!);
+      } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        await prefs.setString('remember', '');
+        await prefs.setBool('isRemember', false);
+      }
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future checkRememberMe() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var emailRes = prefs.getString('remember');
+
+    if (emailRes != null && emailRes != '') {
+      emailRemember = emailRes;
+      isRemember = true;
+    } else {
+      emailRemember = '';
+      isRemember = false;
+    }
   }
 }

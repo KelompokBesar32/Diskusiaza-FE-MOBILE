@@ -1,5 +1,4 @@
 import 'package:diskusiaza_mobile/shared/constant.dart';
-import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/button_tertiary.dart';
 import 'package:flutter/material.dart';
 

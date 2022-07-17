@@ -108,7 +108,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                     Positioned(
                                       left: 12,
                                       bottom: 0,
-                                      child: (manager.dataProfile!.foto !=
+                                      child: !(manager.dataProfile!.foto !=
                                                   null ||
                                               manager.dataProfile!.foto != "")
                                           ? AvatarPict(
