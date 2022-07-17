@@ -175,7 +175,7 @@ class CheckBoxList {
       ),
       CheckBoxList(
         id: 4,
-        title: 'Context Creator Ngetop',
+        title: 'Content Creator Ngetop',
         isCheck: false,
       ),
     ];

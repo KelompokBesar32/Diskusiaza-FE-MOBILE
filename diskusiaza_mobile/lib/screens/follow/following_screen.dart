@@ -1,4 +1,4 @@
-import 'package:diskusiaza_mobile/models/api/following.dart';
+import 'package:diskusiaza_mobile/models/following.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/follow_list_tile.dart';
 import 'package:flutter/material.dart';

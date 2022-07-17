@@ -4,6 +4,7 @@ import 'package:diskusiaza_mobile/screens/follow/followers_screen.dart';
 import 'package:diskusiaza_mobile/screens/follow/following_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
+import 'package:diskusiaza_mobile/screens/jawab/jawab_screen.dart';
 import 'package:diskusiaza_mobile/screens/kebijakan/kebijakan_screen.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:diskusiaza_mobile/screens/message/message_screen.dart';
@@ -191,6 +192,12 @@ class MyApp extends StatelessWidget {
             case '/ruang/antrean':
               return PageTransition(
                 child: const AntreanScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/jawab':
+              return PageTransition(
+                child: const JawabScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
