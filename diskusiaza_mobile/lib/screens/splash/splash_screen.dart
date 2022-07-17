@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
+      Provider.of<AuthServices>(context, listen: false).checkRememberMe();
     });
   }
 

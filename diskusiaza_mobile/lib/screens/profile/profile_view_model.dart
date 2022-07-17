@@ -128,15 +128,11 @@ class ProfileViewModel extends ChangeNotifier {
 
       var myToken = tokenPrefs.getString('token');
 
-      print('status1 : $status');
-
       if (status == 'Publik') {
         status = 'active';
       } else {
         status == 'not_active';
       }
-
-      print('status2 : $status');
 
       await _userThreadApi.updateThread(
         myToken!,

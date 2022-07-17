@@ -1,7 +1,6 @@
 import 'package:diskusiaza_mobile/models/followers.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
-import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/for_following_card.dart';
 import 'package:diskusiaza_mobile/widgets/search_field.dart';
 import 'package:flutter/material.dart';
