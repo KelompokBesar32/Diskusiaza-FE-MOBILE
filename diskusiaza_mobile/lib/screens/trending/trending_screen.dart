@@ -38,6 +38,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
     var mediaQueryData = MediaQuery.of(context);
     var height = mediaQueryData.size.height;
     var width = mediaQueryData.size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
