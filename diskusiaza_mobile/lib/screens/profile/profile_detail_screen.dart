@@ -166,24 +166,48 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      '118',
-                                      style: poppinsRegular(14, Colors.black),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/following');
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            '118',
+                                            style: poppinsRegular(
+                                                14, Colors.black),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            'Mengikuti',
+                                            style: poppinsRegular(
+                                                14, Colors.black54),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      'Mengikuti',
-                                      style: poppinsRegular(14, Colors.black54),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Text(
-                                      '69',
-                                      style: poppinsRegular(14, Colors.black),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      'Pengikut',
-                                      style: poppinsRegular(14, Colors.black54),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/followers');
+                                      },
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(width: 30),
+                                          Text(
+                                            '69',
+                                            style: poppinsRegular(
+                                                14, Colors.black),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            'Pengikut',
+                                            style: poppinsRegular(
+                                                14, Colors.black54),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

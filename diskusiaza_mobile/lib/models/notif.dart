@@ -20,20 +20,20 @@ var notifList = [
     pengirim: 'Bambang Tampan',
     waktu: '28 Mei',
     desc: 'Sebutkan 5 nama-nama mantan terindah kamu?',
-    pictUrl: 'assets/images/notif1.jpg',
+    pictUrl: 'assets/images/user1.jpg',
   ),
   Notif(
     grupName: 'Ruang Jomblo',
     pengirim: 'Miku yang tersakiti',
     waktu: '28 Mei',
     desc: 'Berapa lama lu jomblo?',
-    pictUrl: 'assets/images/notif2.jpg',
+    pictUrl: 'assets/images/user2.jpg',
   ),
   Notif(
     grupName: 'Akane Mizuno',
     pengirim: 'luffy si penyayang',
     waktu: '28 Mei',
     desc: 'Siapa waifu kamu?',
-    pictUrl: 'assets/images/notif3.jpg',
+    pictUrl: 'assets/images/user3.jpg',
   ),
 ];

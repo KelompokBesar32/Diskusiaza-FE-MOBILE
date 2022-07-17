@@ -24,8 +24,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
-      print(
-          'Foto : ${Provider.of<ProfileViewModel>(context, listen: false).dataProfile!.foto.toString()}');
     });
   }
 
@@ -112,24 +110,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                '118',
-                                style: poppinsRegular(14, Colors.black),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/following');
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '118',
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      'Mengikuti',
+                                      style: poppinsRegular(14, Colors.black54),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(width: 5),
-                              Text(
-                                'Mengikuti',
-                                style: poppinsRegular(14, Colors.black54),
-                              ),
-                              const SizedBox(width: 30),
-                              Text(
-                                '69',
-                                style: poppinsRegular(14, Colors.black),
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                'Pengikut',
-                                style: poppinsRegular(14, Colors.black54),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/followers');
+                                },
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 30),
+                                    Text(
+                                      '69',
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      'Pengikut',
+                                      style: poppinsRegular(14, Colors.black54),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

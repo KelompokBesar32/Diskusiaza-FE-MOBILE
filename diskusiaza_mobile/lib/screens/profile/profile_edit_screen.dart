@@ -1,6 +1,5 @@
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
-import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
 import 'package:diskusiaza_mobile/widgets/input_date_picker.dart';

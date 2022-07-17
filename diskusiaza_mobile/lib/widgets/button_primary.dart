@@ -5,11 +5,13 @@ class ButtonPrimary extends StatelessWidget {
   const ButtonPrimary({
     Key? key,
     required this.width,
+    this.height,
     required this.label,
     required this.onCreate,
   }) : super(key: key);
 
   final double width;
+  final double? height;
   final String label;
   final Function() onCreate;
 
@@ -17,7 +19,7 @@ class ButtonPrimary extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 46,
+      height: (height == null) ? 46 : height,
       child: TextButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(infoColor),

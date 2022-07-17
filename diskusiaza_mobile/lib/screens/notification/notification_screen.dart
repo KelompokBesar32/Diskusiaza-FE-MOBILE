@@ -1,5 +1,6 @@
 import 'package:diskusiaza_mobile/models/notif.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
 import 'package:diskusiaza_mobile/widgets/notification_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -30,25 +31,38 @@ class NotificationScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        // padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          height: height,
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return NotificationListTile(
-                grupName: notifList[index].grupName!,
-                pengirim: notifList[index].pengirim!,
-                waktu: notifList[index].waktu!,
-                desc: notifList[index].desc!,
-                pictUrl: notifList[index].pictUrl!,
-                onTap: () {},
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: notifList.length,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+              width: 210,
+              child: ButtonSecondary(
+                title: 'Tandai sudah dibaca',
+                icon: Icons.done_all,
+                onCreate: () {},
+              ),
+            ),
+            SizedBox(
+              height: height,
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return NotificationListTile(
+                    grupName: notifList[index].grupName!,
+                    pengirim: notifList[index].pengirim!,
+                    waktu: notifList[index].waktu!,
+                    desc: notifList[index].desc!,
+                    pictUrl: notifList[index].pictUrl!,
+                    onTap: () {},
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemCount: notifList.length,
+              ),
+            ),
+          ],
         ),
       ),
     );

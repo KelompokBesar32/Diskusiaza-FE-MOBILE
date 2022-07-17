@@ -1,4 +1,6 @@
 import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
+import 'package:diskusiaza_mobile/screens/follow/followers_screen.dart';
+import 'package:diskusiaza_mobile/screens/follow/following_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
@@ -107,6 +109,18 @@ class MyApp extends StatelessWidget {
             case '/message':
               return PageTransition(
                 child: const MessageScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/following':
+              return PageTransition(
+                child: const FollowingScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/followers':
+              return PageTransition(
+                child: const FollowersScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );
