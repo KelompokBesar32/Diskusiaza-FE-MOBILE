@@ -80,3 +80,17 @@ class ExploreScreen extends StatelessWidget {
     );
   }
 }
+
+class CheckBox extends StatefulWidget {
+  CheckBox({Key? key}) : super(key: key);
+
+  @override
+  State<CheckBox> createState() => _CheckBoxState();
+}
+
+class _CheckBoxState extends State<CheckBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
