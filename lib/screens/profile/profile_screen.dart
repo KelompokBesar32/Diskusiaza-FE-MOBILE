@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          !(value.dataProfile!.foto != null ||
+                          (value.dataProfile!.foto != null &&
                                   value.dataProfile!.foto != "")
                               ? AvatarPict(
                                   urlPict: value.dataProfile!.foto!,

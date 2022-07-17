@@ -193,7 +193,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       ),
                                     ),
                                   )
-                                : (urlPict != null || urlPict != "")
+                                : (urlPict != null && urlPict != "")
                                     ? CircleAvatar(
                                         radius: 45,
                                         child: ClipOval(
