@@ -37,58 +37,68 @@ class ThreadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: (file == null || file == '') ? 200 : 400,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Stack(
+    return Row(
+      children: [
+        Flexible(
+          child: Column(
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    isUser
-                        ? Row(
-                            children: [
-                              Text(
-                                authorName,
-                                style: poppinsRegular(14, Colors.black),
-                              ),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Text(
-                                authorName,
-                                style: poppinsRegular(14, Colors.black),
-                              ),
-                              const SizedBox(width: 8),
-                              const Icon(
-                                Icons.noise_control_off_sharp,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Ikuti',
-                                style: poppinsRegular(14, infoColor),
-                              ),
-                            ],
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          isUser
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      authorName,
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    Text(
+                                      authorName,
+                                      style: poppinsRegular(14, Colors.black),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Icon(
+                                      Icons.noise_control_off_sharp,
+                                      size: 14,
+                                      color: Colors.grey,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Ikuti',
+                                      style: poppinsRegular(14, infoColor),
+                                    ),
+                                  ],
+                                ),
+                          SizedBox(
+                            width: width * 0.4,
+                            child: Text(
+                              kategoriName,
+                              textAlign: TextAlign.end,
+                              style: poppinsLight(13, Colors.black),
+                            ),
                           ),
-                    const SizedBox(height: 4),
-                    Text(
-                      judul,
-                      style: poppinsMedium(14, Colors.black),
-                    ),
-                    SizedBox(
-                      height: 65,
-                      child: Text(
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        judul,
+                        style: poppinsMedium(14, Colors.black),
+                      ),
+                      Text(
                         isi,
                         textAlign: TextAlign.justify,
                         overflow: TextOverflow.ellipsis,
@@ -96,164 +106,155 @@ class ThreadCard extends StatelessWidget {
                         maxLines: 5,
                         style: poppinsLight(13, Colors.black),
                       ),
-                    ),
-                    (file == null || file == '')
-                        ? const SizedBox()
-                        : Image.network(
-                            file!,
-                            width: double.infinity,
-                            height: 200,
-                          ),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 0,
-                bottom: 0,
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            if (isUser == true) {
-                              await Provider.of<ProfileViewModel>(context,
-                                      listen: false)
-                                  .postLikeThread(
-                                id,
-                                index,
-                                context,
-                              );
-                            } else {
-                              await Provider.of<HomeViewModel>(context,
-                                      listen: false)
-                                  .postLikeThread(
-                                id,
-                                index,
-                                context,
-                                false,
-                              );
-                            }
-                          },
-                          child: isLike
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : const Icon(
-                                  Icons.favorite,
-                                  color: Colors.grey,
-                                ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          isLike
-                              ? (totalLike + 1).toString()
-                              : (totalLike).toString(),
-                          style: poppinsLight(13, Colors.black),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 8),
-                    Row(
-                      children: [
-                        const Icon(Icons.remove_red_eye_rounded),
-                        const SizedBox(width: 4),
-                        Text(
-                          dilihat.toString(),
-                          style: poppinsLight(13, Colors.black),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: SizedBox(
-                  width: width * 0.4,
-                  child: Text(
-                    kategoriName,
-                    textAlign: TextAlign.end,
-                    style: poppinsLight(13, Colors.black),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 0,
-                bottom: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(15),
-                        ),
-                      ),
-                      builder: (context) {
-                        return Container(
-                          height: 225,
-                          padding: const EdgeInsets.all(16),
-                          child: isUser
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ButtonIcon(
-                                      label: 'Edit',
-                                      icon: Icons.edit,
-                                      iconColor: Colors.white,
-                                      bgColor: infoColor,
-                                      outerRadius: 40,
-                                      innerRadius: 40,
-                                      onCreate: () {
-                                        threadEditDialog(context);
-                                      },
-                                    ),
-                                    ButtonIcon(
-                                      label: 'Save',
-                                      icon: Icons.bookmark,
-                                      iconColor: Colors.white,
-                                      bgColor: infoColor,
-                                      outerRadius: 40,
-                                      innerRadius: 40,
-                                      onCreate: () {},
-                                    ),
-                                    ButtonIcon(
-                                      label: 'Delete',
-                                      icon: Icons.delete_forever,
-                                      iconColor: Colors.white,
-                                      bgColor: infoColor,
-                                      outerRadius: 40,
-                                      innerRadius: 40,
-                                      onCreate: () {
-                                        Provider.of<ProfileViewModel>(context,
+                      const SizedBox(height: 12),
+                      (file == null || file == '')
+                          ? const SizedBox()
+                          : Image.network(
+                              file!,
+                              width: double.infinity,
+                              height: 180,
+                            ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (isUser == true) {
+                                        await Provider.of<ProfileViewModel>(
+                                                context,
                                                 listen: false)
-                                            .deleteThread(
+                                            .postLikeThread(
                                           id,
+                                          index,
                                           context,
                                         );
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: const [],
+                                      } else {
+                                        await Provider.of<HomeViewModel>(
+                                                context,
+                                                listen: false)
+                                            .postLikeThread(
+                                          id,
+                                          index,
+                                          context,
+                                          false,
+                                        );
+                                      }
+                                    },
+                                    child: isLike
+                                        ? const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : const Icon(
+                                            Icons.favorite,
+                                            color: Colors.grey,
+                                          ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    isLike
+                                        ? (totalLike + 1).toString()
+                                        : (totalLike).toString(),
+                                    style: poppinsLight(13, Colors.black),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 8),
+                              Row(
+                                children: [
+                                  const Icon(Icons.remove_red_eye_rounded),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    dilihat.toString(),
+                                    style: poppinsLight(13, Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(15),
+                                  ),
                                 ),
-                        );
-                      },
-                    );
-                  },
-                  child: const Icon(Icons.more_horiz),
+                                builder: (context) {
+                                  return Container(
+                                    height: 225,
+                                    padding: const EdgeInsets.all(16),
+                                    child: isUser
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              ButtonIcon(
+                                                label: 'Edit',
+                                                icon: Icons.edit,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 40,
+                                                innerRadius: 40,
+                                                onCreate: () {
+                                                  threadEditDialog(context);
+                                                },
+                                              ),
+                                              ButtonIcon(
+                                                label: 'Save',
+                                                icon: Icons.bookmark,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 40,
+                                                innerRadius: 40,
+                                                onCreate: () {},
+                                              ),
+                                              ButtonIcon(
+                                                label: 'Delete',
+                                                icon: Icons.delete_forever,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 40,
+                                                innerRadius: 40,
+                                                onCreate: () {
+                                                  Provider.of<ProfileViewModel>(
+                                                          context,
+                                                          listen: false)
+                                                      .deleteThread(
+                                                    id,
+                                                    context,
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          )
+                                        : Row(
+                                            children: const [],
+                                          ),
+                                  );
+                                },
+                              );
+                            },
+                            child: const Icon(Icons.more_horiz),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 

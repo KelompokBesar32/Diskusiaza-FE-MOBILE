@@ -1,8 +1,10 @@
+import 'package:diskusiaza_mobile/screens/bookmarks/bookmarks.dart';
 import 'package:diskusiaza_mobile/screens/explore/explore_screen.dart';
 import 'package:diskusiaza_mobile/screens/follow/followers_screen.dart';
 import 'package:diskusiaza_mobile/screens/follow/following_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
+import 'package:diskusiaza_mobile/screens/kebijakan/kebijakan_screen.dart';
 import 'package:diskusiaza_mobile/screens/login/login_screen.dart';
 import 'package:diskusiaza_mobile/screens/message/message_screen.dart';
 import 'package:diskusiaza_mobile/screens/notification/notification_screen.dart';
@@ -12,6 +14,7 @@ import 'package:diskusiaza_mobile/screens/profile/profile_screen.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/screens/register/register_screen.dart';
 import 'package:diskusiaza_mobile/screens/splash/splash_screen.dart';
+import 'package:diskusiaza_mobile/screens/support/support_screen.dart';
 import 'package:diskusiaza_mobile/screens/trending/trending_screen.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +124,24 @@ class MyApp extends StatelessWidget {
             case '/followers':
               return PageTransition(
                 child: const FollowersScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/kebijakan':
+              return PageTransition(
+                child: const KebijakanScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/support':
+              return PageTransition(
+                child: const SupportScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            case '/bookmarks':
+              return PageTransition(
+                child: const BookmarksScreen(),
                 type: PageTransitionType.fade,
                 settings: settings,
               );

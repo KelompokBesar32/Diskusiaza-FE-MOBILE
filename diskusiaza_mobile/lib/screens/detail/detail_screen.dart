@@ -110,11 +110,17 @@ class _DetailScreenState extends State<DetailScreen> {
                           Text(
                             value.threadDetail!.isi!,
                             textAlign: TextAlign.justify,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                            maxLines: 5,
                             style: poppinsLight(13, Colors.black),
                           ),
+                          const SizedBox(height: 12),
+                          (value.threadDetail!.file == null ||
+                                  value.threadDetail!.file == '')
+                              ? const SizedBox()
+                              : Image.network(
+                                  value.threadDetail!.file!,
+                                  width: double.infinity,
+                                  height: 200,
+                                ),
                           const SizedBox(height: 12),
                           Row(
                             children: [
@@ -218,19 +224,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
               );
-
-              //     Column(
-              //   children: [
-              //     Text(value.threadDetail!.judul!),
-              //     Text(
-              //       value.threadDetail!.isi!,
-              //       textAlign: TextAlign.justify,
-              //     ),
-              //     Text(value.threadDetail!.dilihat.toString()),
-              //     Text(value.threadDetail!.totalLike!.toString()),
-              //     Text(value.threadDetail!.kategoriName!),
-              //   ],
-              // );
             },
           ),
         ),

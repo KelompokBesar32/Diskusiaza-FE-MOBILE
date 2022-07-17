@@ -161,7 +161,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Profile',
                   ),
                   ListTileLeadingTitle(
-                    onCreate: () {},
+                    onCreate: () {
+                      Navigator.pushNamed(context, '/bookmarks');
+                    },
                     icons: Icons.bookmark,
                     title: 'Bookmarks',
                   ),
@@ -176,7 +178,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Ruang',
                   ),
                   ListTileLeadingTitle(
-                    onCreate: () {},
+                    onCreate: () {
+                      Navigator.pushNamed(context, '/kebijakan');
+                    },
                     icons: Icons.privacy_tip_sharp,
                     title: 'Kebijakan Privasi',
                   ),
