@@ -175,6 +175,8 @@ class ThreadCard extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.message),
                             ],
                           ),
                           GestureDetector(

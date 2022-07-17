@@ -120,11 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 passwordVisible = !passwordVisible;
                               });
                             },
-                            icon: Icon(
-                              passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
+                            icon: passwordVisible
+                                ? const Icon(
+                                    Icons.visibility,
+                                  )
+                                : const Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.black54,
+                                  ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),

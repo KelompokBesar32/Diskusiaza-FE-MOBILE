@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:diskusiaza_mobile/models/api/thread_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
+import 'package:diskusiaza_mobile/models/comment.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
@@ -107,6 +108,8 @@ class HomeViewModel extends ChangeNotifier {
 
       threadDetail = await _threadApi.getThreadById(myToken!, getId, context);
 
+      getCommentByThreadId(getId, context);
+
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);
@@ -136,5 +139,46 @@ class HomeViewModel extends ChangeNotifier {
     }
 
     Navigator.pop(context);
+  }
+
+  List<Comment?>? allCommentList = [];
+
+  Future getCommentByThreadId(int getId, var context) async {
+    try {
+      allCommentList = await _threadApi.getCommentByThread(getId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postComment(int getId, String getComment, var context) async {
+    try {
+      await _threadApi.postCreateComment(getId, getComment, context);
+
+      getCommentByThreadId(getId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postReplyComment(
+    int threadId,
+    int getId,
+    String getComment,
+    var context,
+  ) async {
+    try {
+      await _threadApi.postReplyComment(getId, getComment, context);
+
+      getCommentByThreadId(threadId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
   }
 }

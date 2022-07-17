@@ -344,6 +344,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       const SizedBox(height: 16),
                       InputTextField(
                         controller: phoneController,
+                        isPhone: true,
                         hintText: 'Phone Number',
                         validator: (value) {
                           return null;

@@ -37,6 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var mediaQueryData = MediaQuery.of(context);
     var height = mediaQueryData.size.height;
     var width = mediaQueryData.size.width;
+
+    final manager = Provider.of<HomeViewModel>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -108,11 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Provider.of<HomeViewModel>(context, listen: false)
-                                .getThreadById(
-                              value.allThreadList[index].id!,
-                              context,
-                            );
+                            manager.getThreadById(
+                                value.allThreadList[index].id!, context);
+
                             Navigator.push(
                               context,
                               PageTransition(
