@@ -1,14 +1,17 @@
+import 'package:diskusiaza_mobile/screens/detail/detail_screen.dart';
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class ThreadCard extends StatelessWidget {
   final int index;
   final int id;
+  final int userId;
   final String judul;
   final String isi;
   final String? file;
@@ -17,12 +20,12 @@ class ThreadCard extends StatelessWidget {
   final String authorName;
   final int totalLike;
   final bool isLike;
-  final bool isUser;
   final double width;
   const ThreadCard({
     Key? key,
     required this.index,
     required this.id,
+    required this.userId,
     required this.judul,
     required this.isi,
     required this.file,
@@ -31,12 +34,14 @@ class ThreadCard extends StatelessWidget {
     required this.authorName,
     required this.totalLike,
     required this.isLike,
-    required this.isUser,
     required this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final manager = Provider.of<HomeViewModel>(context, listen: false);
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
     return Row(
       children: [
         Flexible(
@@ -55,7 +60,7 @@ class ThreadCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          isUser
+                          (managerUser.dataProfile!.id == userId)
                               ? Row(
                                   children: [
                                     Text(
@@ -114,7 +119,7 @@ class ThreadCard extends StatelessWidget {
                               width: double.infinity,
                               height: 180,
                             ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -124,7 +129,8 @@ class ThreadCard extends StatelessWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () async {
-                                      if (isUser == true) {
+                                      if (managerUser.dataProfile!.id ==
+                                          userId) {
                                         await Provider.of<ProfileViewModel>(
                                                 context,
                                                 listen: false)
@@ -176,7 +182,30 @@ class ThreadCard extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(width: 8),
-                              const Icon(Icons.message),
+                              GestureDetector(
+                                onTap: () {
+                                  manager.getThreadById(id, context);
+
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: DetailScreen(
+                                        id: id,
+                                        userId: managerUser.dataProfile!.id!,
+                                        index: index,
+                                        isUser: false,
+                                      ),
+                                      type: PageTransitionType.fade,
+                                      inheritTheme: true,
+                                      ctx: context,
+                                    ),
+                                  );
+
+                                  modalBottomComment(
+                                      context, width, false, 0, id);
+                                },
+                                child: const Icon(Icons.message),
+                              ),
                             ],
                           ),
                           GestureDetector(
@@ -190,9 +219,9 @@ class ThreadCard extends StatelessWidget {
                                 ),
                                 builder: (context) {
                                   return Container(
-                                    height: 225,
+                                    height: 100,
                                     padding: const EdgeInsets.all(16),
-                                    child: isUser
+                                    child: managerUser.dataProfile!.id == userId
                                         ? Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
@@ -204,8 +233,8 @@ class ThreadCard extends StatelessWidget {
                                                 icon: Icons.edit,
                                                 iconColor: Colors.white,
                                                 bgColor: infoColor,
-                                                outerRadius: 40,
-                                                innerRadius: 40,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
                                                 onCreate: () {
                                                   threadEditDialog(context);
                                                 },
@@ -215,8 +244,17 @@ class ThreadCard extends StatelessWidget {
                                                 icon: Icons.bookmark,
                                                 iconColor: Colors.white,
                                                 bgColor: infoColor,
-                                                outerRadius: 40,
-                                                innerRadius: 40,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
+                                                onCreate: () {},
+                                              ),
+                                              ButtonIcon(
+                                                label: 'Shared',
+                                                icon: Icons.share,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
                                                 onCreate: () {},
                                               ),
                                               ButtonIcon(
@@ -224,8 +262,8 @@ class ThreadCard extends StatelessWidget {
                                                 icon: Icons.delete_forever,
                                                 iconColor: Colors.white,
                                                 bgColor: infoColor,
-                                                outerRadius: 40,
-                                                innerRadius: 40,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
                                                 onCreate: () {
                                                   Provider.of<ProfileViewModel>(
                                                           context,
@@ -239,7 +277,30 @@ class ThreadCard extends StatelessWidget {
                                             ],
                                           )
                                         : Row(
-                                            children: const [],
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              ButtonIcon(
+                                                label: 'Save',
+                                                icon: Icons.bookmark,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
+                                                onCreate: () {},
+                                              ),
+                                              ButtonIcon(
+                                                label: 'Shared',
+                                                icon: Icons.share,
+                                                iconColor: Colors.white,
+                                                bgColor: infoColor,
+                                                outerRadius: 20,
+                                                innerRadius: 20,
+                                                onCreate: () {},
+                                              ),
+                                            ],
                                           ),
                                   );
                                 },
@@ -549,6 +610,75 @@ class ThreadCard extends StatelessWidget {
                 );
               }),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> modalBottomComment(BuildContext context, double width,
+      bool isReply, int? commentId, int getId) {
+    final commentController = TextEditingController();
+
+    return showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(15),
+        ),
+      ),
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width * 0.8,
+                child: TextFormField(
+                  controller: commentController,
+                  autofocus: true,
+                  textInputAction: TextInputAction.done,
+                  minLines: 1,
+                  maxLines: 15,
+                  decoration: const InputDecoration(
+                    hintText: 'Tambahkan Komentar',
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  if (commentController.text.isNotEmpty) {
+                    if (isReply == false) {
+                      Provider.of<HomeViewModel>(context, listen: false)
+                          .postComment(
+                        getId,
+                        commentController.text,
+                        context,
+                      );
+                    } else {
+                      Provider.of<HomeViewModel>(context, listen: false)
+                          .postReplyComment(
+                        getId,
+                        commentId!,
+                        commentController.text,
+                        context,
+                      );
+                    }
+                  } else {
+                    Navigator.pop(context);
+                  }
+                  commentController.text = '';
+                },
+                icon: const Icon(
+                  Icons.send,
+                  color: infoColor,
+                ),
+              ),
+            ],
           ),
         );
       },

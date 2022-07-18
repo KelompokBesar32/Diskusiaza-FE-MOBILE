@@ -20,6 +20,7 @@ class ResponseResultThreadDetail {
 
 class Thread {
   int? id;
+  int? userId;
   String? judul;
   String? isi;
   String? file;
@@ -35,6 +36,7 @@ class Thread {
 
   Thread({
     this.id,
+    this.userId,
     this.judul,
     this.isi,
     this.file,
@@ -51,6 +53,7 @@ class Thread {
 
   Thread.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    userId = json['user_id'];
     judul = json['judul'];
     isi = json['isi'];
     file = json['file'];
@@ -68,6 +71,7 @@ class Thread {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['userId'] = userId;
     data['judul'] = judul;
     data['isi'] = isi;
     data['file'] = file;

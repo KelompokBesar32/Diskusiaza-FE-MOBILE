@@ -1,17 +1,21 @@
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
+import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final int id;
+  final int userId;
   final int index;
   final bool isUser;
   const DetailScreen({
     Key? key,
     required this.id,
+    required this.userId,
     required this.index,
     required this.isUser,
   }) : super(key: key);
@@ -37,6 +41,10 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     var mediaQueryData = MediaQuery.of(context);
     var width = mediaQueryData.size.width;
+
+    final manager = Provider.of<HomeViewModel>(context, listen: false);
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -86,25 +94,53 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  value.threadDetail!.authorName!,
-                                  style: poppinsRegular(14, Colors.black),
-                                ),
-                                const SizedBox(width: 8),
-                                const Icon(
-                                  Icons.noise_control_off_sharp,
-                                  size: 14,
-                                  color: Colors.grey,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Ikuti',
-                                  style: poppinsRegular(14, infoColor),
-                                ),
-                              ],
-                            ),
+                            (managerUser.dataProfile!.id == widget.userId)
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        value.threadDetail!.authorName!,
+                                        style: poppinsRegular(14, Colors.black),
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        value.threadDetail!.authorName!,
+                                        style: poppinsRegular(14, Colors.black),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Icon(
+                                        Icons.noise_control_off_sharp,
+                                        size: 14,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'Ikuti',
+                                        style: poppinsRegular(14, infoColor),
+                                      ),
+                                    ],
+                                  ),
+                            // Row(
+                            //   children: [
+                            //     Text(
+                            //       value.threadDetail!.authorName!,
+                            //       style: poppinsRegular(14, Colors.black),
+                            //     ),
+                            //     const SizedBox(width: 8),
+                            //     const Icon(
+                            //       Icons.noise_control_off_sharp,
+                            //       size: 14,
+                            //       color: Colors.grey,
+                            //     ),
+                            //     const SizedBox(width: 8),
+                            //     Text(
+                            //       'Ikuti',
+                            //       style: poppinsRegular(14, infoColor),
+                            //     ),
+                            //   ],
+                            // ),
                             const SizedBox(height: 4),
                             Text(
                               value.threadDetail!.judul!,
@@ -221,11 +257,79 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               builder: (context) {
                                 return Container(
-                                  height: 225,
+                                  height: 100,
                                   padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    children: const [],
-                                  ),
+                                  child: managerUser.dataProfile!.id ==
+                                          widget.userId
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            ButtonIcon(
+                                              label: 'Save',
+                                              icon: Icons.bookmark,
+                                              iconColor: Colors.white,
+                                              bgColor: infoColor,
+                                              outerRadius: 20,
+                                              innerRadius: 20,
+                                              onCreate: () {},
+                                            ),
+                                            ButtonIcon(
+                                              label: 'Shared',
+                                              icon: Icons.share,
+                                              iconColor: Colors.white,
+                                              bgColor: infoColor,
+                                              outerRadius: 20,
+                                              innerRadius: 20,
+                                              onCreate: () {},
+                                            ),
+                                            ButtonIcon(
+                                              label: 'Delete',
+                                              icon: Icons.delete_forever,
+                                              iconColor: Colors.white,
+                                              bgColor: infoColor,
+                                              outerRadius: 20,
+                                              innerRadius: 20,
+                                              onCreate: () {
+                                                Provider.of<ProfileViewModel>(
+                                                        context,
+                                                        listen: false)
+                                                    .deleteThread(
+                                                  widget.id,
+                                                  context,
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            ButtonIcon(
+                                              label: 'Save',
+                                              icon: Icons.bookmark,
+                                              iconColor: Colors.white,
+                                              bgColor: infoColor,
+                                              outerRadius: 20,
+                                              innerRadius: 20,
+                                              onCreate: () {},
+                                            ),
+                                            ButtonIcon(
+                                              label: 'Shared',
+                                              icon: Icons.share,
+                                              iconColor: Colors.white,
+                                              bgColor: infoColor,
+                                              outerRadius: 20,
+                                              innerRadius: 20,
+                                              onCreate: () {},
+                                            ),
+                                          ],
+                                        ),
                                 );
                               },
                             );

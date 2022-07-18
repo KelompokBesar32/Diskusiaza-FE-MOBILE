@@ -123,6 +123,8 @@ class TrendingThisWeek extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
     return SingleChildScrollView(
       child: Consumer<HomeViewModel>(
         builder: (context, value, child) {
@@ -164,6 +166,7 @@ class TrendingThisWeek extends StatelessWidget {
                       PageTransition(
                         child: DetailScreen(
                           id: value.allThreadList[index].id!,
+                          userId: value.allThreadList[index].userId!,
                           index: index,
                           isUser: false,
                         ),
@@ -176,6 +179,7 @@ class TrendingThisWeek extends StatelessWidget {
                   child: ThreadCard(
                     index: index,
                     id: value.allThreadList[index].id!,
+                    userId: value.allThreadList[index].userId!,
                     judul: value.allThreadList[index].judul!,
                     isi: value.allThreadList[index].isi!,
                     file: value.allThreadList[index].file!,
@@ -184,7 +188,6 @@ class TrendingThisWeek extends StatelessWidget {
                     authorName: value.allThreadList[index].authorName!,
                     totalLike: value.allThreadList[index].totalLike!,
                     isLike: value.allThreadList[index].isLike!,
-                    isUser: false,
                     width: width,
                   ),
                 );

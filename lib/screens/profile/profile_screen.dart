@@ -100,7 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      '118',
+                                      value.dataProfile!.totalFollowed
+                                          .toString(),
                                       style: poppinsRegular(14, Colors.black),
                                     ),
                                     const SizedBox(width: 5),
@@ -119,7 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   children: [
                                     const SizedBox(width: 30),
                                     Text(
-                                      '69',
+                                      value.dataProfile!.totalFollowers
+                                          .toString(),
                                       style: poppinsRegular(14, Colors.black),
                                     ),
                                     const SizedBox(width: 5),

@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var width = mediaQueryData.size.width;
 
     final manager = Provider.of<HomeViewModel>(context, listen: false);
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -119,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               PageTransition(
                                 child: DetailScreen(
                                   id: value.allThreadList[index].id!,
+                                  userId: value.allThreadList[index].userId!,
                                   index: index,
                                   isUser: false,
                                 ),
@@ -131,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ThreadCard(
                             index: index,
                             id: value.allThreadList[index].id!,
+                            userId: value.allThreadList[index].userId!,
                             judul: value.allThreadList[index].judul!,
                             isi: value.allThreadList[index].isi!,
                             file: value.allThreadList[index].file!,
@@ -140,7 +143,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             authorName: value.allThreadList[index].authorName!,
                             totalLike: value.allThreadList[index].totalLike!,
                             isLike: value.allThreadList[index].isLike!,
-                            isUser: false,
                             width: width,
                           ),
                         );

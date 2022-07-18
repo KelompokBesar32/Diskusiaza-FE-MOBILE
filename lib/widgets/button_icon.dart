@@ -41,7 +41,7 @@ class ButtonIcon extends StatelessWidget {
           Text(
             label,
             style: poppinsRegular(
-              18,
+              14,
               Colors.black,
             ),
           ),
