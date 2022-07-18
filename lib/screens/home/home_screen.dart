@@ -39,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var width = mediaQueryData.size.width;
 
     final manager = Provider.of<HomeViewModel>(context, listen: false);
-    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

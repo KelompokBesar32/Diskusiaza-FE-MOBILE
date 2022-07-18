@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/following');
+                                  value.getFollowers(context);
                                 },
                                 child: Row(
                                   children: [
@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/followers');
+                                  value.getFollowing(context);
                                 },
                                 child: Row(
                                   children: [

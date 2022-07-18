@@ -292,4 +292,70 @@ class UserModelApi {
       );
     }
   }
+
+  Future<List<UserModel>> getFollowers(String getToken, var context) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.get('t/user/followers');
+
+      ResponseResultFollow responseResult =
+          ResponseResultFollow.fromJson(response.data);
+
+      print('response : ${responseResult.data}');
+
+      Navigator.pushNamed(context, '/followers');
+
+      return responseResult.data;
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return [];
+  }
+
+  Future<List<UserModel>> getFollowing(String getToken, var context) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.get('t/user/followed');
+
+      ResponseResultFollow responseResult =
+          ResponseResultFollow.fromJson(response.data);
+
+      print('response : ${responseResult.data}');
+
+      Navigator.pushNamed(context, '/following');
+
+      return responseResult.data;
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return [];
+  }
 }

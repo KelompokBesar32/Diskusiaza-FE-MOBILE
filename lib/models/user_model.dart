@@ -1,3 +1,18 @@
+class ResponseResultFollow {
+  dynamic data;
+
+  ResponseResultFollow({this.data});
+
+  ResponseResultFollow.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <UserModel>[];
+      json['data'].forEach((v) {
+        data!.add(UserModel.fromJson(v));
+      });
+    }
+  }
+}
+
 class ResponseResultUserModel {
   dynamic data;
 

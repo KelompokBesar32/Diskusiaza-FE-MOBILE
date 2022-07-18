@@ -237,4 +237,43 @@ class ProfileViewModel extends ChangeNotifier {
 
     Navigator.pop(context);
   }
+
+  List<UserModel>? followersList = [];
+  List<UserModel>? followingList = [];
+
+  Future getFollowers(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      String? myToken = tokenPrefs.getString('token');
+
+      followersList = await _userModelApi.getFollowers(myToken!, context);
+
+      getDataProfile(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future getFollowing(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      String? myToken = tokenPrefs.getString('token');
+
+      followingList = await _userModelApi.getFollowing(myToken!, context);
+
+      getDataProfile(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
 }
