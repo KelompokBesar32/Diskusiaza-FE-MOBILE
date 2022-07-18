@@ -22,6 +22,7 @@ class ThreadCard extends StatelessWidget {
   final bool isLike;
   final double width;
   final bool isFollow;
+
   const ThreadCard({
     Key? key,
     required this.index,
@@ -84,9 +85,12 @@ class ThreadCard extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     const SizedBox(width: 8),
-                                    isFollow
+                                    (isFollow == true)
                                         ? GestureDetector(
-                                            onTap: () {},
+                                            onTap: () async {
+                                              await managerUser.delUnFollow(
+                                                  userId, context);
+                                            },
                                             child: Text(
                                               'Diikuti',
                                               style: poppinsRegular(
@@ -94,7 +98,10 @@ class ThreadCard extends StatelessWidget {
                                             ),
                                           )
                                         : GestureDetector(
-                                            onTap: () {},
+                                            onTap: () async {
+                                              await managerUser.postFollow(
+                                                  userId, context);
+                                            },
                                             child: Text(
                                               'Ikuti',
                                               style:

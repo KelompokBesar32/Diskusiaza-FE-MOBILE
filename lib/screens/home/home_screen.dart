@@ -30,11 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
-      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
       Provider.of<ProfileViewModel>(context, listen: false)
           .getFollowers(context);
       Provider.of<ProfileViewModel>(context, listen: false)
           .getFollowing(context);
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollow(context);
     });
   }
 
@@ -118,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         final managerUser = Provider.of<ProfileViewModel>(
                             context,
                             listen: false);
-                        for (var map in managerUser.followersList!) {
+                        for (var map in managerUser.followingList!) {
                           if (map.id == value.allThreadList[index].userId) {
                             isFollow = true;
                           } else {
@@ -159,8 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             authorName: value.allThreadList[index].authorName!,
                             totalLike: value.allThreadList[index].totalLike!,
                             isLike: value.allThreadList[index].isLike!,
+                            isFollow:
+                                value.allThreadList[index].isFollow ?? false,
                             width: width,
-                            isFollow: isFollow,
                           ),
                         );
                       },

@@ -329,8 +329,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                             .totalLike!,
                                         isLike: value
                                             .allUserThreadList[index].isLike!,
+                                        isFollow: value
+                                            .allUserThreadList[index].isFollow!,
                                         width: width,
-                                        isFollow: false,
                                       ),
                                     );
                                   },

@@ -33,6 +33,7 @@ class Thread {
   bool? isLike;
   String? createdAt;
   String? updatedAt;
+  bool? isFollow;
 
   Thread({
     this.id,
@@ -49,6 +50,7 @@ class Thread {
     this.isLike,
     this.createdAt,
     this.updatedAt,
+    this.isFollow,
   });
 
   Thread.fromJson(Map<String, dynamic> json) {

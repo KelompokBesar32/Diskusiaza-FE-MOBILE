@@ -1,3 +1,5 @@
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,15 @@ class _SplashScreenState extends State<SplashScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
       Provider.of<AuthServices>(context, listen: false).checkRememberMe();
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowers(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowing(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getDataProfile(context);
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollow(context);
     });
   }
 

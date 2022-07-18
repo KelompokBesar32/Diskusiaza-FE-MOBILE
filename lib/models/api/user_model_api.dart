@@ -300,8 +300,6 @@ class UserModelApi {
       ResponseResultFollow responseResult =
           ResponseResultFollow.fromJson(response.data);
 
-      print('Response Followers : ${responseResult.data}');
-
       return responseResult.data;
     } on DioError catch (e) {
       String msg = e.response!.data
@@ -331,8 +329,6 @@ class UserModelApi {
       ResponseResultFollow responseResult =
           ResponseResultFollow.fromJson(response.data);
 
-      print('Response Following : ${responseResult.data}');
-
       return responseResult.data;
     } on DioError catch (e) {
       String msg = e.response!.data
@@ -353,18 +349,26 @@ class UserModelApi {
     return [];
   }
 
-  Future postFollowingUser(String getToken, String getIdUser) async {
+  Future postFollowingUser(String getToken, int getIdUser) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var response = await _api.dio.post(
+      await _api.dio.post(
         't/follow',
         data: {
           "followed_id": getIdUser,
         },
       );
 
-      print('Response : ${response.data}');
+      Fluttertoast.showToast(
+        msg: 'Successfull Follow',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     } on DioError catch (e) {
       String msg = e.response!.data
           .toString()
@@ -383,18 +387,25 @@ class UserModelApi {
     return null;
   }
 
-  Future delUnFollowingUser(String getToken, String getIdUser) async {
+  Future delUnFollowingUser(String getToken, int getIdUser) async {
     try {
       _api.dio.options.headers["Authorization"] = "Bearer $getToken";
 
-      var response = await _api.dio.delete(
+      await _api.dio.delete(
         't/follow',
         data: {
           "followed_id": getIdUser,
         },
       );
-
-      print('Response : ${response.data}');
+      Fluttertoast.showToast(
+        msg: 'Successfull Unfollow',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     } on DioError catch (e) {
       String msg = e.response!.data
           .toString()
