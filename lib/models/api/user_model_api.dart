@@ -83,8 +83,6 @@ class UserModelApi {
       );
 
       if (response.statusCode == 200) {
-        // final body = response.data;
-
         Navigator.of(context).pushNamed('/login');
 
         Fluttertoast.showToast(
@@ -302,9 +300,7 @@ class UserModelApi {
       ResponseResultFollow responseResult =
           ResponseResultFollow.fromJson(response.data);
 
-      print('response : ${responseResult.data}');
-
-      Navigator.pushNamed(context, '/followers');
+      print('Response Followers : ${responseResult.data}');
 
       return responseResult.data;
     } on DioError catch (e) {
@@ -335,9 +331,7 @@ class UserModelApi {
       ResponseResultFollow responseResult =
           ResponseResultFollow.fromJson(response.data);
 
-      print('response : ${responseResult.data}');
-
-      Navigator.pushNamed(context, '/following');
+      print('Response Following : ${responseResult.data}');
 
       return responseResult.data;
     } on DioError catch (e) {
@@ -357,5 +351,65 @@ class UserModelApi {
       );
     }
     return [];
+  }
+
+  Future postFollowingUser(String getToken, String getIdUser) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.post(
+        't/follow',
+        data: {
+          "followed_id": getIdUser,
+        },
+      );
+
+      print('Response : ${response.data}');
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return null;
+  }
+
+  Future delUnFollowingUser(String getToken, String getIdUser) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.delete(
+        't/follow',
+        data: {
+          "followed_id": getIdUser,
+        },
+      );
+
+      print('Response : ${response.data}');
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return null;
   }
 }

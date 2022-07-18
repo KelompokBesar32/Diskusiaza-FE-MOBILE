@@ -94,8 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  value.getFollowers(context);
+                                onTap: () async {
+                                  await value.getFollowing(context);
                                 },
                                 child: Row(
                                   children: [
@@ -113,8 +113,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  value.getFollowing(context);
+                                onTap: () async {
+                                  await value.getFollowers(context);
                                 },
                                 child: Row(
                                   children: [

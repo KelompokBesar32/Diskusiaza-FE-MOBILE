@@ -251,7 +251,7 @@ class ProfileViewModel extends ChangeNotifier {
 
       followersList = await _userModelApi.getFollowers(myToken!, context);
 
-      getDataProfile(context);
+      Navigator.pushNamed(context, '/followers');
 
       changeState(DataState.filled);
     } catch (e) {
@@ -269,7 +269,7 @@ class ProfileViewModel extends ChangeNotifier {
 
       followingList = await _userModelApi.getFollowing(myToken!, context);
 
-      getDataProfile(context);
+      Navigator.pushNamed(context, '/following');
 
       changeState(DataState.filled);
     } catch (e) {

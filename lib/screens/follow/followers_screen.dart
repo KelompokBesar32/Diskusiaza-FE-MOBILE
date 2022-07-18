@@ -21,7 +21,7 @@ class FollowersScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          'Mengikuti',
+          'Pengikut',
           style: poppinsRegular(18, Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -44,7 +44,7 @@ class FollowersScreen extends StatelessWidget {
               );
             }
 
-            if (value.followingList!.isEmpty) {
+            if (value.followersList!.isEmpty) {
               return const Center(
                 child: Text('Kosong'),
               );
@@ -59,7 +59,7 @@ class FollowersScreen extends StatelessWidget {
                     name:
                         ('${value.followersList![index].firstname!} ${value.followersList![index].lastname!}'),
                     email: value.followersList![index].email!,
-                    isFollow: true,
+                    isFollow: false,
                   );
                 },
                 separatorBuilder: (context, index) {

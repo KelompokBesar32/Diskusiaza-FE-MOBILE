@@ -123,8 +123,6 @@ class TrendingThisWeek extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
-
     return SingleChildScrollView(
       child: Consumer<HomeViewModel>(
         builder: (context, value, child) {

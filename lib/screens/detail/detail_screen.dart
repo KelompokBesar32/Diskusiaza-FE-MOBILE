@@ -1,7 +1,6 @@
 import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
-import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/bottom_navbar.dart';
 import 'package:diskusiaza_mobile/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,6 @@ class _DetailScreenState extends State<DetailScreen> {
     var mediaQueryData = MediaQuery.of(context);
     var width = mediaQueryData.size.width;
 
-    final manager = Provider.of<HomeViewModel>(context, listen: false);
     final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
 
     return Scaffold(

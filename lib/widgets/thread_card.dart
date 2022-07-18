@@ -82,9 +82,16 @@ class ThreadCard extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     const SizedBox(width: 8),
-                                    Text(
-                                      'Ikuti',
-                                      style: poppinsRegular(14, infoColor),
+                                    GestureDetector(
+                                      onTap: () {
+                                        managerUser.followersList!
+                                            .contains(userId);
+                                        print('Follow : ');
+                                      },
+                                      child: Text(
+                                        'Ikuti',
+                                        style: poppinsRegular(14, infoColor),
+                                      ),
                                     ),
                                   ],
                                 ),
