@@ -53,6 +53,22 @@ class ThreadApi {
     }
   }
 
+  Future<List<Thread>> getTrendingThread(String getToken, var context) async {
+    try {
+      var response = await _api.dio.get('t/therad/trending');
+
+      ResponseResultThread responseResult =
+          ResponseResultThread.fromJson(response.data);
+
+      List<Thread> threadList =
+          responseResult.data!.map((e) => Thread.fromJson(e)).toList();
+
+      return threadList;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future postLikeThread(String getToken, int getId, var context) async {
     try {
       await _api.dio.post(

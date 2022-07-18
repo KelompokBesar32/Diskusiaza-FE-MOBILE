@@ -142,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   userId: value.allThreadList[index].userId!,
                                   index: index,
                                   isUser: false,
+                                  isTrending: false,
                                 ),
                                 type: PageTransitionType.fade,
                                 inheritTheme: true,
@@ -165,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             isFollow:
                                 value.allThreadList[index].isFollow ?? false,
                             width: width,
+                            isTrending: false,
                           ),
                         );
                       },

@@ -22,6 +22,7 @@ class ThreadCard extends StatelessWidget {
   final bool isLike;
   final double width;
   final bool isFollow;
+  final bool isTrending;
 
   const ThreadCard({
     Key? key,
@@ -38,6 +39,7 @@ class ThreadCard extends StatelessWidget {
     required this.isLike,
     required this.width,
     required this.isFollow,
+    required this.isTrending,
   }) : super(key: key);
 
   @override
@@ -63,55 +65,58 @@ class ThreadCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          (managerUser.dataProfile!.id == userId)
-                              ? Row(
-                                  children: [
-                                    Text(
-                                      authorName,
-                                      style: poppinsRegular(14, Colors.black),
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Text(
-                                      authorName,
-                                      style: poppinsRegular(14, Colors.black),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    const Icon(
-                                      Icons.noise_control_off_sharp,
-                                      size: 14,
-                                      color: Colors.grey,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    (isFollow == true)
-                                        ? GestureDetector(
-                                            onTap: () async {
-                                              await managerUser.delUnFollow(
-                                                  userId, context);
-                                            },
-                                            child: Text(
-                                              'Diikuti',
-                                              style: poppinsRegular(
-                                                  14, Colors.black54),
-                                            ),
-                                          )
-                                        : GestureDetector(
-                                            onTap: () async {
-                                              await managerUser.postFollow(
-                                                  userId, context);
-                                            },
-                                            child: Text(
-                                              'Ikuti',
-                                              style:
-                                                  poppinsRegular(14, infoColor),
-                                            ),
-                                          ),
-                                  ],
-                                ),
                           SizedBox(
-                            width: width * 0.4,
+                            width: width * 0.55,
+                            child: (managerUser.dataProfile!.id == userId)
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        authorName,
+                                        style: poppinsRegular(14, Colors.black),
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        authorName,
+                                        style: poppinsRegular(14, Colors.black),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Icon(
+                                        Icons.noise_control_off_sharp,
+                                        size: 14,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      (isFollow == true)
+                                          ? GestureDetector(
+                                              onTap: () async {
+                                                await managerUser.delUnFollow(
+                                                    userId, context);
+                                              },
+                                              child: Text(
+                                                'Diikuti',
+                                                style: poppinsRegular(
+                                                    14, Colors.black54),
+                                              ),
+                                            )
+                                          : GestureDetector(
+                                              onTap: () async {
+                                                await managerUser.postFollow(
+                                                    userId, context);
+                                              },
+                                              child: Text(
+                                                'Ikuti',
+                                                style: poppinsRegular(
+                                                    14, infoColor),
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                          ),
+                          SizedBox(
+                            width: width * 0.35,
                             child: Text(
                               kategoriName,
                               textAlign: TextAlign.end,
@@ -170,6 +175,7 @@ class ThreadCard extends StatelessWidget {
                                           index,
                                           context,
                                           false,
+                                          isTrending,
                                         );
                                       }
                                     },
@@ -216,6 +222,7 @@ class ThreadCard extends StatelessWidget {
                                         userId: managerUser.dataProfile!.id!,
                                         index: index,
                                         isUser: false,
+                                        isTrending: isTrending,
                                       ),
                                       type: PageTransitionType.fade,
                                       inheritTheme: true,

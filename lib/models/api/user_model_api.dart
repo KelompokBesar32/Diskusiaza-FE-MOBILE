@@ -135,6 +135,21 @@ class UserModelApi {
         return 1;
       }
     } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        Navigator.of(context).pushReplacementNamed('/login');
+
+        Fluttertoast.showToast(
+          msg: "Logout Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        return null;
+      }
+
       String msg = e.response!.data
           .toString()
           .replaceAll('{message: ', '')

@@ -59,6 +59,7 @@ class HomeViewModel extends ChangeNotifier {
   final ThreadApi _threadApi = ThreadApi();
 
   List<Thread> allThreadList = [];
+  List<Thread> trendingThreadList = [];
   Thread? threadDetail;
 
   Future getAllThread(var context) async {
@@ -75,13 +76,31 @@ class HomeViewModel extends ChangeNotifier {
 
       changeState(DataState.filled);
     } catch (e) {
-      print('e getAllThread : $e');
       changeState(DataState.error);
     }
   }
 
-  Future postLikeThread(
-      int getId, int getIndex, var context, bool isDetail) async {
+  Future getTrendingThread(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      trendingThreadList =
+          await _threadApi.getTrendingThread(myToken!, context);
+
+      checkUserFollowTrending(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postLikeThread(int getId, int getIndex, var context, bool isDetail,
+      bool isTrending) async {
     try {
       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
@@ -95,7 +114,9 @@ class HomeViewModel extends ChangeNotifier {
 
       threadDetail!.isLike = result;
 
-      allThreadList[getIndex].isLike = result;
+      !isTrending
+          ? allThreadList[getIndex].isLike = result
+          : trendingThreadList[getIndex].isLike;
 
       changeState(DataState.filled);
     } catch (e) {
@@ -229,5 +250,25 @@ class HomeViewModel extends ChangeNotifier {
     //   print(
     //       'isFollow2: ${allThreadList[index].userId} ${allThreadList[index].isFollow}');
     // }
+  }
+
+  Future checkUserFollowTrending(var context) async {
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
+    try {
+      for (int i = 0; i < managerUser.followingList!.length; i++) {
+        for (int j = 0; j < allThreadList.length; j++) {
+          if (trendingThreadList[j].userId ==
+              managerUser.followingList![i].id) {
+            trendingThreadList[j].isFollow = true;
+            continue;
+          } else {
+            continue;
+          }
+        }
+      }
+    } catch (e) {
+      print('e check : $e');
+    }
   }
 }

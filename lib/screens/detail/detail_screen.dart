@@ -11,12 +11,14 @@ class DetailScreen extends StatefulWidget {
   final int userId;
   final int index;
   final bool isUser;
+  final bool isTrending;
   const DetailScreen({
     Key? key,
     required this.id,
     required this.userId,
     required this.index,
     required this.isUser,
+    required this.isTrending,
   }) : super(key: key);
 
   @override
@@ -180,6 +182,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         widget.index,
                                         context,
                                         true,
+                                        widget.isTrending,
                                       );
                                     }
                                   },

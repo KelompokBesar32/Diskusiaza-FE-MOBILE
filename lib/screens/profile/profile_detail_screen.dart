@@ -297,6 +297,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                                   .userId!,
                                               index: index,
                                               isUser: false,
+                                              isTrending: false,
                                             ),
                                             type: PageTransitionType.fade,
                                             inheritTheme: true,
@@ -332,6 +333,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                         isFollow: value
                                             .allUserThreadList[index].isFollow!,
                                         width: width,
+                                        isTrending: false,
                                       ),
                                     );
                                   },

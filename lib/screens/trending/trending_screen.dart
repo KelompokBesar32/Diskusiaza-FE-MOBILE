@@ -27,9 +27,11 @@ class _TrendingScreenState extends State<TrendingScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
-      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
-      Provider.of<HomeViewModel>(context, listen: false)
-          .checkUserFollow(context);
+      await Provider.of<HomeViewModel>(context, listen: false)
+          .getTrendingThread(context);
+      if (!mounted) return;
+      await Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollowTrending(context);
     });
   }
 
@@ -112,7 +114,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
 }
 
 class TrendingThisWeek extends StatelessWidget {
-  TrendingThisWeek({
+  const TrendingThisWeek({
     Key? key,
     required this.height,
     required this.width,
@@ -120,8 +122,6 @@ class TrendingThisWeek extends StatelessWidget {
 
   final double height;
   final double width;
-
-  bool isFollow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -137,17 +137,6 @@ class TrendingThisWeek extends StatelessWidget {
                 child: ListView.separated(
                     padding: const EdgeInsets.all(4),
                     itemBuilder: (context, index) {
-                      final managerUser =
-                          Provider.of<ProfileViewModel>(context, listen: false);
-
-                      for (var map in managerUser.followingList!) {
-                        if (map.id == value.allThreadList[index].userId) {
-                          isFollow = true;
-                        } else {
-                          isFollow = false;
-                        }
-                      }
-
                       return ShimmerCard(width: width, height: 200, radius: 15);
                     },
                     separatorBuilder: (context, index) {
@@ -176,10 +165,11 @@ class TrendingThisWeek extends StatelessWidget {
                       context,
                       PageTransition(
                         child: DetailScreen(
-                          id: value.allThreadList[index].id!,
-                          userId: value.allThreadList[index].userId!,
+                          id: value.trendingThreadList[index].id!,
+                          userId: value.trendingThreadList[index].userId!,
                           index: index,
                           isUser: false,
+                          isTrending: true,
                         ),
                         type: PageTransitionType.fade,
                         inheritTheme: true,
@@ -189,18 +179,19 @@ class TrendingThisWeek extends StatelessWidget {
                   },
                   child: ThreadCard(
                     index: index,
-                    id: value.allThreadList[index].id!,
-                    userId: value.allThreadList[index].userId!,
-                    judul: value.allThreadList[index].judul!,
-                    isi: value.allThreadList[index].isi!,
-                    file: value.allThreadList[index].file!,
-                    dilihat: value.allThreadList[index].dilihat!,
-                    kategoriName: value.allThreadList[index].kategoriName!,
-                    authorName: value.allThreadList[index].authorName!,
-                    totalLike: value.allThreadList[index].totalLike!,
-                    isLike: value.allThreadList[index].isLike!,
-                    isFollow: value.allThreadList[index].isFollow!,
+                    id: value.trendingThreadList[index].id!,
+                    userId: value.trendingThreadList[index].userId!,
+                    judul: value.trendingThreadList[index].judul!,
+                    isi: value.trendingThreadList[index].isi!,
+                    file: value.trendingThreadList[index].file!,
+                    dilihat: value.trendingThreadList[index].dilihat!,
+                    kategoriName: value.trendingThreadList[index].kategoriName!,
+                    authorName: value.trendingThreadList[index].authorName!,
+                    totalLike: value.trendingThreadList[index].totalLike!,
+                    isLike: value.trendingThreadList[index].isLike!,
+                    isFollow: value.trendingThreadList[index].isFollow ?? false,
                     width: width,
+                    isTrending: true,
                   ),
                 );
               },

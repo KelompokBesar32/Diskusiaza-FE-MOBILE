@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
       Provider.of<AuthServices>(context, listen: false).checkRememberMe();
       Provider.of<ProfileViewModel>(context, listen: false)
@@ -28,6 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
       Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
       Provider.of<HomeViewModel>(context, listen: false)
           .checkUserFollow(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .getTrendingThread(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollowTrending(context);
     });
   }
 
