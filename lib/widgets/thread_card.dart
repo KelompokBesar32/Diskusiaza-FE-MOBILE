@@ -21,6 +21,7 @@ class ThreadCard extends StatelessWidget {
   final int totalLike;
   final bool isLike;
   final double width;
+  final bool isFollow;
   const ThreadCard({
     Key? key,
     required this.index,
@@ -35,6 +36,7 @@ class ThreadCard extends StatelessWidget {
     required this.totalLike,
     required this.isLike,
     required this.width,
+    required this.isFollow,
   }) : super(key: key);
 
   @override
@@ -82,17 +84,23 @@ class ThreadCard extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     const SizedBox(width: 8),
-                                    GestureDetector(
-                                      onTap: () {
-                                        managerUser.followersList!
-                                            .contains(userId);
-                                        print('Follow : ');
-                                      },
-                                      child: Text(
-                                        'Ikuti',
-                                        style: poppinsRegular(14, infoColor),
-                                      ),
-                                    ),
+                                    isFollow
+                                        ? GestureDetector(
+                                            onTap: () {},
+                                            child: Text(
+                                              'Diikuti',
+                                              style: poppinsRegular(
+                                                  14, Colors.black54),
+                                            ),
+                                          )
+                                        : GestureDetector(
+                                            onTap: () {},
+                                            child: Text(
+                                              'Ikuti',
+                                              style:
+                                                  poppinsRegular(14, infoColor),
+                                            ),
+                                          ),
                                   ],
                                 ),
                           SizedBox(

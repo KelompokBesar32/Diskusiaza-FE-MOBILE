@@ -21,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isFollow = false;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
       Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowers(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowing(context);
     });
   }
 
@@ -109,6 +115,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: height - 135,
                     child: ListView.separated(
                       itemBuilder: (context, index) {
+                        final managerUser = Provider.of<ProfileViewModel>(
+                            context,
+                            listen: false);
+                        for (var map in managerUser.followersList!) {
+                          if (map.id == value.allThreadList[index].userId) {
+                            isFollow = true;
+                          } else {
+                            isFollow = false;
+                          }
+                        }
+
                         return GestureDetector(
                           onTap: () {
                             manager.getThreadById(
@@ -143,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             totalLike: value.allThreadList[index].totalLike!,
                             isLike: value.allThreadList[index].isLike!,
                             width: width,
+                            isFollow: isFollow,
                           ),
                         );
                       },

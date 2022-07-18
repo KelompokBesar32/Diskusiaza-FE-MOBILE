@@ -330,6 +330,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                         isLike: value
                                             .allUserThreadList[index].isLike!,
                                         width: width,
+                                        isFollow: false,
                                       ),
                                     );
                                   },

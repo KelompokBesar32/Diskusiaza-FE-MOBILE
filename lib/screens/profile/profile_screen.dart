@@ -96,6 +96,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               GestureDetector(
                                 onTap: () async {
                                   await value.getFollowing(context);
+                                  if (!mounted) return;
+                                  Navigator.pushNamed(context, '/following');
                                 },
                                 child: Row(
                                   children: [
@@ -115,6 +117,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               GestureDetector(
                                 onTap: () async {
                                   await value.getFollowers(context);
+                                  if (!mounted) return;
+                                  Navigator.pushNamed(context, '/followers');
                                 },
                                 child: Row(
                                   children: [

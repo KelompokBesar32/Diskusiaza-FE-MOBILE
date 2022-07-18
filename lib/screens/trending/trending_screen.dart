@@ -112,7 +112,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
 }
 
 class TrendingThisWeek extends StatelessWidget {
-  const TrendingThisWeek({
+  TrendingThisWeek({
     Key? key,
     required this.height,
     required this.width,
@@ -120,6 +120,8 @@ class TrendingThisWeek extends StatelessWidget {
 
   final double height;
   final double width;
+
+  bool isFollow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +137,17 @@ class TrendingThisWeek extends StatelessWidget {
                 child: ListView.separated(
                     padding: const EdgeInsets.all(4),
                     itemBuilder: (context, index) {
+                      final managerUser =
+                          Provider.of<ProfileViewModel>(context, listen: false);
+
+                      for (var map in managerUser.followersList!) {
+                        if (map.id == value.allThreadList[index].userId) {
+                          isFollow = true;
+                        } else {
+                          isFollow = false;
+                        }
+                      }
+
                       return ShimmerCard(width: width, height: 200, radius: 15);
                     },
                     separatorBuilder: (context, index) {
@@ -187,6 +200,7 @@ class TrendingThisWeek extends StatelessWidget {
                     totalLike: value.allThreadList[index].totalLike!,
                     isLike: value.allThreadList[index].isLike!,
                     width: width,
+                    isFollow: isFollow,
                   ),
                 );
               },
