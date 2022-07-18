@@ -1,3 +1,18 @@
+class ResponseResultFollow {
+  dynamic data;
+
+  ResponseResultFollow({this.data});
+
+  ResponseResultFollow.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <UserModel>[];
+      json['data'].forEach((v) {
+        data!.add(UserModel.fromJson(v));
+      });
+    }
+  }
+}
+
 class ResponseResultUserModel {
   dynamic data;
 
@@ -9,6 +24,7 @@ class ResponseResultUserModel {
 }
 
 class UserModel {
+  int? id;
   String? firstname;
   String? lastname;
   String? email;
@@ -16,20 +32,25 @@ class UserModel {
   String? foto;
   String? tanggalLahir;
   String? jenisKelamin;
-  String? roleName;
+  int? totalFollowers;
+  int? totalFollowed;
+  int? totalTheradCreated;
 
-  UserModel({
-    this.firstname,
-    this.lastname,
-    this.email,
-    this.nohp,
-    this.foto,
-    this.tanggalLahir,
-    this.jenisKelamin,
-    this.roleName,
-  });
+  UserModel(
+      {this.id,
+      this.firstname,
+      this.lastname,
+      this.email,
+      this.nohp,
+      this.foto,
+      this.tanggalLahir,
+      this.jenisKelamin,
+      this.totalFollowers,
+      this.totalFollowed,
+      this.totalTheradCreated});
 
   UserModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     firstname = json['firstname'];
     lastname = json['lastname'];
     email = json['email'];
@@ -37,11 +58,14 @@ class UserModel {
     foto = json['foto'];
     tanggalLahir = json['tanggal_lahir'];
     jenisKelamin = json['jenis_kelamin'];
-    roleName = json['role_name'];
+    totalFollowers = json['total_followers'];
+    totalFollowed = json['total_followed'];
+    totalTheradCreated = json['total_therad_created'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['firstname'] = firstname;
     data['lastname'] = lastname;
     data['email'] = email;
@@ -49,7 +73,9 @@ class UserModel {
     data['foto'] = foto;
     data['tanggal_lahir'] = tanggalLahir;
     data['jenis_kelamin'] = jenisKelamin;
-    data['role_name'] = roleName;
+    data['total_followers'] = totalFollowers;
+    data['total_followed'] = totalFollowed;
+    data['total_therad_created'] = totalTheradCreated;
     return data;
   }
 }

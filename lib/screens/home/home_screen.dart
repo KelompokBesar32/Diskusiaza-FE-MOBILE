@@ -21,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isFollow = false;
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowers(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowing(context);
       Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollow(context);
     });
   }
 
@@ -37,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var mediaQueryData = MediaQuery.of(context);
     var height = mediaQueryData.size.height;
     var width = mediaQueryData.size.width;
+
+    final manager = Provider.of<HomeViewModel>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -106,20 +118,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: height - 135,
                     child: ListView.separated(
                       itemBuilder: (context, index) {
+                        final managerUser = Provider.of<ProfileViewModel>(
+                            context,
+                            listen: false);
+                        for (var map in managerUser.followingList!) {
+                          if (map.id == value.allThreadList[index].userId) {
+                            isFollow = true;
+                          } else {
+                            isFollow = false;
+                          }
+                        }
+
                         return GestureDetector(
                           onTap: () {
-                            Provider.of<HomeViewModel>(context, listen: false)
-                                .getThreadById(
-                              value.allThreadList[index].id!,
-                              context,
-                            );
+                            manager.getThreadById(
+                                value.allThreadList[index].id!, context);
+
                             Navigator.push(
                               context,
                               PageTransition(
                                 child: DetailScreen(
                                   id: value.allThreadList[index].id!,
+                                  userId: value.allThreadList[index].userId!,
                                   index: index,
                                   isUser: false,
+                                  isTrending: false,
                                 ),
                                 type: PageTransitionType.fade,
                                 inheritTheme: true,
@@ -130,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ThreadCard(
                             index: index,
                             id: value.allThreadList[index].id!,
+                            userId: value.allThreadList[index].userId!,
                             judul: value.allThreadList[index].judul!,
                             isi: value.allThreadList[index].isi!,
                             file: value.allThreadList[index].file!,
@@ -139,8 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             authorName: value.allThreadList[index].authorName!,
                             totalLike: value.allThreadList[index].totalLike!,
                             isLike: value.allThreadList[index].isLike!,
-                            isUser: false,
+                            isFollow:
+                                value.allThreadList[index].isFollow ?? false,
                             width: width,
+                            isTrending: false,
                           ),
                         );
                       },

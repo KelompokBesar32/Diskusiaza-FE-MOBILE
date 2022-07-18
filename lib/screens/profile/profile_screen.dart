@@ -94,13 +94,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
+                                  await value.getFollowing(context);
+                                  if (!mounted) return;
                                   Navigator.pushNamed(context, '/following');
                                 },
                                 child: Row(
                                   children: [
                                     Text(
-                                      '118',
+                                      value.dataProfile!.totalFollowed
+                                          .toString(),
                                       style: poppinsRegular(14, Colors.black),
                                     ),
                                     const SizedBox(width: 5),
@@ -112,14 +115,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
+                                  await value.getFollowers(context);
+                                  if (!mounted) return;
                                   Navigator.pushNamed(context, '/followers');
                                 },
                                 child: Row(
                                   children: [
                                     const SizedBox(width: 30),
                                     Text(
-                                      '69',
+                                      value.dataProfile!.totalFollowers
+                                          .toString(),
                                       style: poppinsRegular(14, Colors.black),
                                     ),
                                     const SizedBox(width: 5),

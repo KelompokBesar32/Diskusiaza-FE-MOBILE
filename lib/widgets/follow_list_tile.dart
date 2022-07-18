@@ -1,4 +1,5 @@
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:diskusiaza_mobile/widgets/avatar_pict.dart';
 import 'package:diskusiaza_mobile/widgets/button_primary.dart';
 import 'package:diskusiaza_mobile/widgets/button_secondary.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class FollowListTile extends StatelessWidget {
     required this.isFollow,
   }) : super(key: key);
 
-  final String pictUrl;
+  final String? pictUrl;
   final String name;
   final String email;
   final bool isFollow;
@@ -20,23 +21,21 @@ class FollowListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        radius: 28,
-        child: ClipOval(
-          child: SizedBox.fromSize(
-            size: const Size.fromRadius(28),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                image: DecorationImage(
-                  image: AssetImage(pictUrl),
-                  fit: BoxFit.cover,
+      leading: (pictUrl != null && pictUrl != '')
+          ? AvatarPict(
+              urlPict: pictUrl!,
+              radiusPict: 30,
+            )
+          : CircleAvatar(
+              radius: 30,
+              child: Text(
+                name[0],
+                style: poppinsRegular(
+                  28,
+                  Colors.white,
                 ),
               ),
             ),
-          ),
-        ),
-      ),
       title: Text(
         name,
         style: poppinsRegular(16, Colors.black),

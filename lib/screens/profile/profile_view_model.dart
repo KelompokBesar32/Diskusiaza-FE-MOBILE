@@ -5,11 +5,13 @@ import 'package:diskusiaza_mobile/models/api/user_model_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
 import 'package:diskusiaza_mobile/models/user_model.dart';
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/input_gender_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileViewModel extends ChangeNotifier {
@@ -57,6 +59,8 @@ class ProfileViewModel extends ChangeNotifier {
       var myToken = tokenPrefs.getString('token');
 
       allUserThreadList = await _threadApi.getThreadByUser(myToken!, context);
+
+      checkUserFollow(context);
 
       changeState(DataState.filled);
     } catch (e) {
@@ -236,5 +240,88 @@ class ProfileViewModel extends ChangeNotifier {
     }
 
     Navigator.pop(context);
+  }
+
+  List<UserModel>? followersList = [];
+  List<UserModel>? followingList = [];
+
+  Future getFollowers(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      String? myToken = tokenPrefs.getString('token');
+
+      followersList = await _userModelApi.getFollowers(myToken!, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future getFollowing(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      String? myToken = tokenPrefs.getString('token');
+
+      followingList = await _userModelApi.getFollowing(myToken!, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postFollow(int getIdUser, context) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _userModelApi.postFollowingUser(myToken!, getIdUser);
+
+      getFollowing(context);
+
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future delUnFollow(int getIdUser, context) async {
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      await _userModelApi.delUnFollowingUser(myToken!, getIdUser);
+
+      getFollowing(context);
+
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future checkUserFollow(var context) async {
+    for (var map in followingList!) {
+      for (int i = 0; i < allUserThreadList.length; i++) {
+        if (map.id == allUserThreadList[i].userId) {
+          allUserThreadList[i].isFollow = true;
+        } else {
+          allUserThreadList[i].isFollow = true;
+        }
+      }
+    }
   }
 }

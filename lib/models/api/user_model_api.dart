@@ -35,7 +35,7 @@ class UserModelApi {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0,
         );
@@ -83,8 +83,6 @@ class UserModelApi {
       );
 
       if (response.statusCode == 200) {
-        // final body = response.data;
-
         Navigator.of(context).pushNamed('/login');
 
         Fluttertoast.showToast(
@@ -92,7 +90,7 @@ class UserModelApi {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0,
         );
@@ -129,7 +127,7 @@ class UserModelApi {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0,
         );
@@ -137,6 +135,21 @@ class UserModelApi {
         return 1;
       }
     } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        Navigator.of(context).pushReplacementNamed('/login');
+
+        Fluttertoast.showToast(
+          msg: "Logout Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        return null;
+      }
+
       String msg = e.response!.data
           .toString()
           .replaceAll('{message: ', '')
@@ -291,5 +304,138 @@ class UserModelApi {
         fontSize: 16.0,
       );
     }
+  }
+
+  Future<List<UserModel>> getFollowers(String getToken, var context) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.get('t/user/followers');
+
+      ResponseResultFollow responseResult =
+          ResponseResultFollow.fromJson(response.data);
+
+      return responseResult.data;
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return [];
+  }
+
+  Future<List<UserModel>> getFollowing(String getToken, var context) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      var response = await _api.dio.get('t/user/followed');
+
+      ResponseResultFollow responseResult =
+          ResponseResultFollow.fromJson(response.data);
+
+      return responseResult.data;
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return [];
+  }
+
+  Future postFollowingUser(String getToken, int getIdUser) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      await _api.dio.post(
+        't/follow',
+        data: {
+          "followed_id": getIdUser,
+        },
+      );
+
+      Fluttertoast.showToast(
+        msg: 'Successfull Follow',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return null;
+  }
+
+  Future delUnFollowingUser(String getToken, int getIdUser) async {
+    try {
+      _api.dio.options.headers["Authorization"] = "Bearer $getToken";
+
+      await _api.dio.delete(
+        't/follow',
+        data: {
+          "followed_id": getIdUser,
+        },
+      );
+      Fluttertoast.showToast(
+        msg: 'Successfull Unfollow',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } on DioError catch (e) {
+      String msg = e.response!.data
+          .toString()
+          .replaceAll('{message: ', '')
+          .replaceAll('}', '');
+      Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+    return null;
   }
 }

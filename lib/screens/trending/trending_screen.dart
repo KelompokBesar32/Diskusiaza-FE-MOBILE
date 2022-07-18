@@ -28,8 +28,10 @@ class _TrendingScreenState extends State<TrendingScreen> {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getDataProfile(context);
       await Provider.of<HomeViewModel>(context, listen: false)
-          .getAllThread(context);
-      setState(() {});
+          .getTrendingThread(context);
+      if (!mounted) return;
+      await Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollowTrending(context);
     });
   }
 
@@ -163,9 +165,11 @@ class TrendingThisWeek extends StatelessWidget {
                       context,
                       PageTransition(
                         child: DetailScreen(
-                          id: value.allThreadList[index].id!,
+                          id: value.trendingThreadList[index].id!,
+                          userId: value.trendingThreadList[index].userId!,
                           index: index,
                           isUser: false,
+                          isTrending: true,
                         ),
                         type: PageTransitionType.fade,
                         inheritTheme: true,
@@ -175,17 +179,19 @@ class TrendingThisWeek extends StatelessWidget {
                   },
                   child: ThreadCard(
                     index: index,
-                    id: value.allThreadList[index].id!,
-                    judul: value.allThreadList[index].judul!,
-                    isi: value.allThreadList[index].isi!,
-                    file: value.allThreadList[index].file!,
-                    dilihat: value.allThreadList[index].dilihat!,
-                    kategoriName: value.allThreadList[index].kategoriName!,
-                    authorName: value.allThreadList[index].authorName!,
-                    totalLike: value.allThreadList[index].totalLike!,
-                    isLike: value.allThreadList[index].isLike!,
-                    isUser: false,
+                    id: value.trendingThreadList[index].id!,
+                    userId: value.trendingThreadList[index].userId!,
+                    judul: value.trendingThreadList[index].judul!,
+                    isi: value.trendingThreadList[index].isi!,
+                    file: value.trendingThreadList[index].file!,
+                    dilihat: value.trendingThreadList[index].dilihat!,
+                    kategoriName: value.trendingThreadList[index].kategoriName!,
+                    authorName: value.trendingThreadList[index].authorName!,
+                    totalLike: value.trendingThreadList[index].totalLike!,
+                    isLike: value.trendingThreadList[index].isLike!,
+                    isFollow: value.trendingThreadList[index].isFollow ?? false,
                     width: width,
+                    isTrending: true,
                   ),
                 );
               },

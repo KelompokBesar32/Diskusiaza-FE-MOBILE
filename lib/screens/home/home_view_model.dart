@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:diskusiaza_mobile/models/api/thread_api.dart';
 import 'package:diskusiaza_mobile/models/api/user_thread_api.dart';
+import 'package:diskusiaza_mobile/models/comment.dart';
 import 'package:diskusiaza_mobile/models/thread.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -56,6 +59,7 @@ class HomeViewModel extends ChangeNotifier {
   final ThreadApi _threadApi = ThreadApi();
 
   List<Thread> allThreadList = [];
+  List<Thread> trendingThreadList = [];
   Thread? threadDetail;
 
   Future getAllThread(var context) async {
@@ -68,14 +72,35 @@ class HomeViewModel extends ChangeNotifier {
 
       allThreadList = await _threadApi.getAllThread(myToken!, context);
 
+      checkUserFollow(context);
+
       changeState(DataState.filled);
     } catch (e) {
       changeState(DataState.error);
     }
   }
 
-  Future postLikeThread(
-      int getId, int getIndex, var context, bool isDetail) async {
+  Future getTrendingThread(var context) async {
+    changeState(DataState.loading);
+
+    try {
+      SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
+
+      var myToken = tokenPrefs.getString('token');
+
+      trendingThreadList =
+          await _threadApi.getTrendingThread(myToken!, context);
+
+      checkUserFollowTrending(context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postLikeThread(int getId, int getIndex, var context, bool isDetail,
+      bool isTrending) async {
     try {
       SharedPreferences tokenPrefs = await SharedPreferences.getInstance();
 
@@ -89,7 +114,9 @@ class HomeViewModel extends ChangeNotifier {
 
       threadDetail!.isLike = result;
 
-      allThreadList[getIndex].isLike = result;
+      !isTrending
+          ? allThreadList[getIndex].isLike = result
+          : trendingThreadList[getIndex].isLike;
 
       changeState(DataState.filled);
     } catch (e) {
@@ -106,6 +133,8 @@ class HomeViewModel extends ChangeNotifier {
       var myToken = tokenPrefs.getString('token');
 
       threadDetail = await _threadApi.getThreadById(myToken!, getId, context);
+
+      getCommentByThreadId(getId, context);
 
       changeState(DataState.filled);
     } catch (e) {
@@ -136,5 +165,110 @@ class HomeViewModel extends ChangeNotifier {
     }
 
     Navigator.pop(context);
+  }
+
+  List<Comment?>? allCommentList = [];
+
+  Future getCommentByThreadId(int getId, var context) async {
+    try {
+      allCommentList = await _threadApi.getCommentByThread(getId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postComment(int getId, String getComment, var context) async {
+    try {
+      await _threadApi.postCreateComment(getId, getComment, context);
+
+      getCommentByThreadId(getId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future postReplyComment(
+    int threadId,
+    int getId,
+    String getComment,
+    var context,
+  ) async {
+    try {
+      await _threadApi.postReplyComment(getId, getComment, context);
+
+      getCommentByThreadId(threadId, context);
+
+      changeState(DataState.filled);
+    } catch (e) {
+      changeState(DataState.error);
+    }
+  }
+
+  Future checkUserFollow(var context) async {
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
+    try {
+      for (int i = 0; i < managerUser.followingList!.length; i++) {
+        for (int j = 0; j < allThreadList.length; j++) {
+          if (allThreadList[j].userId == managerUser.followingList![i].id) {
+            allThreadList[j].isFollow = true;
+            // print(
+            //     'cek: ${managerUser.followingList![i].firstname} == ${allThreadList[j].authorName}');
+            // print('j : $j');
+            // print(
+            //     'isFollow : ${allThreadList[j].authorName} ${allThreadList[j].isFollow}');
+            continue;
+          } else {
+            continue;
+          }
+        }
+        // print('i : $i');
+      }
+    } catch (e) {
+      print('e check : $e');
+    }
+
+    // for (int index = 0; index < allThreadList.length; index++) {
+    //   for (var map in managerUser.followingList!) {
+    //     print('following : ${managerUser.followingList}');
+    //     if (allThreadList[index].userId == map.id) {
+    //       allThreadList[index].isFollow = true;
+    //       print(
+    //           'check : ${map.id} ${map.firstname} == ${allThreadList[index].userId} ${allThreadList[index].authorName}');
+    //       print(
+    //           'isFollow1: ${allThreadList[index].userId} ${allThreadList[index].isFollow}');
+    //       break;
+    //     } else {
+    //       allThreadList[index].isFollow = false;
+    //     }
+    //     break;
+    //   }
+    //   print(
+    //       'isFollow2: ${allThreadList[index].userId} ${allThreadList[index].isFollow}');
+    // }
+  }
+
+  Future checkUserFollowTrending(var context) async {
+    final managerUser = Provider.of<ProfileViewModel>(context, listen: false);
+
+    try {
+      for (int i = 0; i < managerUser.followingList!.length; i++) {
+        for (int j = 0; j < allThreadList.length; j++) {
+          if (trendingThreadList[j].userId ==
+              managerUser.followingList![i].id) {
+            trendingThreadList[j].isFollow = true;
+            continue;
+          } else {
+            continue;
+          }
+        }
+      }
+    } catch (e) {
+      print('e check : $e');
+    }
   }
 }

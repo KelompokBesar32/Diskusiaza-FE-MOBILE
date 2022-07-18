@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
+import 'package:flutter/services.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({
     Key? key,
     required this.controller,
     required this.hintText,
+    this.isPhone,
     required this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
+  final bool? isPhone;
   final String? Function(String?)? validator;
 
   @override
@@ -18,7 +21,14 @@ class InputTextField extends StatelessWidget {
     return TextFormField(
       autofocus: false,
       controller: controller,
-      keyboardType: TextInputType.text,
+      keyboardType: (isPhone != null && isPhone == true)
+          ? TextInputType.number
+          : TextInputType.text,
+      inputFormatters: [
+        (isPhone != null && isPhone == true)
+            ? FilteringTextInputFormatter.digitsOnly
+            : FilteringTextInputFormatter.singleLineFormatter,
+      ],
       validator: validator,
       onSaved: (value) {
         controller.text = value!;

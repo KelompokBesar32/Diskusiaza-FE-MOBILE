@@ -1,3 +1,5 @@
+import 'package:diskusiaza_mobile/screens/home/home_view_model.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
@@ -7,18 +9,29 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // set time to load the new page
-
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<AuthServices>(context, listen: false).syncUserToken(context);
       Provider.of<AuthServices>(context, listen: false).checkRememberMe();
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowers(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getFollowing(context);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getDataProfile(context);
+      Provider.of<HomeViewModel>(context, listen: false).getAllThread(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollow(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .getTrendingThread(context);
+      Provider.of<HomeViewModel>(context, listen: false)
+          .checkUserFollowTrending(context);
     });
   }
 

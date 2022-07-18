@@ -165,6 +165,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     GestureDetector(
                                       onTap: () {
@@ -174,7 +176,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            '118',
+                                            manager.dataProfile!.totalFollowed
+                                                .toString(),
                                             style: poppinsRegular(
                                                 14, Colors.black),
                                           ),
@@ -196,7 +199,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                         children: [
                                           const SizedBox(width: 30),
                                           Text(
-                                            '69',
+                                            manager.dataProfile!.totalFollowers
+                                                .toString(),
                                             style: poppinsRegular(
                                                 14, Colors.black),
                                           ),
@@ -288,8 +292,12 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                             child: DetailScreen(
                                               id: value
                                                   .allUserThreadList[index].id!,
+                                              userId: value
+                                                  .allUserThreadList[index]
+                                                  .userId!,
                                               index: index,
                                               isUser: false,
+                                              isTrending: false,
                                             ),
                                             type: PageTransitionType.fade,
                                             inheritTheme: true,
@@ -301,6 +309,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                       child: ThreadCard(
                                         index: index,
                                         id: value.allUserThreadList[index].id!,
+                                        userId: value
+                                            .allUserThreadList[index].userId!,
                                         judul: value
                                             .allUserThreadList[index].judul!,
                                         isi:
@@ -320,8 +330,10 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                             .totalLike!,
                                         isLike: value
                                             .allUserThreadList[index].isLike!,
-                                        isUser: true,
+                                        isFollow: value
+                                            .allUserThreadList[index].isFollow!,
                                         width: width,
+                                        isTrending: false,
                                       ),
                                     );
                                   },

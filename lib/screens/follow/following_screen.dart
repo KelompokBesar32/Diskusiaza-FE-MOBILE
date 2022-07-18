@@ -1,7 +1,8 @@
-import 'package:diskusiaza_mobile/models/following.dart';
+import 'package:diskusiaza_mobile/screens/profile/profile_view_model.dart';
 import 'package:diskusiaza_mobile/shared/constant.dart';
 import 'package:diskusiaza_mobile/widgets/follow_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FollowingScreen extends StatelessWidget {
   const FollowingScreen({Key? key}) : super(key: key);
@@ -29,22 +30,45 @@ class FollowingScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: height,
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return FollowListTile(
-                pictUrl: followingList[index].pictUrl,
-                name: followingList[index].name,
-                email: followingList[index].email,
-                isFollow: true,
+        child: Consumer<ProfileViewModel>(
+          builder: (context, value, child) {
+            if (value.dataState == DataState.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: followingList.length,
-          ),
+            }
+
+            if (value.dataState == DataState.error) {
+              return const Center(
+                child: Text('Something went wrong'),
+              );
+            }
+
+            if (value.followingList!.isEmpty) {
+              return const Center(
+                child: Text('Kosong'),
+              );
+            }
+
+            return SizedBox(
+              height: height,
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return FollowListTile(
+                    pictUrl: value.followingList![index].foto!,
+                    name:
+                        ('${value.followingList![index].firstname!} ${value.followingList![index].lastname!}'),
+                    email: value.followingList![index].email!,
+                    isFollow: true,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemCount: value.followingList!.length,
+              ),
+            );
+          },
         ),
       ),
     );
